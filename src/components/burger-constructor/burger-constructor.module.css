@@ -1,0 +1,23 @@
+.burger_constructor {
+    height: 812px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px 0;
+}
+
+.constructor_area {
+    padding-top: 116px;
+}
+
+.info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0 48px;
+}
+
+
+.info svg {
+    margin-left: 9px;
+}

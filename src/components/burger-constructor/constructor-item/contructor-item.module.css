@@ -1,0 +1,25 @@
+.scroll_area {
+    height: 464px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    gap: 16px;
+}
+
+.content_container {
+    padding-right: 16px;
+    display: grid;
+    grid-template-columns: 0.1fr 1fr;
+
+}
+
+.scroll_area_svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buns {
+    padding-left: 48px;
+    padding-right: 28px;
+}

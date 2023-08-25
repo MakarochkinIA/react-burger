@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background);
+}
+
+.header_content {
+    width: 1280px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+}
+
+.left_item {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right_item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_item {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: var(--text-primary-color);
+}
