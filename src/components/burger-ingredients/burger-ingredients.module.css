@@ -15,3 +15,7 @@
 .group_list li:not(:last-child) {
     margin-bottom: 40px;
 }
+
+.tab {
+    display: flex;
+}

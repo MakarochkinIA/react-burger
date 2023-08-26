@@ -23,3 +23,9 @@
     padding-left: 48px;
     padding-right: 28px;
 }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 16px;
+}

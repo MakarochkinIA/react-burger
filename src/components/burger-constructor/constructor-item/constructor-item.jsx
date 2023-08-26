@@ -4,11 +4,12 @@ import { IngredientPropTypes } from '../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const ConstructorItem = ({ ingredients }) => {
-    const bun = ingredients.filter(item => item.type === 'bun')[0]
+    const bunArr = ingredients.filter(item => item.type === 'bun')
+    const bun = bunArr[0]
     const items = ingredients.filter(item => item.type !== 'bun')
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px 16px' }}>
+        <div className={styles.content}>
             <div className={styles.buns}>
                 <ConstructorElement
                     type="top"

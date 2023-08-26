@@ -5,43 +5,61 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = ({ ingredients }) => {
     const buns = ingredients.filter(item => item.type === 'bun')
     const sauce = ingredients.filter(item => item.type === 'sauce')
     const main = ingredients.filter(item => item.type === 'main')
 
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState('buns')
+    const bunsRef = React.useRef(null)
+    const sauceRef = React.useRef(null)
+    const mainRef = React.useRef(null)
+
+    const setTab = (tab) => {
+        setCurrent(tab);
+        switch (tab) {
+            case 'buns':
+                bunsRef.current.scrollIntoView({ behavior: "smooth" });
+                break;
+            case 'sauce':
+                sauceRef.current.scrollIntoView({ behavior: "smooth" });
+                break;
+            case 'main':
+                mainRef.current.scrollIntoView({ behavior: "smooth" });
+                break;
+        }
+    };
     return (
         <div className={styles.burger_ingredients}>
             <p className='text text_type_main-large pt-10 mb-5'>
                 Соберите бургер
             </p>
-            <div className='mb-10' style={{ display: 'flex' }}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+            <div className={`${styles.tab} mb-10`}>
+                <Tab value="buns" active={current === 'buns'} onClick={setTab}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab value="sauce" active={current === 'sauce'} onClick={setTab}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="main" active={current === 'main'} onClick={setTab}>
                     Начинки
                 </Tab>
             </div>
             <ul className={`${styles.group_list} custom-scroll`}>
-                <li >
-                    <IngredientGroup 
+                <li ref={bunsRef}>
+                    <IngredientGroup
                         name='Булки'
                         ingredients={buns}
                     />
                 </li>
-                <li>
-                    <IngredientGroup 
+                <li ref={sauceRef}>
+                    <IngredientGroup
                         name='Соусы'
                         ingredients={sauce}
                     />
                 </li>
-                <li>
-                    <IngredientGroup 
+                <li ref={mainRef}>
+                    <IngredientGroup
                         name='Начинка'
                         ingredients={main}
                     />
