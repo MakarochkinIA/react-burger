@@ -17,7 +17,15 @@
     gap: 0 48px;
 }
 
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .info svg {
     margin-left: 9px;
+    width: 36px;
+    height: 36px;
 }

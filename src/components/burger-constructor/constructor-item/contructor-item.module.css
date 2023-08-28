@@ -29,3 +29,7 @@
     flex-direction: column;
     gap: 16px 16px;
 }
+
+.bg_color {
+    background: var(--background);
+}

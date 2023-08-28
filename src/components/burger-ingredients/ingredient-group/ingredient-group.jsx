@@ -3,7 +3,8 @@ import { IngredientPropTypes } from '../../../utils/types'
 import styles from './ingredient-group.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const IngredientGroup = ({ name, ingredients }) => {
+
+const IngredientGroup = ({ name, ingredients, showDetail }) => {
     return (
         <>
             <p className='text text_type_main-medium'>
@@ -11,7 +12,7 @@ const IngredientGroup = ({ name, ingredients }) => {
             </p>
             <section className={styles.card}>
                 {ingredients.map((item) => (
-                    <div key={item._id} className={styles.card_item}>
+                    <div key={item._id} className={styles.card_item} onClick={() => {showDetail(item)}}>
                         <Counter count={1} size="default" extraClass="m-1" />
                         <img
                             alt='Нет изображения.'
@@ -37,5 +38,6 @@ const IngredientGroup = ({ name, ingredients }) => {
 IngredientGroup.propTypes = {
     name: PropTypes.string.isRequired,
     ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired,
+    showDetail: PropTypes.func.isRequired
 }
 export default IngredientGroup;

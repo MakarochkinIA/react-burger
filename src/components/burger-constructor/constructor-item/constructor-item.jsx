@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
+
 const ConstructorItem = ({ ingredients }) => {
     const bunArr = ingredients.filter(item => item.type === 'bun')
     const bun = bunArr[0]
@@ -17,6 +18,7 @@ const ConstructorItem = ({ ingredients }) => {
                     text={`${bun.name} (верх)`}
                     price={bun.price}
                     thumbnail={bun.image}
+                    extraClass={styles.bg_color}
                 />
             </div>
             <div className={`${styles.scroll_area} custom-scroll`}>
@@ -29,6 +31,7 @@ const ConstructorItem = ({ ingredients }) => {
                             text={item.name}
                             price={item.price}
                             thumbnail={item.image}
+                            extraClass={styles.bg_color}
                         />
                     </div>
                 ))}
@@ -40,6 +43,7 @@ const ConstructorItem = ({ ingredients }) => {
                     text={`${bun.name} (низ)`}
                     price={bun.price}
                     thumbnail={bun.image}
+                    extraClass={styles.bg_color}
                 />
             </div>
         </div>
