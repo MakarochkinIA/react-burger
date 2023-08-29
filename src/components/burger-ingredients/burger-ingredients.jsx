@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../utils/types'
 import styles from './burger-ingredients.module.css';
@@ -13,13 +13,13 @@ const BurgerIngredients = ({ ingredients }) => {
     const sauce = ingredients.filter(item => item.type === 'sauce')
     const main = ingredients.filter(item => item.type === 'main')
 
-    const [current, setCurrent] = React.useState('buns')
-    const [detailsVisible, setVisible] = React.useState(false)
-    const [currentItem, setCurrentItem] = React.useState(null)
+    const [current, setCurrent] = useState('buns')
+    const [detailsVisible, setVisible] = useState(false)
+    const [currentItem, setCurrentItem] = useState(null)
 
-    const bunsRef = React.useRef(null)
-    const sauceRef = React.useRef(null)
-    const mainRef = React.useRef(null)
+    const bunsRef = useRef(null)
+    const sauceRef = useRef(null)
+    const mainRef = useRef(null)
 
     const showDetails = (item) => {
         setVisible(true);

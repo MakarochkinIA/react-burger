@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styles from './modal.module.css';
@@ -10,7 +10,7 @@ const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ children, header, onClose }) => {
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleEscapeKey = (event) => {
             if (event.key === 'Escape') {
                 onClose();

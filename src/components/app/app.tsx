@@ -1,32 +1,27 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
+import { getIngredients } from '../../utils/burger-api';
 
-
-const url = 'https://norma.nomoreparties.space/api/ingredients/'
 
 function App() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     loading: false,
     hasError: false,
     ingredients: []
   })
 
-  React.useEffect(() => {
-    const getIngredients = async (url: string) => {
-      try {
-        setState({ ...state, loading: true });
-        const res = await fetch(url);
-        const data = await res.json();
+  useEffect(() => {
+    setState({ ...state, loading: true });
+    getIngredients()
+      .then((data) => {
         setState({ ingredients: data.data, loading: false, hasError: false });
-      } catch (error) {
+      })
+      .catch((error) => {
         setState({ ...state, loading: false, hasError: true });
-      }
-    };
-
-    getIngredients(url);
+      })
   }, [])
 
   return (

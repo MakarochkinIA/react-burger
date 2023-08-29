@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import styles from './burger-constructor.module.css';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../utils/types'
@@ -10,7 +10,7 @@ import Modal from '../modal/modal';
 
 const BurgerConstructor = ({ ingredients }) => {
 
-    const [detailsVisible, setVisible] = React.useState(false)
+    const [detailsVisible, setVisible] = useState(false)
 
     const showDetails = () => {
         setVisible(true);
