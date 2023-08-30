@@ -1,19 +1,34 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../utils/types'
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group';
+import IngredientDetails from './ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+
 
 const BurgerIngredients = ({ ingredients }) => {
     const buns = ingredients.filter(item => item.type === 'bun')
     const sauce = ingredients.filter(item => item.type === 'sauce')
     const main = ingredients.filter(item => item.type === 'main')
 
-    const [current, setCurrent] = React.useState('buns')
-    const bunsRef = React.useRef(null)
-    const sauceRef = React.useRef(null)
-    const mainRef = React.useRef(null)
+    const [current, setCurrent] = useState('buns')
+    const [detailsVisible, setVisible] = useState(false)
+    const [currentItem, setCurrentItem] = useState(null)
+
+    const bunsRef = useRef(null)
+    const sauceRef = useRef(null)
+    const mainRef = useRef(null)
+
+    const showDetails = (item) => {
+        setVisible(true);
+        setCurrentItem(item)
+    }
+
+    const closeDetails = () => {
+        setVisible(false);
+    }
 
     const setTab = (tab) => {
         setCurrent(tab);
@@ -27,6 +42,8 @@ const BurgerIngredients = ({ ingredients }) => {
             case 'main':
                 mainRef.current.scrollIntoView({ behavior: "smooth" });
                 break;
+            default:
+                bunsRef.current.scrollIntoView({ behavior: "smooth" });
         }
     };
     return (
@@ -50,21 +67,28 @@ const BurgerIngredients = ({ ingredients }) => {
                     <IngredientGroup
                         name='Булки'
                         ingredients={buns}
+                        showDetail={showDetails}
                     />
                 </li>
                 <li ref={sauceRef}>
                     <IngredientGroup
                         name='Соусы'
                         ingredients={sauce}
+                        showDetail={showDetails}
                     />
                 </li>
                 <li ref={mainRef}>
                     <IngredientGroup
                         name='Начинка'
                         ingredients={main}
+                        showDetail={showDetails}
                     />
                 </li>
             </ul>
+            {detailsVisible &&
+                <Modal header='Детали ингредиента' onClose={closeDetails}>
+                    <IngredientDetails ingredient={currentItem}/>
+                </Modal>}
         </div>
     );
 }

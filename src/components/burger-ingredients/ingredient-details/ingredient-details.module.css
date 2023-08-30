@@ -1,0 +1,25 @@
+.ingredient_details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    width: 480px;
+    height: 240px
+}
+
+.data {
+    display: flex;
+    column-gap: 20px;
+}
+
+.data_item {
+    width: 120px;
+    height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    composes: text_color_inactive from global
+}
