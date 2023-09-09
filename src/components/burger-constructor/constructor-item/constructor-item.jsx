@@ -1,13 +1,24 @@
 import styles from './contructor-item.module.css';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import {
+    DELETE_INGREDIENT,
+  } from '../../../services/actions/current-ingredients';
 
 
-const ConstructorItem = ({ ingredients }) => {
-    const bunArr = ingredients.filter(item => item.type === 'bun')
-    const bun = bunArr[0]
-    const items = ingredients.filter(item => item.type !== 'bun')
+const ConstructorItem = () => {
+    const dispatch = useDispatch();
+    const { bun, ingredients} = useSelector(
+        state => state.constructorIngredients
+      );
+    const handleClose = (item) => {
+        dispatch({
+            type: DELETE_INGREDIENT,
+            ingredient: item
+        });
+    }
 
     return (
         <div className={styles.content}>
@@ -22,7 +33,7 @@ const ConstructorItem = ({ ingredients }) => {
                 />
             </div>
             <div className={`${styles.scroll_area} custom-scroll`}>
-                {items.map((item) => (
+                {ingredients.map((item) => (
                     <div className={styles.content_container} key={item._id}>
                         <div className={styles.scroll_area_svg}>
                             <DragIcon type='primary' />
@@ -32,6 +43,7 @@ const ConstructorItem = ({ ingredients }) => {
                             price={item.price}
                             thumbnail={item.image}
                             extraClass={styles.bg_color}
+                            handleClose={() => {handleClose(item)}}
                         />
                     </div>
                 ))}
@@ -48,10 +60,6 @@ const ConstructorItem = ({ ingredients }) => {
             </div>
         </div>
     )
-}
-
-ConstructorItem.propTypes = {
-    ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired,
 }
 
 export default ConstructorItem;
