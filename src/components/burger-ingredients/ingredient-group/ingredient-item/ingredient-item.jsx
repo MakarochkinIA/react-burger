@@ -6,15 +6,14 @@ import { useDrag } from "react-dnd";
 
 const IngredientItem = ({ item, showDetail }) => {
     
-    const {_id, content} = item
     const [{isDrag}, dragRef] = useDrag({
-        type: "animal",
-        item: {_id},
+        type: item.type === 'bun' ? 'bun' : 'main',
+        item: item,
     });
     function countOccurrences(arr, obj) {
         let count = 0;
         for (let i = 0; i < arr.length; i++) {
-          if (arr[i] === obj) {
+          if (arr[i]._id === obj._id) {
             count++;
           }
         }
@@ -25,7 +24,7 @@ const IngredientItem = ({ item, showDetail }) => {
         state => state.constructorIngredients
     )
     const getCounter = (data, obj) => {
-        return obj.type === 'bun' ? (obj === data.bun ? 1 : 0) : countOccurrences(data.ingredients, obj)
+        return obj.type === 'bun' ? (obj._id === data.bun._id ? 2 : 0) : countOccurrences(data.ingredients, obj)
     }
     const countContent = 
     (item) => {
@@ -33,7 +32,7 @@ const IngredientItem = ({ item, showDetail }) => {
         return count > 0 && (<Counter count={count} size="default" extraClass="m-1" />)
     }
     return (
-        <div ref={dragRef} key={item._id} className={styles.card_item} onClick={() => { showDetail(item) }}>
+        <div ref={dragRef} className={styles.card_item} onClick={() => { showDetail(item) }}>
             {countContent(item)}
             <img
                 alt='Нет изображения.'

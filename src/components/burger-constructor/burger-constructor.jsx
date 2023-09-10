@@ -45,14 +45,11 @@ const BurgerConstructor = () => {
     const closeDetails = () => {
         setVisible(false);
     }
-    const handleDrop = (itemId) => {
+    const handleDrop = (item) => {
 
-        const ingredient = allIngredients.filter(element => element._id === itemId._id)[0]
-        console.log(allIngredients, itemId);
-        console.log(ingredient);
         dispatch({
             type: ADD_INGREDIENT,
-            ingredient: {...ingredient, key: uuid()}
+            ingredient: {...item, key: uuid()}
         });
     };
     return (

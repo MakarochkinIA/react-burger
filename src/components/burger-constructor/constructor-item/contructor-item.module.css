@@ -1,12 +1,15 @@
 .scroll_area {
     height: 464px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    overflow-x: hidden;
     gap: 16px;
 }
 
 .content_container {
+    width: 576px;
     padding-right: 16px;
     display: grid;
     grid-template-columns: 0.1fr 1fr;
@@ -22,6 +25,7 @@
 .buns {
     padding-left: 48px;
     padding-right: 28px;
+    
 }
 
 .content {
@@ -32,4 +36,5 @@
 
 .bg_color {
     background: var(--background);
+    border: 1px solid transparent;
 }

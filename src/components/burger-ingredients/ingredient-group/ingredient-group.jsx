@@ -5,28 +5,13 @@ import styles from './ingredient-group.module.css';
 import IngredientItem from './ingredient-item/ingredient-item';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useMemo } from 'react';
-import { useDrag } from "react-dnd";
+
 
 
 const IngredientGroup = ({ name, ingredients, showDetail }) => {
     const data = useSelector(
         state => state.constructorIngredients
     )
-
-    function countOccurrences(arr, obj) {
-        let count = 0;
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i] === obj) {
-            count++;
-          }
-        }
-        return count;
-      }
-
-    const getCounter = (data, obj) => {
-        return obj.type === 'bun' ? (obj === data.bun ? 1 : 0) : countOccurrences(data.ingredients, obj)
-    }
-
 
     return (
         <>
@@ -36,7 +21,7 @@ const IngredientGroup = ({ name, ingredients, showDetail }) => {
             <section className={styles.card}>
                 {ingredients.map((item) => (
                     
-                    <IngredientItem item={item} showDetail={showDetail} />
+                    <IngredientItem item={item} key={item._id} showDetail={showDetail} />
                 ))}
             </section>
         </>
