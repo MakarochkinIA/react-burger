@@ -8,20 +8,25 @@ import OrderDetails from './order-details/order-details';
 import ConstructorItem from './constructor-item/constructor-item';
 import Modal from '../modal/modal';
 import { getOrder } from '../../services/actions/order'
+import {
+    ADD_INGREDIENT,
+  } from '../../services/actions/current-ingredients';
+import { v4 as uuid } from 'uuid';
 
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const [detailsVisible, setVisible] = useState(false)
-    const { bun, ingredients } = useSelector(
+    const { bun, ingredients} = useSelector(
         state => state.constructorIngredients
     )
-
+    const { ingredients: allIngredients} = useSelector(
+        state => state.ingredients
+      );
     const getIds = (bun, ingredients) => {
         const ids = ingredients.map((item) => (
             item._id
         ))
-        console.log(JSON.stringify([...ids, bun._id]));
         return JSON.stringify([...ids, bun._id])
     }
     function getTotalCost(bun, ingredients) {
@@ -29,7 +34,6 @@ const BurgerConstructor = () => {
             return totalCost + currentItem.price;
           }, 0);
         const totalCost = sum + (2 * bun.price)
-        console.log(totalCost);
         return isNaN(totalCost) ? 0 : totalCost
     }
 
@@ -41,10 +45,20 @@ const BurgerConstructor = () => {
     const closeDetails = () => {
         setVisible(false);
     }
+    const handleDrop = (itemId) => {
+
+        const ingredient = allIngredients.filter(element => element._id === itemId._id)[0]
+        console.log(allIngredients, itemId);
+        console.log(ingredient);
+        dispatch({
+            type: ADD_INGREDIENT,
+            ingredient: {...ingredient, key: uuid()}
+        });
+    };
     return (
         <div className={styles.burger_constructor}>
             <div className={styles.constructor_area}>
-                <ConstructorItem/>
+                <ConstructorItem onDropHandler={handleDrop} />
 
             </div>
             <div className={`${styles.info} mr-8`}>

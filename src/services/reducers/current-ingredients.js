@@ -7,6 +7,14 @@ const initialState = {
     bun: {},
     ingredients: []
 };
+function removeFirstOccurrence(arr, item) {
+    const index = arr.indexOf(item);
+    const newArr = [...arr]
+    if (index !== -1) {
+        newArr.splice(index, 1);
+    }
+    return newArr
+  }
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -20,12 +28,9 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             };
         }
         case DELETE_INGREDIENT: {
-            return action.ingredient.type === 'bun' ? {
+            return {
                 ...state,
-                bun: {}
-            } : {
-                ...state,
-                ingredients: state.ingredients.filter(item => item.id !== action.ingredient.id)
+                ingredients: removeFirstOccurrence(state.ingredients, action.ingredient)
             };
         }
         default: {

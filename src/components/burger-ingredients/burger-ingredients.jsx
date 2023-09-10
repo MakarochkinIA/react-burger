@@ -7,7 +7,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group';
 import IngredientDetails from './ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
+import { v4 as uuid } from 'uuid';
 import {getIngredients} from '../../services/actions/burger-ingredients'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import {
     ADD_INGREDIENT,
   } from '../../services/actions/current-ingredients';
@@ -75,7 +78,7 @@ const BurgerIngredients = () => {
     const showDetails = (item) => {
         dispatch({
             type: ADD_INGREDIENT,
-            ingredient: item
+            ingredient: {...item, key: uuid()}
         });
         setVisible(true)
         dispatch({
@@ -128,6 +131,7 @@ const BurgerIngredients = () => {
                     Начинки
                 </Tab>
             </div>
+ 
             <ul className={`${styles.group_list} custom-scroll`} onScroll={handleScroll}>
                 <li ref={bunsRef}>
                     <IngredientGroup

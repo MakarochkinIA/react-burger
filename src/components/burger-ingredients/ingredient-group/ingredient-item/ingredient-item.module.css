@@ -1,0 +1,11 @@
+.card_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_item {
+    position: relative;
+    width: 272px;
+    height: 208px;   
+}

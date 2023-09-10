@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import {useDrop} from 'react-dnd'
 import {
     DELETE_INGREDIENT,
   } from '../../../services/actions/current-ingredients';
 
 
-const ConstructorItem = () => {
+const ConstructorItem = ( {onDropHandler}) => {
     const dispatch = useDispatch();
     const { bun, ingredients} = useSelector(
         state => state.constructorIngredients
@@ -19,6 +20,12 @@ const ConstructorItem = () => {
             ingredient: item
         });
     }
+    const [, dropTarget] = useDrop({
+        accept: "animal",
+        drop(itemId) {
+            onDropHandler(itemId);
+        },
+    });
 
     return (
         <div className={styles.content}>
@@ -32,9 +39,9 @@ const ConstructorItem = () => {
                     extraClass={styles.bg_color}
                 />
             </div>
-            <div className={`${styles.scroll_area} custom-scroll`}>
+            <div className={`${styles.scroll_area} custom-scroll`} ref={dropTarget}>
                 {ingredients.map((item) => (
-                    <div className={styles.content_container} key={item._id}>
+                    <div className={styles.content_container} key={item.key}>
                         <div className={styles.scroll_area_svg}>
                             <DragIcon type='primary' />
                         </div>
