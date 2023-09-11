@@ -1,20 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types'
-import { IngredientPropTypes } from '../../utils/types'
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group';
 import IngredientDetails from './ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import { v4 as uuid } from 'uuid';
 import {getIngredients} from '../../services/actions/burger-ingredients'
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import {
-    ADD_INGREDIENT,
-  } from '../../services/actions/current-ingredients';
-  import {
     ADD_CURRENT_INGREDIENT,
     DELETE_CURRENT_INGREDIENT
   } from '../../services/actions/ingredient';
@@ -26,9 +18,7 @@ const BurgerIngredients = () => {
     const { ingredientsRequest, ingredientsFailed, ingredients} = useSelector(
       state => state.ingredients
     );
-    const [isElementDragging, setElementDrag] = useState(false);
     const [distance, setDistance] = useState({});
-    const [elementPosition, setElementPosition] = useState({});
  
     useEffect(
       () => {
@@ -71,15 +61,8 @@ const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState('buns')
     const [detailsVisible, setVisible] = useState(false)
-    const [currentItem, setCurrentItem] = useState(null)
-
-
 
     const showDetails = (item) => {
-        dispatch({
-            type: ADD_INGREDIENT,
-            ingredient: {...item, key: uuid()}
-        });
         setVisible(true)
         dispatch({
             type: ADD_CURRENT_INGREDIENT,

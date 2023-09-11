@@ -1,4 +1,6 @@
 .constructor_element {
+    display: flex;
+    justify-content: center;
     border-radius: var(--common-border-radius-s);
     background: var(--background-element);
     max-width: 536px;
@@ -15,22 +17,16 @@
 
 .constructor_element_top {
     composes: constructor_element;
-    display: flex;
-    justify-content: center;
     border-radius: var(--top-constructor-item-border-radius);
 }
 
 .constructor_element_bottom {
     composes: constructor_element;
-    display: flex;
-    justify-content: center;
     border-radius: var(--bottom-constructor-item-border-radius);
 }
 
 .constructor_element_body {
     composes: constructor_element;
-    display: flex;
-    justify-content: center;
     height: 464px;
 }
 

@@ -1,17 +1,21 @@
 import styles from './contructor-item.module.css';
-import { useMemo } from 'react';
+
+import {  useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDrop } from 'react-dnd'
+import { useDrop, useDrag } from 'react-dnd'
 import { ConstructorElementEmpty } from '../constructor-element-empty/constructor-element-empty'
 import {
     DELETE_INGREDIENT,
+    MOVE_INGREDIENT
 } from '../../../services/actions/current-ingredients';
+import MainElements from './main-elements/main-elements';
 
 
 const ConstructorItem = ({ onDropHandler }) => {
+    const ref = useRef(null)
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector(
         state => state.constructorIngredients
@@ -49,14 +53,14 @@ const ConstructorItem = ({ onDropHandler }) => {
             isHoverMain: monitor.isOver(),
         })
     });
-    const borderClr = (isHover) => {
+    const borderClr = ((isHover) => {
         return {borderColor: isHover ? 'blue' : 'transparent'}
-    }
+    })
 
-    const buns = (type) => {
-        const adds = type === 'top' ? '(верх)' : '(низ)'
-        const dropRef = type === 'top' ? dropTopBun : dropBottomBun
-        const isHover = type === 'top' ? isHoverTopBun : isHoverBottomBun
+    const buns = useCallback((type) => {
+        const {adds, dropRef, isHover} = type === 'top' ? {
+            adds: '(верх)', dropRef: dropTopBun, isHover: isHoverTopBun
+        } : {adds: '(низ)', dropRef: dropBottomBun, isHover: isHoverBottomBun}
         return Object.keys(bun).length !== 0 ? (
             <div className={styles.buns} ref={dropRef}>
                 <ConstructorElement
@@ -73,34 +77,21 @@ const ConstructorItem = ({ onDropHandler }) => {
                 <ConstructorElementEmpty text='Выберите булку' type={type} extraClass={borderClr(isHover)} />
             </div>
         )
-    }
+    }, [bun])
 
-    const content = () => {
+    const content = useCallback(() => {
         return ingredients.length !== 0 ? (
             <div className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ 'borderColor': isHoverMain ? 'blue' : 'transparent' }}>
-                
-                {ingredients.map((item) => (
-                    <div className={styles.content_container} key={item.key}>
-                    <div className={styles.scroll_area_svg}>
-                        <DragIcon type='primary' />
-                    </div>
-                    <ConstructorElement
-                        text={item.name}
-                        price={item.price}
-                        thumbnail={item.image}
-                        extraClass={`${styles.bg_color}`}
-                        handleClose={() => { handleClose(item) }}
-                    />
-                </div>
+                {ingredients.map((item, index) => (
+                    <MainElements key={item.key} id={item._id} index={index} item={item} handleClose={handleClose} />
                 ))}
             </div>
         ) : (
             <div ref={dropMain} className={styles.buns}>
-                {console.log(isHoverMain)}
                 <ConstructorElementEmpty text='Выберите начинку' extraClass={borderClr(isHoverMain)} />
             </div>
         )
-    }
+    }, [ingredients])
 
 
     return (

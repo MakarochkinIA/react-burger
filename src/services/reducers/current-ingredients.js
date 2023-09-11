@@ -1,7 +1,10 @@
 import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
+    MOVE_INGREDIENT,
   } from '../actions/current-ingredients';
+  import update from 'immutability-helper'
+
 
 const initialState = {
     bun: {},
@@ -15,6 +18,15 @@ function removeFirstOccurrence(arr, item) {
     }
     return newArr
   }
+
+const moveCard = (dragIndex, hoverIndex, prevState) => {
+    return update(prevState, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevState[dragIndex]],
+        ],
+      })
+}
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -31,6 +43,12 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: removeFirstOccurrence(state.ingredients, action.ingredient)
+            };
+        }
+        case MOVE_INGREDIENT: {
+            return {
+                ...state,
+                ingredients: moveCard(action.payload.dragIndex, action.payload.hoverIndex, state.ingredients )
             };
         }
         default: {

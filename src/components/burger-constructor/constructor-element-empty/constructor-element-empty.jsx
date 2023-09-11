@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './constructor-element-empty.module.css'
 
 export const ConstructorElementEmpty = ({ type = '', text, extraClass = '' }) => {
@@ -18,7 +17,6 @@ export const ConstructorElementEmpty = ({ type = '', text, extraClass = '' }) =>
     return (
         
         <div className={className(type)} style={extraClass}>
-            {console.log(extraClass)}
             <span className={styles.constructor_element_row} >
                 <span className={styles.constructor_element_text}>{text}</span>
             </span>

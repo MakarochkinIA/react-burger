@@ -1,36 +1,28 @@
 import styles from './ingredient-item.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag } from "react-dnd";
+import { getCounter } from '../../../../utils/utils';
+import {useCallback} from 'react'
 
 
 const IngredientItem = ({ item, showDetail }) => {
     
-    const [{isDrag}, dragRef] = useDrag({
+    const [, dragRef] = useDrag({
         type: item.type === 'bun' ? 'bun' : 'main',
         item: item,
     });
-    function countOccurrences(arr, obj) {
-        let count = 0;
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i]._id === obj._id) {
-            count++;
-          }
-        }
-        return count;
-      }
+
 
     const data = useSelector(
         state => state.constructorIngredients
     )
-    const getCounter = (data, obj) => {
-        return obj.type === 'bun' ? (obj._id === data.bun._id ? 2 : 0) : countOccurrences(data.ingredients, obj)
-    }
-    const countContent = 
-    (item) => {
+
+    const countContent = useCallback((item) => {
         const count = getCounter(data, item);
         return count > 0 && (<Counter count={count} size="default" extraClass="m-1" />)
-    }
+    }, [data, item])
+
     return (
         <div ref={dragRef} className={styles.card_item} onClick={() => { showDetail(item) }}>
             {countContent(item)}

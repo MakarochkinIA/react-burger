@@ -1,0 +1,18 @@
+.content_container {
+    width: 576px;
+    padding-right: 16px;
+    display: grid;
+    grid-template-columns: 0.1fr 1fr;
+
+}
+
+.bg_color {
+    background: var(--background);
+    border: 1px solid transparent;
+}
+
+.scroll_area_svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

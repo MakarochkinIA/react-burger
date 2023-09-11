@@ -1,17 +1,10 @@
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux';
 import { IngredientPropTypes } from '../../../utils/types'
 import styles from './ingredient-group.module.css';
 import IngredientItem from './ingredient-item/ingredient-item';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useMemo } from 'react';
-
 
 
 const IngredientGroup = ({ name, ingredients, showDetail }) => {
-    const data = useSelector(
-        state => state.constructorIngredients
-    )
 
     return (
         <>
