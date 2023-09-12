@@ -3,13 +3,16 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrop, useDrag } from 'react-dnd'
+import PropTypes from 'prop-types'
+import { IngredientPropTypes } from '../../../../utils/types';
 import {
     MOVE_INGREDIENT
 } from '../../../../services/actions/current-ingredients';
 
 
-const MainElements = ({ id, index, item, handleClose }) => {
+const MainElements = ({ index, item, handleClose }) => {
     const ref = useRef(null)
+    const id = item._id
     const dispatch = useDispatch();
     const [{ handlerId }, drop] = useDrop({
         accept: "item",
@@ -73,6 +76,12 @@ const MainElements = ({ id, index, item, handleClose }) => {
             />
         </div>
     )
+}
+
+MainElements.propTypes = {
+    index: PropTypes.number.isRequired,
+    item: IngredientPropTypes.isRequired,
+    handleClose: PropTypes.func.isRequired
 }
 
 export default MainElements;

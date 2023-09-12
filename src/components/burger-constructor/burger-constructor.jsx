@@ -31,15 +31,13 @@ const BurgerConstructor = () => {
         const sum = ingredients.reduce((totalCost, currentItem) => {
             return totalCost + currentItem.price;
           }, 0);
-        console.log(1);
         const totalCost = Object.keys(bun).length > 0 ? sum + (2 * bun.price) : sum
         return isNaN(totalCost) ? 0 : totalCost
     }, [bun, ingredients])
 
-    // TODO: await
     const showDetails = () => {
         dispatch(getOrder(getIds(bun, ingredients)));
-        order.number ? setVisible(true) : setVisible(false) ;
+        setVisible(true) ;
     }
     const closeDetails = () => {
         setVisible(false);
@@ -67,7 +65,7 @@ const BurgerConstructor = () => {
                 </Button>
 
             </div>
-            {detailsVisible &&
+            {detailsVisible && !orderRequest && !orderFailed && order.number &&
                 <Modal onClose={closeDetails}>
                     <OrderDetails />
                 </Modal>}

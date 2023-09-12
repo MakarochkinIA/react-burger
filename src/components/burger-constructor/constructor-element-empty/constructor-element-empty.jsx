@@ -1,4 +1,5 @@
 import styles from './constructor-element-empty.module.css'
+import PropTypes from 'prop-types'
 
 export const ConstructorElementEmpty = ({ type = '', text, extraClass = '' }) => {
     const className = (type) => {
@@ -23,3 +24,10 @@ export const ConstructorElementEmpty = ({ type = '', text, extraClass = '' }) =>
         </div>
     );
 };
+
+
+ConstructorElementEmpty.propTypes = {
+    type: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    extraClass: PropTypes.string.isRequired,
+}

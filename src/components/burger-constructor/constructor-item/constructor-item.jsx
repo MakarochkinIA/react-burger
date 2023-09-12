@@ -1,21 +1,18 @@
 import styles from './contructor-item.module.css';
 
-import {  useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types'
-import { IngredientPropTypes } from '../../../utils/types'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDrop, useDrag } from 'react-dnd'
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useDrop } from 'react-dnd'
 import { ConstructorElementEmpty } from '../constructor-element-empty/constructor-element-empty'
 import {
     DELETE_INGREDIENT,
-    MOVE_INGREDIENT
 } from '../../../services/actions/current-ingredients';
 import MainElements from './main-elements/main-elements';
 
 
 const ConstructorItem = ({ onDropHandler }) => {
-    const ref = useRef(null)
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector(
         state => state.constructorIngredients
@@ -77,13 +74,13 @@ const ConstructorItem = ({ onDropHandler }) => {
                 <ConstructorElementEmpty text='Выберите булку' type={type} extraClass={borderClr(isHover)} />
             </div>
         )
-    }, [bun])
+    }, [bun, isHoverTopBun, isHoverBottomBun])
 
     const content = useCallback(() => {
         return ingredients.length !== 0 ? (
             <div className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ 'borderColor': isHoverMain ? 'blue' : 'transparent' }}>
                 {ingredients.map((item, index) => (
-                    <MainElements key={item.key} id={item._id} index={index} item={item} handleClose={handleClose} />
+                    <MainElements key={item.key} index={index} item={item} handleClose={handleClose} />
                 ))}
             </div>
         ) : (
@@ -91,7 +88,7 @@ const ConstructorItem = ({ onDropHandler }) => {
                 <ConstructorElementEmpty text='Выберите начинку' extraClass={borderClr(isHoverMain)} />
             </div>
         )
-    }, [ingredients])
+    }, [ingredients, isHoverMain])
 
 
     return (
@@ -101,6 +98,10 @@ const ConstructorItem = ({ onDropHandler }) => {
             {buns('bottom')}
         </div>
     )
+}
+
+ConstructorItem.propTypes = {
+    onDropHandler: PropTypes.func.isRequired
 }
 
 export default ConstructorItem;

@@ -4,6 +4,8 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { useDrag } from "react-dnd";
 import { getCounter } from '../../../../utils/utils';
 import {useCallback} from 'react'
+import PropTypes from 'prop-types'
+import { IngredientPropTypes } from '../../../../utils/types';
 
 
 const IngredientItem = ({ item, showDetail }) => {
@@ -21,7 +23,7 @@ const IngredientItem = ({ item, showDetail }) => {
     const countContent = useCallback((item) => {
         const count = getCounter(data, item);
         return count > 0 && (<Counter count={count} size="default" extraClass="m-1" />)
-    }, [data, item])
+    }, [data])
 
     return (
         <div ref={dragRef} className={styles.card_item} onClick={() => { showDetail(item) }}>
@@ -43,6 +45,11 @@ const IngredientItem = ({ item, showDetail }) => {
 
         </div>
     )
+}
+
+IngredientItem.propTypes = {
+    item: IngredientPropTypes.isRequired,
+    showDetail: PropTypes.func.isRequired
 }
 
 export default IngredientItem

@@ -1,5 +1,4 @@
-import { IngredientPropTypes } from '../../../utils/types'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 
 
