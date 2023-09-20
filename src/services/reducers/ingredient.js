@@ -8,7 +8,7 @@ const initialState = {
     ingredient: {}
   };
 
-  export const currenIngredientReducer = (state = initialState, action) => {
+  export const currentIngredientReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_CURRENT_INGREDIENT: {
             return {

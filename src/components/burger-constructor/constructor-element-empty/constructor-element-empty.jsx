@@ -27,7 +27,7 @@ export const ConstructorElementEmpty = ({ type = '', text, extraClass = '' }) =>
 
 
 ConstructorElementEmpty.propTypes = {
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     text: PropTypes.string.isRequired,
-    extraClass: PropTypes.string.isRequired,
+    extraClass: PropTypes.object,
 }

@@ -5,31 +5,38 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientGroup from './ingredient-group/ingredient-group';
 import IngredientDetails from './ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import {getIngredients} from '../../services/actions/burger-ingredients'
+import { getIngredients } from '../../services/actions/burger-ingredients'
 import {
     ADD_CURRENT_INGREDIENT,
     DELETE_CURRENT_INGREDIENT
-  } from '../../services/actions/ingredient';
+} from '../../services/actions/ingredient';
 
 
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
-    const { ingredientsRequest, ingredientsFailed, ingredients} = useSelector(
-      state => state.ingredients
+    const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(
+        state => state.ingredients
     );
     const [distance, setDistance] = useState({});
- 
+
     useEffect(
-      () => {
-        dispatch(getIngredients());
-      },
-      [dispatch]
+        () => {
+            dispatch(getIngredients());
+        },
+        [dispatch]
     );
+    const categoresRefs = {
+        buns: useRef(),
+        sauce: useRef(),
+        main: useRef(),
+    }
+
+    function setTab(tab) {
+        setCurrent(tab);
+        categoresRefs[tab].current.scrollIntoView({ behavior: "smooth" })
+    }
     const tabRef = useRef(null)
-    const bunsRef = useRef(null)
-    const sauceRef = useRef(null)
-    const mainRef = useRef(null)
 
     function getMinValue(data) {
         let minAttributeName = null;
@@ -45,12 +52,12 @@ const BurgerIngredients = () => {
     }
 
     const handleScroll = () => {
-    
+
         setDistance({
             ...distance,
-            buns: Math.abs(tabRef.current.getBoundingClientRect().bottom - bunsRef.current.getBoundingClientRect().top),
-            sauce: Math.abs(tabRef.current.getBoundingClientRect().bottom - sauceRef.current.getBoundingClientRect().top),
-            main: Math.abs(tabRef.current.getBoundingClientRect().bottom - mainRef.current.getBoundingClientRect().top)
+            buns: Math.abs(tabRef.current.getBoundingClientRect().bottom - categoresRefs.buns.current.getBoundingClientRect().top),
+            sauce: Math.abs(tabRef.current.getBoundingClientRect().bottom - categoresRefs.sauce.current.getBoundingClientRect().top),
+            main: Math.abs(tabRef.current.getBoundingClientRect().bottom - categoresRefs.main.current.getBoundingClientRect().top)
         });
         setCurrent(getMinValue(distance))
     };
@@ -77,72 +84,56 @@ const BurgerIngredients = () => {
         setVisible(false);
     }
 
-    const setTab = (tab) => {
-        setCurrent(tab);
-        switch (tab) {
-            case 'buns':
-                bunsRef.current.scrollIntoView({ behavior: "smooth" });
-                break;
-            case 'sauce':
-                sauceRef.current.scrollIntoView({ behavior: "smooth" });
-                break;
-            case 'main':
-                mainRef.current.scrollIntoView({ behavior: "smooth" });
-                break;
-            default:
-                bunsRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-    };
     return (
         <>
- 
-        {ingredientsRequest && (<p className={styles.pre_show}>Идет загрузка</p>)}
-        {ingredientsFailed && (<p className={styles.pre_show}>Не удалось загрузить данные</p>)}
-        {!ingredientsRequest && !ingredientsFailed && ingredients.length && 
-        (<div className={styles.burger_ingredients}>
-            <p className='text text_type_main-large pt-10 mb-5'>
-                Соберите бургер
-            </p>
-            <div ref={tabRef} className={`${styles.tab} mb-10`}>
-                <Tab value="buns" active={current === 'buns'} onClick={setTab}>
-                    Булки
-                </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setTab}>
-                    Соусы
-                </Tab>
-                <Tab value="main" active={current === 'main'} onClick={setTab}>
-                    Начинки
-                </Tab>
-            </div>
- 
-            <ul className={`${styles.group_list} custom-scroll`} onScroll={handleScroll}>
-                <li ref={bunsRef}>
-                    <IngredientGroup
-                        name='Булки'
-                        ingredients={buns}
-                        showDetail={showDetails}
-                    />
-                </li>
-                <li ref={sauceRef}>
-                    <IngredientGroup
-                        name='Соусы'
-                        ingredients={sauce}
-                        showDetail={showDetails}
-                    />
-                </li>
-                <li ref={mainRef}>
-                    <IngredientGroup
-                        name='Начинка'
-                        ingredients={main}
-                        showDetail={showDetails}
-                    />
-                </li>
-            </ul>
-            {detailsVisible &&
-                <Modal header='Детали ингредиента' onClose={closeDetails}>
-                    <IngredientDetails/>
-                </Modal>}
-        </div>)}
+
+            {ingredientsRequest && (<p className={styles.pre_show}>Идет загрузка</p>)}
+            {ingredientsFailed && (<p className={styles.pre_show}>Не удалось загрузить данные</p>)}
+            {!ingredientsRequest && !ingredientsFailed && ingredients.length &&
+                (<div className={styles.burger_ingredients}>
+                    <p className='text text_type_main-large pt-10 mb-5'>
+                        Соберите бургер
+                    </p>
+                    <div ref={tabRef} className={`${styles.tab} mb-10`}>
+                        <Tab value="buns" active={current === 'buns'} onClick={setTab}>
+                            Булки
+                        </Tab>
+                        <Tab value="sauce" active={current === 'sauce'} onClick={setTab}>
+                            Соусы
+                        </Tab>
+                        <Tab value="main" active={current === 'main'} onClick={setTab}>
+                            Начинки
+                        </Tab>
+                    </div>
+
+                    <ul className={`${styles.group_list} custom-scroll`} onScroll={handleScroll}>
+                        <li ref={categoresRefs.buns}>
+                            <IngredientGroup
+                                name='Булки'
+                                ingredients={buns}
+                                showDetail={showDetails}
+                            />
+                        </li>
+                        <li ref={categoresRefs.sauce}>
+                            <IngredientGroup
+                                name='Соусы'
+                                ingredients={sauce}
+                                showDetail={showDetails}
+                            />
+                        </li>
+                        <li ref={categoresRefs.main}>
+                            <IngredientGroup
+                                name='Начинка'
+                                ingredients={main}
+                                showDetail={showDetails}
+                            />
+                        </li>
+                    </ul>
+                    {detailsVisible &&
+                        <Modal header='Детали ингредиента' onClose={closeDetails}>
+                            <IngredientDetails />
+                        </Modal>}
+                </div>)}
         </>
     );
 }
