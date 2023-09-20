@@ -1,0 +1,43 @@
+.forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 720px;
+    top: 228px;
+    width: 480px;
+    background: var(--background-alt);
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    left: 340px;
+    top: 228px;
+    width: 320px;
+    background: var(--background-alt);
+}
+
+.navigation span {
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation_main {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.navigation_text {
+    composes: text_type_main-default from global;
+    color: #8585AD;
+}
+
+.link {
+    composes: text_type_main-default from global;
+    color: blue;
+}
