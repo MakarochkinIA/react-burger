@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../utils/types'
 import styles from './ingredient-group.module.css';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import IngredientItem from './ingredient-item/ingredient-item';
 
 
 const IngredientGroup = ({ name, ingredients, showDetail }) => {
+
     return (
         <>
             <p className='text text_type_main-medium'>
@@ -12,24 +13,8 @@ const IngredientGroup = ({ name, ingredients, showDetail }) => {
             </p>
             <section className={styles.card}>
                 {ingredients.map((item) => (
-                    <div key={item._id} className={styles.card_item} onClick={() => {showDetail(item)}}>
-                        <Counter count={1} size="default" extraClass="m-1" />
-                        <img
-                            alt='Нет изображения.'
-                            src={item.image}
-                            className='ml-4 mr-4'
-                        />
-                        <div className={styles.card_text}>
-                            <span className='text text_type_digits-default mt-1 mb-1 pr-2'>
-                                {item.price}
-                            </span>
-                            <CurrencyIcon type='primary' />
-                        </div>
-                        <p className={`${styles.card_text} text text_type_main-default`}>
-                            {item.name}
-                        </p>
-
-                    </div>
+                    
+                    <IngredientItem item={item} key={item._id} showDetail={showDetail} />
                 ))}
             </section>
         </>
