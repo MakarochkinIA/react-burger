@@ -10,17 +10,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const ForgotPassword = () => {
     const navigate = useNavigate();
-    const [value, setValue] = useState('')
-    const [email, setEmail] = useState('')
-    const onLoginChange = e => {
-      setEmail(e.target.value)
-    }
-    const [password, setPassword] = useState('')
-    const onPasswordChange = e => {
-      setPassword(e.target.value)
-    }
+    const [form, setValue] = useState({ email: ''});
+    const onChange = e => {
+      setValue({ ...form, [e.target.name]: e.target.value });
+    };
     const onClick = () => {
         navigate("/profile");
+    };
+    const toLogin = () => {
+        navigate("/login");
     };
 
     return (
@@ -28,10 +26,10 @@ export const ForgotPassword = () => {
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <EmailInput
-              onChange={onLoginChange}
+              onChange={onChange}
               name={'Укажите e-mail'}
               placeholder="Укажите e-mail"
-              value={email}
+              value={form.email}
               isIcon={false}
               extraClass="mb-6"
             />
@@ -41,7 +39,7 @@ export const ForgotPassword = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
-            <span className={styles.link} >
+            <span className={styles.link} onClick={toLogin}>
               {' Войти'}
             </span>
           </span>

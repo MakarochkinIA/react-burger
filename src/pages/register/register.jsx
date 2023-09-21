@@ -10,17 +10,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [value, setValue] = useState('')
-    const [email, setEmail] = useState('')
-    const onLoginChange = e => {
-      setEmail(e.target.value)
-    }
-    const [password, setPassword] = useState('')
-    const onPasswordChange = e => {
-      setPassword(e.target.value)
-    }
+    const [form, setValue] = useState({ email: '', password: '', value: '' });
+    const onChange = e => {
+      setValue({ ...form, [e.target.name]: e.target.value });
+    };
     const onClick = () => {
         navigate("/profile");
+    };
+    const toLogin = () => {
+      navigate("/login");
     };
 
     return (
@@ -30,8 +28,8 @@ export const Register = () => {
             <Input
               type={'text'}
               placeholder={'Имя'}
-              onChange={e => setValue(e.target.value)}
-              value={value}
+              onChange={onChange}
+              value={form.value}
               name={'name'}
               error={false}
               errorText={'Ошибка'}
@@ -39,15 +37,15 @@ export const Register = () => {
               extraClass="mb-6"
             />
             <EmailInput
-              onChange={onLoginChange}
+              onChange={onChange}
               name={'E-mail'}
-              value={email}
+              value={form.email}
               isIcon={false}
               extraClass="mb-6"
             />
             <PasswordInput
-              onChange={onPasswordChange}
-              value={password}
+              onChange={onChange}
+              value={form.password}
               name={'Пароль'}
               extraClass="mb-6"
             />
@@ -57,7 +55,7 @@ export const Register = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Уже зарегистрированы? 
-            <span className={styles.link} >
+            <span className={styles.link} onClick={toLogin}>
               {' Войти'}
             </span>
           </span>

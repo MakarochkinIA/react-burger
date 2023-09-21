@@ -10,16 +10,18 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const Login = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('')
-    const onLoginChange = e => {
-      setEmail(e.target.value)
-    }
-    const [password, setPassword] = useState('')
-    const onPasswordChange = e => {
-      setPassword(e.target.value)
-    }
+    const [form, setValue] = useState({ email: '', password: '' });
+    const onChange = e => {
+      setValue({ ...form, [e.target.name]: e.target.value });
+    };
     const onClick = () => {
         navigate("/profile");
+    };
+    const toRegister = () => {
+      navigate("/register");
+    };
+    const toForgotPassword = () => {
+      navigate("/forgot-password");
     };
 
     return (
@@ -27,15 +29,15 @@ export const Login = () => {
           <span className="text text_type_main-medium mb-6">Вход</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <EmailInput
-              onChange={onLoginChange}
+              onChange={onChange}
               name={'E-mail'}
-              value={email}
+              value={form.email}
               isIcon={false}
               extraClass="mb-6"
             />
             <PasswordInput
-              onChange={onPasswordChange}
-              value={password}
+              onChange={onChange}
+              value={form.password}
               name={'Пароль'}
               extraClass="mb-6"
             />
@@ -45,13 +47,13 @@ export const Login = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вы - новый пользователь? 
-            <span className={styles.link} >
+            <span className={styles.link} onClick={toRegister}>
               {' Зарегистрироваться'}
             </span>
           </span>
           <span className="text text_type_main-default text_color_inactive">
             Забыли пароль?
-            <span className={styles.link} >
+            <span className={styles.link} onClick={toForgotPassword}>
               {' Восстановить пароль'}
             </span>
           </span>

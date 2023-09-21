@@ -10,17 +10,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
-    const [value, setValue] = useState('')
-    const [email, setEmail] = useState('')
-    const onLoginChange = e => {
-      setEmail(e.target.value)
-    }
-    const [password, setPassword] = useState('')
-    const onPasswordChange = e => {
-      setPassword(e.target.value)
-    }
+    const [form, setValue] = useState({ value: '', password: '' });
+    const onChange = e => {
+      setValue({ ...form, [e.target.name]: e.target.value });
+    };
     const onClick = () => {
         navigate("/profile");
+    };
+    const toLogin = () => {
+        navigate("/login");
     };
 
     return (
@@ -28,8 +26,8 @@ export const ResetPassword = () => {
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <PasswordInput
-              onChange={onPasswordChange}
-              value={password}
+              onChange={onChange}
+              value={form.password}
               placeholder="Введите новый пароль"
               name={'Пароль'}
               extraClass="mb-6"
@@ -37,8 +35,8 @@ export const ResetPassword = () => {
             <Input
               type={'text'}
               placeholder={'Введите код из письма'}
-              onChange={e => setValue(e.target.value)}
-              value={value}
+              onChange={onChange}
+              value={form.value}
               name={'name'}
               error={false}
               errorText={'Ошибка'}
@@ -51,7 +49,7 @@ export const ResetPassword = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
-            <span className={styles.link} >
+            <span className={styles.link} onClick={toLogin}>
               {' Сохранить'}
             </span>
           </span>
