@@ -12,7 +12,7 @@ const AppHeader = () => {
         <header className={styles.header}>
             <div className={styles.header_content}>
                 <nav className={styles.left_item}>
-                    <span onClick={onClick} className={`${styles.link_item} pl-5 pr-5 pt-4 pb-4`}>
+                    <span  className={`${styles.link_item} pl-5 pr-5 pt-4 pb-4`}>
                         <BurgerIcon type='primary' />
                         <span className='text text_type_main-default pl-2'>
                             Конструктор
@@ -28,7 +28,7 @@ const AppHeader = () => {
                 <div className={`${styles.logo} pt-4 pb-4`}>
                     <Logo />
                 </div>
-                <nav className={styles.right_item}>
+                <nav onClick={onClick} className={styles.right_item}>
                     <a href='#' className={`${styles.link_item} pt-4 pb-4 pl-5 pr-5`}>
                         <ProfileIcon type='secondary'/>
                         <span className='text text_type_main-default text_color_inactive pl-2'>

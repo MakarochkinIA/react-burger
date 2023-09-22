@@ -1,7 +1,7 @@
 import { NORMA_API } from "./constants";
 
 
-const checkResponse = (res) => {
+export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 function addHeaders(props) {
@@ -24,7 +24,7 @@ export function getOrderRequest(props) {
 }
 
 export const refreshToken = () => {
-    return fetch(`${BURGER_API_URL}/auth/token`, {
+    return fetch(`${NORMA_API}/auth/token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -56,8 +56,8 @@ export const refreshToken = () => {
     }
   };
 
-export const auth = async (url, form) => {
-    return await fetch(`https://cosmic.nomoreparties.space/${url}`, {
+export const userRelated = async (url, form) => {
+    return await fetch(`${NORMA_API}/${url}`, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -68,35 +68,5 @@ export const auth = async (url, form) => {
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(form)
-    });
-};
-
-export const passwordForgot = async form => {
-    return await fetch('https://cosmic.nomoreparties.space/login', {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(form)
-    });
-};
-
-export const passwordReset = async form => {
-    return await fetch('https://cosmic.nomoreparties.space/login', {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(form)
-    });
+    }).then(checkResponse);
 };

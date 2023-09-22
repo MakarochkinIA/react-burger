@@ -7,6 +7,8 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import styles from './login.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import {useDispatch} from "react-redux";
+import { login } from "../../services/actions/auth";
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -14,15 +16,17 @@ export const Login = () => {
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const onClick = () => {
-        navigate("/profile");
-    };
     const toRegister = () => {
       navigate("/register");
     };
     const toForgotPassword = () => {
       navigate("/forgot-password");
     };
+    const dispatch = useDispatch();
+
+    const onClick = (form) => {
+        dispatch(login(form));
+    }
 
     return (
       <div className={styles.main}>
@@ -30,7 +34,7 @@ export const Login = () => {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <EmailInput
               onChange={onChange}
-              name={'E-mail'}
+              name={'email'}
               value={form.email}
               isIcon={false}
               extraClass="mb-6"
@@ -38,11 +42,11 @@ export const Login = () => {
             <PasswordInput
               onChange={onChange}
               value={form.password}
-              name={'Пароль'}
+              name={'password'}
               extraClass="mb-6"
             />
           </div>
-          <Button  htmlType="button" type="primary" size="large" extraClass="mb-20">
+          <Button onClick={() => onClick(form)}  htmlType="button" type="primary" size="large" extraClass="mb-20">
             Войти
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">

@@ -7,6 +7,8 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import styles from './reset-password.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { userRelated } from "../../utils/burger-api";
+import { RESET_PASSWORD } from "../../utils/constants";
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
@@ -15,7 +17,11 @@ export const ResetPassword = () => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
     const onClick = () => {
-        navigate("/profile");
+      return userRelated(RESET_PASSWORD, form).then((res) => {
+        if (res && res.success) {
+            navigate('/login')
+        }
+      });;
     };
     const toLogin = () => {
         navigate("/login");
@@ -44,7 +50,7 @@ export const ResetPassword = () => {
               extraClass="mb-6"
             />
           </div>
-          <Button  htmlType="button" type="primary" size="large" extraClass="mb-20">
+          <Button onClick={onClick} htmlType="button" type="primary" size="large" extraClass="mb-20">
             Восстановить
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">

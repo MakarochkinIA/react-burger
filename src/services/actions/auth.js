@@ -1,4 +1,4 @@
-import { auth } from "../utils/auth";
+import { auth } from "../../utils/auth";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
@@ -23,12 +23,12 @@ export const getUser = () => {
   };
 };
 
-export const login = (form) => {
+export const userRelated = (func, form) => {
   return (dispatch) => {
     dispatch({
         type: GET_USER_REQUEST
     });
-    return auth.login(form).then((res) => {
+    return func(form).then((res) => {
         if (res && res.success) {
             localStorage.setItem("accessToken", res.accessToken);
             localStorage.setItem("refreshToken", res.refreshToken);
@@ -42,6 +42,14 @@ export const login = (form) => {
     });
   };
 };
+
+export const login = (form) => {
+  return userRelated(auth.login, form)
+}
+
+export const register = (form) => {
+  return userRelated(auth.register, form)
+}
 
 export const checkUserAuth = () => {
     return (dispatch) => {
@@ -62,7 +70,7 @@ export const checkUserAuth = () => {
 
 export const logout = () => {
   return (dispatch) => {
-    return api.logout().then(() => {
+    return auth.logout().then(() => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       dispatch(setUser(null));

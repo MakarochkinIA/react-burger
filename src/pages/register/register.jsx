@@ -7,16 +7,21 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import styles from './register.module.css';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import {useDispatch} from "react-redux";
+import { register } from "../../services/actions/auth";
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [form, setValue] = useState({ email: '', password: '', value: '' });
+    const [form, setValue] = useState({ email: '', password: '', name: '' });
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const onClick = () => {
-        navigate("/profile");
-    };
+    const dispatch = useDispatch();
+
+    const onClick = (form) => {
+        dispatch(register(form));
+    }
+
     const toLogin = () => {
       navigate("/login");
     };
@@ -38,7 +43,7 @@ export const Register = () => {
             />
             <EmailInput
               onChange={onChange}
-              name={'E-mail'}
+              name={'email'}
               value={form.email}
               isIcon={false}
               extraClass="mb-6"
@@ -46,11 +51,11 @@ export const Register = () => {
             <PasswordInput
               onChange={onChange}
               value={form.password}
-              name={'Пароль'}
+              name={'password'}
               extraClass="mb-6"
             />
           </div>
-          <Button  htmlType="button" type="primary" size="large" extraClass="mb-20">
+          <Button onClick={() => onClick(form)} htmlType="button" type="primary" size="large" extraClass="mb-20">
             Зарегистрироваться
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">

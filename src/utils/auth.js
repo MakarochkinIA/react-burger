@@ -1,8 +1,9 @@
-import { auth } from './burger-api'
-import { LOGIN } from './constants';
+import { userRelated } from './burger-api'
+import { checkResponse } from './burger-api'
+import { LOGIN, REGISTER, NORMA_API } from './constants';
 
 const getUser = async () =>
-  await fetch('https://cosmic.nomoreparties.space/api/user', {
+  await fetch(`${NORMA_API}/user`, {
     method: 'GET',
     mode: 'cors',
     cache: 'no-cache',
@@ -13,15 +14,19 @@ const getUser = async () =>
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer'
-  });
+  }).then(checkResponse);
 
 
 const login = async form => {
-    return auth(LOGIN, form)
+    return userRelated(LOGIN, form)
+};
+
+const register = async form => {
+  return userRelated(REGISTER, form)
 };
 
 const logout = async () => {
-    return await fetch('https://cosmic.nomoreparties.space/logout', {
+    return await fetch(`${NORMA_API}/logout`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -34,11 +39,12 @@ const logout = async () => {
       body: JSON.stringify({
         token: localStorage.getItem('refreshToken')
       })
-    });
+    }).then(checkResponse);
   };
 
 export const auth = {
   getUser,
   login,
-  logout
+  logout,
+  register
 };
