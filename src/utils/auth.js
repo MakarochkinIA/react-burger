@@ -1,9 +1,10 @@
 import { userRelated } from './burger-api'
 import { checkResponse } from './burger-api'
 import { LOGIN, REGISTER, NORMA_API } from './constants';
+import { fetchWithRefresh } from './burger-api';
 
 const getUser = async () =>
-  await fetch(`${NORMA_API}/user`, {
+  await fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'GET',
     mode: 'cors',
     cache: 'no-cache',
@@ -14,8 +15,22 @@ const getUser = async () =>
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer'
-  }).then(checkResponse);
+  });
 
+const patchUser = async (form) =>
+await fetchWithRefresh(`${NORMA_API}/auth/user`, {
+  method: 'PATCH',
+  mode: 'cors',
+  cache: 'no-cache',
+  credentials: 'same-origin',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: localStorage.getItem('accessToken')
+  },
+  redirect: 'follow',
+  referrerPolicy: 'no-referrer',
+  body: JSON.stringify(form)
+});
 
 const login = async form => {
     return userRelated(LOGIN, form)
@@ -26,7 +41,7 @@ const register = async form => {
 };
 
 const logout = async () => {
-    return await fetch(`${NORMA_API}/logout`, {
+    return await fetch(`${NORMA_API}/auth/logout`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -46,5 +61,6 @@ export const auth = {
   getUser,
   login,
   logout,
-  register
+  register,
+  patchUser
 };

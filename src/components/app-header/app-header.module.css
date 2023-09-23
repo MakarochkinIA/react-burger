@@ -33,4 +33,15 @@
     display: flex;
     align-items: center;
     color: var(--text-primary-color);
+    cursor: pointer;
+    composes: text_type_main-default from global;
+}
+
+.inactive_link_item {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: var(--text-inactive-color);
+    cursor: pointer;
+    composes: text_type_main-default from global;
 }

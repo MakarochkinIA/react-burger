@@ -51,6 +51,24 @@ export const register = (form) => {
   return userRelated(auth.register, form)
 }
 
+export const patchUser = (form) => {
+  return (dispatch) => {
+    dispatch({
+        type: GET_USER_REQUEST
+    });
+    return auth.patchUser(form).then((res) => {
+        if (res && res.success) {
+            dispatch(setUser(res.user));
+            dispatch(setAuthChecked(true));
+        } else {
+            dispatch({
+                type: GET_USER_FAILED
+            });
+        }
+    });
+  };
+};
+
 export const checkUserAuth = () => {
     return (dispatch) => {
         if (localStorage.getItem("accessToken")) {

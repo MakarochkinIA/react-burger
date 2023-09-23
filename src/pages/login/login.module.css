@@ -12,4 +12,5 @@
 .link {
     composes: text_type_main-default from global;
     color: blue;
+    cursor: pointer;
 }

@@ -22,10 +22,6 @@ export const Register = () => {
         dispatch(register(form));
     }
 
-    const toLogin = () => {
-      navigate("/login");
-    };
-
     return (
       <div className={styles.main}>
           <span className="text text_type_main-medium mb-6">Регистрация</span>
@@ -60,7 +56,7 @@ export const Register = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Уже зарегистрированы? 
-            <span className={styles.link} onClick={toLogin}>
+            <span className={styles.link} onClick={() => navigate("/login")}>
               {' Войти'}
             </span>
           </span>

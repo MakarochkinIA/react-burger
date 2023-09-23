@@ -14,6 +14,7 @@ import { Details } from "../../pages/ingredient-details/ingredient-details";
 import { Profile } from "../../pages/profile/profile";
 import { checkUserAuth } from "../../services/actions/auth";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { NotFound404 } from "../../pages/not-found/not-found";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} />
         <Route path='/ingredients'
                element={<IngredientDetails />} />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
 
       {background && (

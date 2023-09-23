@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Navigate} from "react-router-dom";
 import { useState } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../../components/app-header/app-header";
@@ -12,6 +12,7 @@ import { RESET_PASSWORD } from "../../utils/constants";
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
+    const reset = localStorage.getItem('reset')
     const [form, setValue] = useState({ value: '', password: '' });
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
@@ -19,16 +20,15 @@ export const ResetPassword = () => {
     const onClick = () => {
       return userRelated(RESET_PASSWORD, form).then((res) => {
         if (res && res.success) {
+            localStorage.removeItem('reset')
             navigate('/login')
         }
       });;
     };
-    const toLogin = () => {
-        navigate("/login");
-    };
 
     return (
       <div className={styles.main}>
+          {!reset && <Navigate to="/" />}
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <PasswordInput
@@ -55,7 +55,7 @@ export const ResetPassword = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
-            <span className={styles.link} onClick={toLogin}>
+            <span className={styles.link} onClick={() => navigate("/login")}>
               {' Сохранить'}
             </span>
           </span>

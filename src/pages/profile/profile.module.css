@@ -32,12 +32,25 @@
 
 }
 
-.navigation_text {
+.navigation_box {
+    height: 48px;
     composes: text_type_main-default from global;
+    
     color: #8585AD;
+}
+
+.inactive {
+    composes: text_color_inactive from global;
 }
 
 .link {
     composes: text_type_main-default from global;
     color: blue;
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }

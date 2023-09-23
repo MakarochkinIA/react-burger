@@ -16,12 +16,6 @@ export const Login = () => {
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const toRegister = () => {
-      navigate("/register");
-    };
-    const toForgotPassword = () => {
-      navigate("/forgot-password");
-    };
     const dispatch = useDispatch();
 
     const onClick = (form) => {
@@ -51,13 +45,13 @@ export const Login = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вы - новый пользователь? 
-            <span className={styles.link} onClick={toRegister}>
+            <span className={styles.link} onClick={() => navigate("/register")}>
               {' Зарегистрироваться'}
             </span>
           </span>
           <span className="text text_type_main-default text_color_inactive">
             Забыли пароль?
-            <span className={styles.link} onClick={toForgotPassword}>
+            <span className={styles.link} onClick={() => navigate("/forgot-password")}>
               {' Восстановить пароль'}
             </span>
           </span>

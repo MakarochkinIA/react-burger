@@ -1,40 +1,38 @@
 import styles from './app-header.module.css';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, NavLink, useLocation } from "react-router-dom";
 import { Logo, ProfileIcon, ListIcon, BurgerIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const AppHeader = () => {
     const navigate = useNavigate();
-    const onClick = () => {
-        navigate("/profile");
-    };
-
+    const location = useLocation();
+    const isNavLinkActive = (path) => location.pathname.split('/')[1] === path.split('/')[1];
     return (
         <header className={styles.header}>
             <div className={styles.header_content}>
                 <nav className={styles.left_item}>
-                    <span  className={`${styles.link_item} pl-5 pr-5 pt-4 pb-4`}>
-                        <BurgerIcon type='primary' />
-                        <span className='text text_type_main-default pl-2'>
-                            Конструктор
-                        </span>
-                    </span>
-                    <a href='#' className={`${styles.link_item} pl-5 pr-5 pt-4 pb-4`}>
+                    <NavLink to="/" className={() => isNavLinkActive('/') ? `${styles.link_item} pl-5 pr-5 pt-4 pb-4` : `${styles.inactive_link_item} pl-5 pr-5 pt-4 pb-4`}>
+                            <BurgerIcon type='primary' />
+                            <span className='pl-2'>
+                                Конструктор
+                            </span>
+                    </NavLink>
+                    <NavLink to="/orders" className={() => isNavLinkActive('/orders') ? `${styles.link_item} pl-5 pr-5 pt-4 pb-4` : `${styles.inactive_link_item} pl-5 pr-5 pt-4 pb-4`}>
                         <ListIcon type='secondary' />
-                        <span className='text text_type_main-default text_color_inactive pl-2'>
+                        <span className='pl-2'>
                             Лента заказов
                         </span>
-                    </a>
+                    </NavLink>
                 </nav>
                 <div className={`${styles.logo} pt-4 pb-4`}>
                     <Logo />
                 </div>
-                <nav onClick={onClick} className={styles.right_item}>
-                    <a href='#' className={`${styles.link_item} pt-4 pb-4 pl-5 pr-5`}>
+                <nav className={styles.right_item}>
+                    <NavLink to="/profile" className={() => isNavLinkActive('/profile') ? `${styles.link_item} pt-4 pb-4 pl-5 pr-5` : `${styles.inactive_link_item} pt-4 pb-4 pl-5 pr-5`}>
                         <ProfileIcon type='secondary'/>
-                        <span className='text text_type_main-default text_color_inactive pl-2'>
+                        <span className='pl-2'>
                             Личный кабинет
                         </span>
-                    </a>
+                    </NavLink>
                 </nav>
             </div>
         </header>

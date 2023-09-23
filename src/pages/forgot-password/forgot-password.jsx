@@ -19,13 +19,10 @@ export const ForgotPassword = () => {
     const onClick = () => {
         return userRelated(FORGOT_PASSWORD, form).then((res) => {
           if (res && res.success) {
+              localStorage.setItem("reset", true);
               navigate('/reset-password')
           }
         });;
-    };
-    // TODO
-    const toLogin = () => {
-        navigate("/login");
     };
 
     return (
@@ -46,7 +43,7 @@ export const ForgotPassword = () => {
           </Button>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
-            <span className={styles.link} onClick={toLogin}>
+            <span className={styles.link} onClick={() => navigate("/login")}>
               {' Войти'}
             </span>
           </span>
