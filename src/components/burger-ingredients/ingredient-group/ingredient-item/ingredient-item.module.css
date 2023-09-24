@@ -8,4 +8,11 @@
     position: relative;
     width: 272px;
     height: 208px;   
+    
+}
+
+.link {
+    text-decoration: none;
+    color: var(--text-primary-color);
+    text-align: center;
 }

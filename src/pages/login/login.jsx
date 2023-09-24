@@ -1,12 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../../components/app-header/app-header";
-import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import styles from './login.module.css';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import {useDispatch} from "react-redux";
 import { login } from "../../services/actions/auth";
 
@@ -25,7 +20,7 @@ export const Login = () => {
     return (
       <div className={styles.main}>
           <span className="text text_type_main-medium mb-6">Вход</span>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={styles.input_box}>
             <EmailInput
               onChange={onChange}
               name={'email'}

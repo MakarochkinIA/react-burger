@@ -7,7 +7,6 @@ import IngredientDetails from './ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { getIngredients } from '../../services/actions/burger-ingredients'
 import {
-    ADD_CURRENT_INGREDIENT,
     DELETE_CURRENT_INGREDIENT
 } from '../../services/actions/ingredient';
 
@@ -69,14 +68,6 @@ const BurgerIngredients = () => {
     const [current, setCurrent] = useState('buns')
     const [detailsVisible, setVisible] = useState(false)
 
-    const showDetails = (item) => {
-        setVisible(true)
-        dispatch({
-            type: ADD_CURRENT_INGREDIENT,
-            ingredient: item
-        });
-    }
-
     const closeDetails = () => {
         dispatch({
             type: DELETE_CURRENT_INGREDIENT,
@@ -111,21 +102,18 @@ const BurgerIngredients = () => {
                             <IngredientGroup
                                 name='Булки'
                                 ingredients={buns}
-                                showDetail={showDetails}
                             />
                         </li>
                         <li ref={categoresRefs.sauce}>
                             <IngredientGroup
                                 name='Соусы'
                                 ingredients={sauce}
-                                showDetail={showDetails}
                             />
                         </li>
                         <li ref={categoresRefs.main}>
                             <IngredientGroup
                                 name='Начинка'
                                 ingredients={main}
-                                showDetail={showDetails}
                             />
                         </li>
                     </ul>

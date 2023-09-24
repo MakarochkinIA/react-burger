@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -14,10 +15,14 @@ import { v4 as uuid } from 'uuid';
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [detailsVisible, setVisible] = useState(false)
     const { bun, ingredients} = useSelector(
         state => state.constructorIngredients
     )
+    const { user, isAuthChecked } = useSelector(
+        state => state.user
+      ) 
     const { orderRequest, orderFailed, order} = useSelector(
         state => state.order
       );
@@ -35,9 +40,14 @@ const BurgerConstructor = () => {
         return isNaN(totalCost) ? 0 : totalCost
     }, [bun, ingredients])
 
-    const showDetails = () => {
-        dispatch(getOrder(getIds(bun, ingredients)));
-        setVisible(true) ;
+    const makeOrder = () => {
+        if (user && isAuthChecked) {
+            dispatch(getOrder(getIds(bun, ingredients)))
+            setVisible(true)
+        } else {
+            navigate('/login')
+        }
+         ;
     }
     const closeDetails = () => {
         setVisible(false);
@@ -60,7 +70,7 @@ const BurgerConstructor = () => {
                     {getTotalCost(bun, ingredients)}
                     <CurrencyIcon type='primary' />
                 </p>
-                <Button onClick={showDetails} htmlType="button" type="primary" size="large">
+                <Button onClick={makeOrder} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
 

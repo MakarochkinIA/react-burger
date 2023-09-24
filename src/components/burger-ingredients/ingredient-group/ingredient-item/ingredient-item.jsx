@@ -1,21 +1,27 @@
 import styles from './ingredient-item.module.css';
-import { useSelector } from 'react-redux';
+import {Link, useLocation} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag } from "react-dnd";
 import { getCounter } from '../../../../utils/utils';
 import {useCallback} from 'react'
-import PropTypes from 'prop-types'
 import { IngredientPropTypes } from '../../../../utils/types';
+import { ADD_CURRENT_INGREDIENT } from '../../../../services/actions/ingredient';
 
 
-const IngredientItem = ({ item, showDetail }) => {
-    
+const IngredientItem = ({ item }) => {
+    const dispatch = useDispatch();
     const [, dragRef] = useDrag({
         type: item.type === 'bun' ? 'bun' : 'main',
         item: item,
     });
-
-
+    const showDetail = (item) => {
+        dispatch({
+            type: ADD_CURRENT_INGREDIENT,
+            ingredient: item
+        });
+    }
+    const location = useLocation();
     const data = useSelector(
         state => state.constructorIngredients
     )
@@ -26,6 +32,15 @@ const IngredientItem = ({ item, showDetail }) => {
     }, [data])
 
     return (
+        <Link
+            key={item._id}
+            // Тут мы формируем динамический путь для нашего ингредиента
+            to={`/ingredients/${item._id}`}
+            // а также сохраняем в свойство background роут,
+            // на котором была открыта наша модалка
+            state={{ background: location }}
+            className={styles.link}
+        >
         <div ref={dragRef} className={styles.card_item} onClick={() => { showDetail(item) }}>
             {countContent(item)}
             <img
@@ -44,12 +59,12 @@ const IngredientItem = ({ item, showDetail }) => {
             </p>
 
         </div>
+        </Link>
     )
 }
 
 IngredientItem.propTypes = {
     item: IngredientPropTypes.isRequired,
-    showDetail: PropTypes.func.isRequired
 }
 
 export default IngredientItem

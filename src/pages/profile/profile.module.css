@@ -29,7 +29,7 @@
 .navigation_main {
     display: flex;
     flex-direction: column;
-
+    
 }
 
 .navigation_box {
@@ -39,7 +39,13 @@
     color: #8585AD;
 }
 
+.active {
+    text-decoration: none;
+    composes: text_color_primary from global;
+}
+
 .inactive {
+    text-decoration: none;
     composes: text_color_inactive from global;
 }
 
@@ -53,4 +59,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.input_box {
+    display: flex;
+    flex-direction: column;
 }

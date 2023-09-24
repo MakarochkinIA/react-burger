@@ -4,7 +4,7 @@ import styles from './ingredient-group.module.css';
 import IngredientItem from './ingredient-item/ingredient-item';
 
 
-const IngredientGroup = ({ name, ingredients, showDetail }) => {
+const IngredientGroup = ({ name, ingredients }) => {
 
     return (
         <>
@@ -14,7 +14,7 @@ const IngredientGroup = ({ name, ingredients, showDetail }) => {
             <section className={styles.card}>
                 {ingredients.map((item) => (
                     
-                    <IngredientItem item={item} key={item._id} showDetail={showDetail} />
+                    <IngredientItem item={item} key={item._id}/>
                 ))}
             </section>
         </>
@@ -23,6 +23,5 @@ const IngredientGroup = ({ name, ingredients, showDetail }) => {
 IngredientGroup.propTypes = {
     name: PropTypes.string.isRequired,
     ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired,
-    showDetail: PropTypes.func.isRequired
 }
 export default IngredientGroup;

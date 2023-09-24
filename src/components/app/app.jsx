@@ -10,7 +10,6 @@ import {Login} from '../../pages/login/login';
 import {Register} from '../../pages/register/register';
 import {ForgotPassword} from '../../pages/forgot-password/forgot-password';
 import { ResetPassword } from "../../pages/reset-password/reset-password";
-import { Details } from "../../pages/ingredient-details/ingredient-details";
 import { Profile } from "../../pages/profile/profile";
 import { checkUserAuth } from "../../services/actions/auth";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
@@ -22,7 +21,9 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-
+  const handleModalClose = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     dispatch(checkUserAuth());
   }, []);
@@ -37,8 +38,7 @@ function App() {
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} />
-        <Route path='/ingredients'
-               element={<IngredientDetails />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
@@ -47,7 +47,7 @@ function App() {
 	        <Route
 	          path='/ingredients/:id'
 	          element={
-	            <Modal>
+	            <Modal header='Детали ингредиента' onClose={handleModalClose}> 
 	              <IngredientDetails />
 	            </Modal>
 	          }

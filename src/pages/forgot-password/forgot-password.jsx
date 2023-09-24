@@ -1,12 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import { useState } from "react";
-import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../../components/app-header/app-header";
-import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
+import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { userRelated } from "../../utils/burger-api";
 import { FORGOT_PASSWORD } from "../../utils/constants";
 
@@ -28,7 +23,7 @@ export const ForgotPassword = () => {
     return (
       <div className={styles.main}>
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={styles.input_box}>
             <EmailInput
               onChange={onChange}
               name={'email'}

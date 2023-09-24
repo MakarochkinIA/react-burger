@@ -15,13 +15,6 @@ export function getIngredientsRequest() {
         .then(checkResponse)
 }
 
-export function getOrderRequest(props) {
-    return fetch(`${NORMA_API}/orders/`, {
-        method: "POST",
-        headers: addHeaders({ "Content-Type": "application/json" }),
-        body: `{"ingredients": ${props}}`,
-    }).then(checkResponse);
-}
 
 export const refreshToken = () => {
     return fetch(`${NORMA_API}/auth/token`, {
@@ -70,3 +63,11 @@ export const userRelated = async (url, form) => {
         body: JSON.stringify(form)
     }).then(checkResponse);
 };
+
+export function getOrderRequest(props) {
+  return fetchWithRefresh(`${NORMA_API}/orders/`, {
+      method: "POST",
+      headers: addHeaders({ "Content-Type": "application/json" }),
+      body: `{"ingredients": ${props}}`,
+  });
+}
