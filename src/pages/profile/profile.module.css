@@ -47,6 +47,7 @@
 .inactive {
     text-decoration: none;
     composes: text_color_inactive from global;
+    cursor: pointer;
 }
 
 .link {

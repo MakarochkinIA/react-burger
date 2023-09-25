@@ -8,7 +8,7 @@ import { RESET_PASSWORD } from "../../utils/constants";
 export const ResetPassword = () => {
     const navigate = useNavigate();
     const reset = localStorage.getItem('reset')
-    const [form, setValue] = useState({ value: '', password: '' });
+    const [form, setValue] = useState({ token: '', password: '' });
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
@@ -30,7 +30,7 @@ export const ResetPassword = () => {
               onChange={onChange}
               value={form.password}
               placeholder="Введите новый пароль"
-              name={'Пароль'}
+              name={'password'}
               extraClass="mb-6"
             />
             <Input
@@ -38,7 +38,7 @@ export const ResetPassword = () => {
               placeholder={'Введите код из письма'}
               onChange={onChange}
               value={form.value}
-              name={'name'}
+              name={'token'}
               error={false}
               errorText={'Ошибка'}
               size={'default'}

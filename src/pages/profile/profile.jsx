@@ -42,7 +42,6 @@ export const Profile = () => {
       <div className={styles.navigation}>
         <div className={`${styles.navigation_main} text_type_main-medium mb-20`}>
           <NavLink end to="/profile" className={({ isActive, isPending }) => {
-            console.log(isActive, isPending);
             return (isActive ? styles.active : styles.inactive)
           }
 

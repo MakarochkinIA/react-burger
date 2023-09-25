@@ -30,7 +30,6 @@ const IngredientDetails = () => {
                 </span>
             </div>) : <></>}
             <div className={styles.ingredient_details}>
-                {console.log(ingredient)}
                 <img alt='Нет изображения' src={ingredient.image} className={`${styles.image} mb-4`} />
                 <p className='text text_type_main-medium mb-8'>{ingredient.name}</p>
                 <div className={`${styles.data} mb-15`}>
