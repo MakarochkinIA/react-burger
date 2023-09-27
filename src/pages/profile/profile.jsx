@@ -1,14 +1,16 @@
-import { Outlet, useLocation, NavLink } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './profile.module.css';
-import { logout, patchUser } from "../../services/actions/auth";
+import { patchUser } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { NavigateProfile } from "./navigate-profile/navigate-profile";
 
 export const Profile = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [fieldDisabled, setDisabled] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
   const inputRef = useRef(null);
   const onIconClick = () => {
     setDisabled(false);
@@ -25,42 +27,25 @@ export const Profile = () => {
   const [form, setValue] = useState(initialState);
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
+    setIsEdit(true)
   };
 
-  const onClickLogout = () => {
-    dispatch(logout());
-  }
-  const onClickPatch = (form) => {
+  const handleSubmit = (e) => {
     dispatch(patchUser(form));
+    setIsEdit(false)
+    e.preventDefault();
   }
+  
   const cancel = () => {
     setValue(initialState)
+    setIsEdit(false)
   }
 
   return (
     <div>
-      <div className={styles.navigation}>
-        <div className={`${styles.navigation_main} text_type_main-medium mb-20`}>
-          <NavLink end to="/profile" className={({ isActive, isPending }) => {
-            return (isActive ? styles.active : styles.inactive)
-          }
-
-          }>
-            <span>Профиль</span>
-          </NavLink>
-          <NavLink to="/profile/orders" className={({ isActive }) =>
-            (isActive ? styles.active : styles.inactive)
-          }>
-            <span>История заказов</span>
-          </NavLink>
-          <span className={styles.inactive} onClick={onClickLogout}>Выход</span>
-        </div>
-        <div className={styles.navigation_box}>
-          В этом разделе вы можете изменить свои персональные данные
-        </div>
-      </div>
+      <NavigateProfile />
       {!(location.pathname === '/profile') ? <Outlet /> :
-        <div className={styles.forms}>
+        <form className={styles.forms} onSubmit={handleSubmit}>
           <div className={styles.input_box}>
             <Input
               type={'text'}
@@ -94,12 +79,12 @@ export const Profile = () => {
               extraClass="mb-6"
             />
             <div>
-              {!(JSON.stringify(initialState) === JSON.stringify(form)) && (
+              {isEdit && (
                 <div className={styles.actions}>
                   <span onClick={cancel} className={styles.link}>
                     Отмена
                   </span>
-                  <Button onClick={() => onClickPatch(form)} htmlType="button" type="primary" size="medium" extraClass="ml-6">
+                  <Button htmlType="submit" type="primary" size="medium" extraClass="ml-6">
                     Сохранить
                   </Button>
                 </div>
@@ -107,7 +92,7 @@ export const Profile = () => {
             </div>
           </div>
 
-        </div>}
+        </form>}
 
     </div>
   );

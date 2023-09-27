@@ -9,47 +9,6 @@
     background: var(--background-alt);
 }
 
-.navigation {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    left: 340px;
-    top: 228px;
-    width: 320px;
-    background: var(--background-alt);
-}
-
-.navigation span {
-    height: 64px;
-    display: flex;
-    align-items: center;
-}
-
-.navigation_main {
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.navigation_box {
-    height: 48px;
-    composes: text_type_main-default from global;
-    
-    color: #8585AD;
-}
-
-.active {
-    text-decoration: none;
-    composes: text_color_primary from global;
-}
-
-.inactive {
-    text-decoration: none;
-    composes: text_color_inactive from global;
-    cursor: pointer;
-}
-
 .link {
     composes: text_type_main-default from global;
     color: blue;

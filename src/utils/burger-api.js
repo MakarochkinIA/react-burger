@@ -4,11 +4,6 @@ import { NORMA_API } from "./constants";
 export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
-function addHeaders(props) {
-    return {
-      ...props,
-    };
-  }
 
 export function getIngredientsRequest() {
     return fetch(`${NORMA_API}/ingredients/`)
@@ -67,7 +62,10 @@ export const userRelated = async (url, form) => {
 export function getOrderRequest(props) {
   return fetchWithRefresh(`${NORMA_API}/orders/`, {
       method: "POST",
-      headers: addHeaders({ "Content-Type": "application/json" }),
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: localStorage.getItem('accessToken')
+      },
       body: `{"ingredients": ${props}}`,
   });
 }

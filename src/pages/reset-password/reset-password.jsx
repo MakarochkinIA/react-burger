@@ -4,6 +4,7 @@ import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burg
 import styles from './reset-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { RESET_PASSWORD } from "../../utils/constants";
+import { validateForm } from "../../utils/utils";
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
@@ -12,19 +13,33 @@ export const ResetPassword = () => {
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const onClick = () => {
-      return userRelated(RESET_PASSWORD, form).then((res) => {
-        if (res && res.success) {
-            localStorage.removeItem('reset')
-            navigate('/login')
-        }
-      });;
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (validateForm(form)) {
+        return userRelated(RESET_PASSWORD, form).then((res) => {
+          if (res && res.success) {
+              localStorage.removeItem('reset')
+              navigate('/login')
+          }
+        });
+      } else {
+        alert('Заполните все поля формы');
+      }
     };
+
+    const toLogin = () => {
+      localStorage.removeItem('reset')
+      navigate("/login")
+    }
+
+    if (!reset) {
+      return <Navigate to="/" />
+    }
 
     return (
       <div className={styles.main}>
-          {!reset && <Navigate to="/" />}
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
+          <form className={styles.form_box} onSubmit={handleSubmit}>
           <div className={styles.input_box}>
             <PasswordInput
               onChange={onChange}
@@ -45,13 +60,14 @@ export const ResetPassword = () => {
               extraClass="mb-6"
             />
           </div>
-          <Button onClick={onClick} htmlType="button" type="primary" size="large" extraClass="mb-20">
+          <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
             Восстановить
           </Button>
+          </form>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
-            <span className={styles.link} onClick={() => navigate("/login")}>
-              {' Сохранить'}
+            <span className={styles.link} onClick={toLogin}>
+              {' Войти'}
             </span>
           </span>
       </div>

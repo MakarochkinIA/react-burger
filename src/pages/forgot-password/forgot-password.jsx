@@ -4,6 +4,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from './forgot-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { FORGOT_PASSWORD } from "../../utils/constants";
+import { validateForm } from "../../utils/utils";
 
 export const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -11,18 +12,24 @@ export const ForgotPassword = () => {
     const onChange = e => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const onClick = () => {
-        return userRelated(FORGOT_PASSWORD, form).then((res) => {
-          if (res && res.success) {
-              localStorage.setItem("reset", true);
-              navigate('/reset-password')
-          }
-        });;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validateForm(form)) {
+          return userRelated(FORGOT_PASSWORD, form).then((res) => {
+            if (res && res.success) {
+                localStorage.setItem("reset", true);
+                navigate('/reset-password')
+            }
+          });
+      } else {
+          alert('Заполните все поля формы');
+      }
     };
 
     return (
       <div className={styles.main}>
           <span className="text text_type_main-medium mb-6">Восстановление пароля</span>
+          <form className={styles.form_box} onSubmit={handleSubmit}>
           <div className={styles.input_box}>
             <EmailInput
               onChange={onChange}
@@ -33,9 +40,10 @@ export const ForgotPassword = () => {
               extraClass="mb-6"
             />
           </div>
-          <Button onClick={onClick} htmlType="button" type="primary" size="large" extraClass="mb-20">
+          <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
             Восстановить
           </Button>
+          </form>
           <span className="text text_type_main-default text_color_inactive mb-4">
             Вспомнили пароль? 
             <span className={styles.link} onClick={() => navigate("/login")}>

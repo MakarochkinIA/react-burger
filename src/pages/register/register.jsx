@@ -4,6 +4,7 @@ import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-de
 import styles from './register.module.css';
 import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/auth";
+import { validateForm } from "../../utils/utils";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -13,13 +14,20 @@ export const Register = () => {
   };
   const dispatch = useDispatch();
 
-  const onClick = (form) => {
-    dispatch(register(form));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm(form)) {
+      dispatch(register(form));
+    } else {
+      alert('Заполните все поля формы');
+    }
   }
+
 
   return (
     <div className={styles.main}>
       <span className="text text_type_main-medium mb-6">Регистрация</span>
+      <form className={styles.form_box} onSubmit={handleSubmit}>
       <div className={styles.input_box}>
         <Input
           type={'text'}
@@ -46,9 +54,10 @@ export const Register = () => {
           extraClass="mb-6"
         />
       </div>
-      <Button onClick={() => onClick(form)} htmlType="button" type="primary" size="large" extraClass="mb-20">
+      <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
         Зарегистрироваться
       </Button>
+      </form>
       <span className="text text_type_main-default text_color_inactive mb-4">
         Уже зарегистрированы?
         <span className={styles.link} onClick={() => navigate("/login")}>
