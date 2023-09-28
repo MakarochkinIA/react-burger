@@ -33,7 +33,7 @@ export const Register = () => {
           type={'text'}
           placeholder={'Имя'}
           onChange={onChange}
-          value={form.value}
+          value={form.name}
           name={'name'}
           error={false}
           errorText={'Ошибка'}
