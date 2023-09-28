@@ -8,6 +8,9 @@ export const checkResponse = (res) => {
 export function getIngredientsRequest() {
     return fetch(`${NORMA_API}/ingredients/`)
         .then(checkResponse)
+        .catch((error) => {
+          alert(error.message);
+      });
 }
 
 
@@ -56,7 +59,10 @@ export const userRelated = async (url, form) => {
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(form)
-    }).then(checkResponse);
+    }).then(checkResponse)
+      .catch((error) => {
+        alert(error.message);
+    });
 };
 
 export function getOrderRequest(props) {

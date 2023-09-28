@@ -11,6 +11,7 @@ import {
     ADD_INGREDIENT,
   } from '../../services/actions/current-ingredients';
 import { v4 as uuid } from 'uuid';
+import OrderStub from './order-details/order-stub/order-stub'
 
 
 const BurgerConstructor = () => {
@@ -75,6 +76,10 @@ const BurgerConstructor = () => {
                 </Button>
 
             </div>
+            {detailsVisible && orderRequest &&
+                <Modal onClose={closeDetails}>
+                    <OrderStub />
+                </Modal>}
             {detailsVisible && !orderRequest && !orderFailed && order.number &&
                 <Modal onClose={closeDetails}>
                     <OrderDetails />
