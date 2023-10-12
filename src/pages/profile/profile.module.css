@@ -1,0 +1,27 @@
+.forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 720px;
+    top: 228px;
+    width: 480px;
+    background: var(--background-alt);
+}
+
+.link {
+    composes: text_type_main-default from global;
+    color: blue;
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input_box {
+    display: flex;
+    flex-direction: column;
+}

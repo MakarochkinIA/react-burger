@@ -1,0 +1,13 @@
+.flex_container {
+    display: flex;
+    margin-left: 340px;
+}
+
+.pre_show {
+    margin-right: 340px;
+    position: fixed;
+    top: 50%;
+    left: 46%;
+    text-align: center;
+    composes: text text_type_main-medium from global 
+  }
