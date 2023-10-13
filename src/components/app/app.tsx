@@ -25,6 +25,7 @@ function App() {
     navigate(-1);
   };
   useEffect(() => {
+    //@ts-ignore
     dispatch(checkUserAuth());
   }, []);
 

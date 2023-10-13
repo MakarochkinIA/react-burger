@@ -5,7 +5,7 @@ import { Logo, ProfileIcon, ListIcon, BurgerIcon  } from '@ya.praktikum/react-de
 const AppHeader = () => {
 
     const location = useLocation();
-    const isRouteActive = (path) => location.pathname.split('/')[1] === path.split('/')[1];
+    const isRouteActive = (path: string) => location.pathname.split('/')[1] === path.split('/')[1];
     return (
         <header className={styles.header}>
             <div className={styles.header_content}>

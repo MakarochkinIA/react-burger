@@ -1,8 +1,8 @@
 import { NORMA_API } from "./constants";
 
 
-export const checkResponse = (res) => {
-    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+export const checkResponse = (res: Response) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export function getIngredientsRequest() {
@@ -26,20 +26,30 @@ export const refreshToken = () => {
     }).then(checkResponse);
   };
 
-  export const fetchWithRefresh = async (url, options) => {
+  export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
       const res = await fetch(url, options);
       return await checkResponse(res);
     } catch (err) {
-      if (err.message === "jwt expired") {
+      if (err instanceof Error && err.message === "jwt expired") {
         const refreshData = await refreshToken();
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
         localStorage.setItem("refreshToken", refreshData.refreshToken);
         localStorage.setItem("accessToken", refreshData.accessToken);
-        options.headers.authorization = refreshData.accessToken;
-        const res = await fetch(url, options);
+  
+        // Копируем объект options, чтобы избежать изменений оригинала
+        const updatedOptions: RequestInit = { ...options };
+        
+        if (updatedOptions.headers) {
+          updatedOptions.headers = {
+            ...updatedOptions.headers,
+            authorization: refreshData.accessToken
+          };
+        }
+  
+        const res = await fetch(url, updatedOptions);
         return await checkResponse(res);
       } else {
         return Promise.reject(err);
@@ -47,7 +57,7 @@ export const refreshToken = () => {
     }
   };
 
-export const userRelated = async (url, form) => {
+export const userRelated = async (url: string, form: { [key: string]: string } ) => {
     return await fetch(`${NORMA_API}/${url}`, {
         method: 'POST',
         mode: 'cors',
@@ -65,13 +75,13 @@ export const userRelated = async (url, form) => {
     });
 };
 
-export function getOrderRequest(props) {
+export function getOrderRequest(props: string) {
   return fetchWithRefresh(`${NORMA_API}/orders/`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        authorization: localStorage.getItem('accessToken')
-      },
-      body: `{"ingredients": ${props}}`,
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: localStorage.getItem('accessToken') || '',
+    },
+    body: JSON.stringify({ ingredients: props }),
   });
 }

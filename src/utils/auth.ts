@@ -11,32 +11,32 @@ const getUser = async () =>
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('accessToken')
+      authorization: localStorage.getItem('accessToken') || ''
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer'
   });
 
-const patchUser = async (form) =>
-await fetchWithRefresh(`${NORMA_API}/auth/user`, {
-  method: 'PATCH',
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: localStorage.getItem('accessToken')
-  },
-  redirect: 'follow',
-  referrerPolicy: 'no-referrer',
-  body: JSON.stringify(form)
-});
+const patchUser = async (form: { [key: string]: string }) =>
+  await fetchWithRefresh(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('accessToken') || ''
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(form)
+  });
 
-const login = async form => {
+const login = async (form: { [key: string]: string }) => {
     return userRelated(LOGIN, form)
 };
 
-const register = async form => {
+const register = async (form: { [key: string]: string }) => {
   return userRelated(REGISTER, form)
 };
 
