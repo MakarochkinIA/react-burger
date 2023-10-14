@@ -1,23 +1,24 @@
-import {useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FC, useState, ChangeEvent, FormEvent } from "react";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { FORGOT_PASSWORD } from "../../utils/constants";
 import { validateForm } from "../../utils/utils";
+import { TForm } from "../../utils/types";
 
-export const ForgotPassword = () => {
+const ForgotPassword: FC = () => {
     const navigate = useNavigate();
-    const [form, setValue] = useState({ email: ''});
-    const onChange = e => {
+    const [form, setValue] = useState<Omit<TForm, 'name' | 'password'>>({ email: '' });
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setValue({ ...form, [e.target.name]: e.target.value });
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (validateForm(form)) {
           return userRelated(FORGOT_PASSWORD, form).then((res) => {
             if (res && res.success) {
-                localStorage.setItem("reset", true);
+                localStorage.setItem("reset", "true");
                 navigate('/reset-password')
             }
           });
@@ -51,5 +52,7 @@ export const ForgotPassword = () => {
             </span>
           </span>
       </div>
-      );
+    );
 }
+
+export default ForgotPassword;

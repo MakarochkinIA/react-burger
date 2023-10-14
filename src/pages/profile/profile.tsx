@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, FC, ChangeEvent, FormEvent, FocusEvent } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
 import { patchUser } from "../../services/actions/auth";
@@ -10,7 +10,7 @@ interface IUser {
   name: string;
 }
 
-export const Profile: React.FC = () => {
+export const Profile: FC = () => {
   const dispatch = useDispatch();
   const [fieldDisabled, setDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -23,18 +23,18 @@ export const Profile: React.FC = () => {
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
-  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onBlur = (e: FocusEvent<HTMLInputElement>) => {
     setDisabled(true);
   };
 
   const initialState = { email: user.email, password: "", name: user.name };
   const [form, setValue] = useState(initialState);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
     setIsEdit(true);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     //@ts-ignore
     dispatch(patchUser(form));
     setIsEdit(false);

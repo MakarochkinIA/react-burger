@@ -1,22 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, FC, ChangeEvent, FormEvent } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './register.module.css';
 import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/auth";
 import { validateForm } from "../../utils/utils";
+import { TForm } from "../../utils/types";
 
-export const Register = () => {
+export const Register: FC = () => {
   const navigate = useNavigate();
-  const [form, setValue] = useState({ email: '', password: '', name: '' });
-  const onChange = e => {
+  const [form, setValue] = useState<TForm>({ email: '', password: '', name: '' });
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm(form)) {
+      //@ts-ignore
       dispatch(register(form));
     } else {
       alert('Заполните все поля формы');

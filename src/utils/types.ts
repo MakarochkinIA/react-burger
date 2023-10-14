@@ -17,3 +17,10 @@ export interface BunIngredient {
     bun: Ingredient;
     ingredients: Ingredient[];
   }
+
+
+export type TForm = {
+    password: string;
+    name: string;
+    email: string;
+}
