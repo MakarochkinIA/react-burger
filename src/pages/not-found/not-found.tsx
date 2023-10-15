@@ -19,3 +19,4 @@ export const NotFound404: FC = () => {
     </div>
   );
 }
+
