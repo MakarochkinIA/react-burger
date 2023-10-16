@@ -68,3 +68,7 @@ export interface ProtectedProps {
     onlyUnAuth?: boolean;
     component: ReactNode;
   }
+
+ export interface ConstructorItemProps {
+   onDropHandler: (item: any) => void;
+ }
