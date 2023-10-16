@@ -10,23 +10,28 @@ import { getOrder } from '../../services/actions/order';
 import { ADD_INGREDIENT } from '../../services/actions/current-ingredients';
 import { v4 as uuid } from 'uuid';
 import OrderStub from './order-details/order-stub/order-stub';
+import { Ingredient } from '../../utils/types';
 
 const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [detailsVisible, setVisible] = useState(false);
-    const { bun, ingredients } = useSelector((state: any) => state.constructorIngredients);
-    const { user, isAuthChecked } = useSelector((state: any) => state.user);
-    const { orderRequest, orderFailed, order } = useSelector((state: any) => state.order);
+    //@ts-ignore
+    const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
+    //@ts-ignore
+    const { user, isAuthChecked } = useSelector((state) => state.user);
+    //@ts-ignore
+    const { orderRequest, orderFailed, order } = useSelector((state) => state.order);
 
-    const getIds = (bun: any, ingredients: any) => {
-        const ids = ingredients.map((item: any) => item._id);
+    const getIds = (bun: Ingredient, ingredients: Ingredient[]) => {
+        const ids = ingredients.map((item) => item._id);
         return JSON.stringify([...ids, bun._id]);
     };
 
     const getTotalCost = useCallback(
-        (bun: any, ingredients: any) => {
-            const sum = ingredients.reduce((totalCost: number, currentItem: any) => {
+        (bun: Ingredient, ingredients: Ingredient[]) => {
+            //@ts-ignore
+            const sum = ingredients.reduce((totalCost: number, currentItem) => {
                 return totalCost + currentItem.price;
             }, 0);
             const totalCost = Object.keys(bun).length > 0 ? sum + 2 * bun.price : sum;
@@ -49,7 +54,7 @@ const BurgerConstructor: FC = () => {
         setVisible(false);
     };
 
-    const handleDrop = (item: any) => {
+    const handleDrop = (item: Ingredient) => {
         dispatch({
             type: ADD_INGREDIENT,
             ingredient: { ...item, key: uuid() },

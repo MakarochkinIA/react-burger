@@ -7,10 +7,8 @@ import { useDrag } from "react-dnd";
 import { getCounter } from '../../../../utils/utils';
 import { Ingredient } from '../../../../utils/types';
 import { ADD_CURRENT_INGREDIENT } from '../../../../services/actions/ingredient';
+import { IngredientItemProps } from '../../../../utils/types';
 
-interface IngredientItemProps {
-  item: Ingredient;
-}
 
 const IngredientItem: FC<IngredientItemProps> = ({ item }) => {
   const dispatch = useDispatch();

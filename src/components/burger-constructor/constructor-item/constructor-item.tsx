@@ -1,7 +1,6 @@
 import { useCallback, FC } from 'react';
 import styles from './constructor-item.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
 import ConstructorElementEmpty from '../constructor-element-empty/constructor-element-empty';
@@ -9,10 +8,8 @@ import {
   DELETE_INGREDIENT,
 } from '../../../services/actions/current-ingredients';
 import MainElements from './main-elements/main-elements';
+import { ConstructorItemProps, Ingredient } from '../../../utils/types';
 
-interface ConstructorItemProps {
-  onDropHandler: (item: any) => void;
-}
 
 const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
   const dispatch = useDispatch();
@@ -87,7 +84,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
   const content = useCallback(() => {
     return ingredients.length !== 0 ? (
       <div className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ borderColor: isHoverMain ? 'blue' : 'transparent' }}>
-        {ingredients.map((item: any, index: number) => (
+        {ingredients.map((item: Ingredient & {key: string}, index: number) => (
           <MainElements key={item.key} index={index} item={item} handleClose={handleClose} />
         ))}
       </div>

@@ -3,21 +3,9 @@ import styles from './main-elements.module.css';
 import { useDispatch } from 'react-redux';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag, DropTargetMonitor, XYCoord } from 'react-dnd';
-import { Ingredient } from '../../../../utils/types';
 import { MOVE_INGREDIENT } from '../../../../services/actions/current-ingredients';
-
-interface MainElementsProps {
-    index: number;
-    item: Ingredient;
-    handleClose: (item: Ingredient) => void;
-}
-
-interface DragItem {
-    index: number;
-    id: string;
-    type: string;
-}
-
+import { MainElementsProps } from '../../../../utils/types';
+import { DragItem } from '../../../../utils/types';
 
 const MainElements: FC<MainElementsProps> = ({ index, item, handleClose }) => {
     const ref = useRef<HTMLDivElement>(null);

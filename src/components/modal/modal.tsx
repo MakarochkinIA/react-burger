@@ -1,16 +1,12 @@
-import { useEffect, FC, ReactNode } from 'react';
+import { useEffect, FC } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal.module.css';
 import ModalOverlay from './modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ModalProps } from '../../utils/types';
 
 const modalRoot = document.getElementById("react-modals");
 
-interface ModalProps {
-  children: ReactNode;
-  header?: string;
-  onClose: () => void;
-}
 
 const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
   useEffect(() => {

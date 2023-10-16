@@ -1,8 +1,9 @@
+import {FC} from 'react'
 import styles from './app-header.module.css';
 import { NavLink, useLocation } from "react-router-dom";
 import { Logo, ProfileIcon, ListIcon, BurgerIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
     const location = useLocation();
     const isRouteActive = (path: string) => location.pathname.split('/')[1] === path.split('/')[1];

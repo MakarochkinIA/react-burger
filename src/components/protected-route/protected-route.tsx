@@ -1,11 +1,9 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { ProtectedProps } from "../../utils/types";
 
-interface ProtectedProps {
-  onlyUnAuth?: boolean;
-  component: ReactNode;
-}
+
 
 const Protected: FC<ProtectedProps> = ({ onlyUnAuth = false, component }) => {
   //@ts-ignore

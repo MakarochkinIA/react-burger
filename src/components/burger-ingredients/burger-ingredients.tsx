@@ -8,7 +8,8 @@ import { Ingredient } from '../../utils/types';
 const IngredientDetails: FC = () => {
   const location = useLocation();
   const { ingredient: stateIngredient } = useSelector(
-    (state: any) => state.currentIngredient
+    //@ts-ignore
+    (state) => state.currentIngredient
   );
   const [ingredient, setIngredient] = useState<Ingredient>(stateIngredient);
 

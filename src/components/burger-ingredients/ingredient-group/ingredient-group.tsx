@@ -1,12 +1,8 @@
 import React from 'react';
-import { Ingredient } from '../../../utils/types';
 import styles from './ingredient-group.module.css';
 import IngredientItem from './ingredient-item/ingredient-item';
+import { IngredientGroupProps } from '../../../utils/types';
 
-interface IngredientGroupProps {
-  name: string;
-  ingredients: Ingredient[];
-}
 
 const IngredientGroup: React.FC<IngredientGroupProps> = ({ name, ingredients }) => {
   return (

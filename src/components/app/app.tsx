@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import {useNavigate, useLocation} from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, FC } from "react";
 import AppHeader from "../app-header/app-header";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
@@ -16,7 +16,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { NotFound404 } from "../../pages/not-found/not-found";
 
 
-function App() {
+const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;

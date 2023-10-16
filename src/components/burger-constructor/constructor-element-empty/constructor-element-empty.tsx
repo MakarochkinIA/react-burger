@@ -1,11 +1,6 @@
 import {FC} from 'react';
 import styles from './constructor-element-empty.module.css';
-
-interface ConstructorElementEmptyProps {
-  type?: '' | 'top' | 'bottom';
-  text: string;
-  extraClass?: React.CSSProperties;
-}
+import { ConstructorElementEmptyProps } from '../../../utils/types';
 
 const ConstructorElementEmpty: FC<ConstructorElementEmptyProps> = ({
   type = '',

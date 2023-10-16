@@ -4,11 +4,6 @@ import styles from "./profile.module.css";
 import { patchUser } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
-interface IUser {
-  email: string;
-  password: string;
-  name: string;
-}
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
