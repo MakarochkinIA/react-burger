@@ -19,7 +19,10 @@ export const getUser = () => {
   return (dispatch) => {
     return auth.getUser().then((res) => {
       dispatch(setUser(res.user));
-    });
+    })
+    .catch((error) => {
+      alert(error.message);
+    });;
   };
 };
 
@@ -40,12 +43,16 @@ export const userRelated = (func, form) => {
                 type: GET_USER_FAILED
             });
         }
-    });
+    })
+    .catch((error) => {
+      alert(error.message);
+    });;
   };
 };
 
 export const login = (form) => {
   return userRelated(auth.login, form)
+    
 }
 
 export const register = (form) => {
@@ -66,6 +73,9 @@ export const patchUser = (form) => {
                 type: GET_USER_FAILED
             });
         }
+    })
+    .catch((error) => {
+      alert(error.message);
     });
   };
 };
@@ -93,6 +103,9 @@ export const logout = () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       dispatch(setUser(null));
+    })
+    .catch((error) => {
+      alert(error.message);
     });
   };
 };

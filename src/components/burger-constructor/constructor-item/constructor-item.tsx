@@ -1,5 +1,5 @@
 import { useCallback, FC } from 'react';
-import styles from './constructor-item.module.css';
+import styles from './contructor-item.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';

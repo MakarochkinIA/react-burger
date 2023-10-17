@@ -21,6 +21,9 @@ export function getOrder(props) {
             type: GET_ORDER_FAILED
           });
         }
+      })
+      .catch((error) => {
+        alert(error.message);
       });
     };
   }

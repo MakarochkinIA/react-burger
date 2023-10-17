@@ -7,10 +7,7 @@ export const checkResponse = (res: Response) => {
 
 export function getIngredientsRequest() {
     return fetch(`${NORMA_API}/ingredients/`)
-        .then(checkResponse)
-        .catch((error) => {
-          alert(error.message);
-      });
+        .then(checkResponse);
 }
 
 
@@ -69,10 +66,7 @@ export const userRelated = async (url: string, form: { [key: string]: string } )
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(form)
-    }).then(checkResponse)
-      .catch((error) => {
-        alert(error.message);
-    });
+    }).then(checkResponse);
 };
 
 export function getOrderRequest(props: string) {
