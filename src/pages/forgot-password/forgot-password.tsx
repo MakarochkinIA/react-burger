@@ -1,18 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { FC, useState, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { FORGOT_PASSWORD } from "../../utils/constants";
 import { validateForm } from "../../utils/utils";
-import { TForm } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 const ForgotPassword: FC = () => {
     const navigate = useNavigate();
-    const [form, setValue] = useState<Omit<TForm, 'name' | 'password'>>({ email: '' });
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setValue({ ...form, [e.target.name]: e.target.value });
-    };
+    const {values: form, handleChange} = useForm({ email: '', password: '' });
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (validateForm(form)) {
@@ -33,7 +30,7 @@ const ForgotPassword: FC = () => {
           <form className={styles.form_box} onSubmit={handleSubmit}>
           <div className={styles.input_box}>
             <EmailInput
-              onChange={onChange}
+              onChange={handleChange}
               name={'email'}
               placeholder="Укажите e-mail"
               value={form.email}

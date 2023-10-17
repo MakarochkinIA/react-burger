@@ -1,22 +1,17 @@
 import { useNavigate, Navigate } from "react-router-dom";
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './reset-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { RESET_PASSWORD } from "../../utils/constants";
 import { validateForm } from "../../utils/utils";
-import { TForm } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
-type TFormToken = Omit<TForm, 'email'| 'name'> & {token: string} 
 
 export const ResetPassword: FC = () => {
   const navigate = useNavigate();
   const reset = localStorage.getItem('reset');
-  const [form, setValue] = useState<TFormToken>({ token: '', password: '' });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values: form, handleChange} = useForm({ token: '', password: '' });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +42,7 @@ export const ResetPassword: FC = () => {
       <form className={styles.form_box} onSubmit={handleSubmit}>
         <div className={styles.input_box}>
           <PasswordInput
-            onChange={onChange}
+            onChange={handleChange}
             value={form.password}
             placeholder="Введите новый пароль"
             name={'password'}
@@ -56,7 +51,7 @@ export const ResetPassword: FC = () => {
           <Input
             type={'text'}
             placeholder={'Введите код из письма'}
-            onChange={onChange}
+            onChange={handleChange}
             value={form.token}
             name={'token'}
             error={false}

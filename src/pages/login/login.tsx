@@ -1,19 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 import { useDispatch } from "react-redux";
 import { login } from "../../services/actions/auth";
 import { validateForm } from "../../utils/utils";
-import { TForm } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 export const Login: FC = () => {
   const navigate = useNavigate();
-  const [form, setValue] = useState<Omit<TForm, 'name'>>({ email: '', password: '' });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values: form, handleChange} = useForm({ email: '', password: '' });
 
   const dispatch = useDispatch();
 
@@ -33,14 +29,14 @@ export const Login: FC = () => {
       <form className={styles.form_box} onSubmit={handleSubmit}>
         <div className={styles.input_box}>
           <EmailInput
-            onChange={onChange}
+            onChange={handleChange}
             name={'email'}
             value={form.email}
             isIcon={false}
             extraClass="mb-6"
           />
           <PasswordInput
-            onChange={onChange}
+            onChange={handleChange}
             value={form.password}
             name={'password'}
             extraClass="mb-6"

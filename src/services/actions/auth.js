@@ -32,7 +32,6 @@ export const userRelated = (func, form) => {
         type: GET_USER_REQUEST
     });
     return func(form).then((res) => {
-        console.log('userRelated');
         if (res && res.success) {
             localStorage.setItem("accessToken", res.accessToken);
             localStorage.setItem("refreshToken", res.refreshToken);
