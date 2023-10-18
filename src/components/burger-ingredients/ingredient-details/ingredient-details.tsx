@@ -2,7 +2,6 @@ import { useState, useEffect, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
-import { getIngredientsRequest } from '../../../utils/burger-api';
 import { Ingredient } from '../../../utils/types';
 
 const IngredientDetails: FC = () => {
@@ -11,19 +10,14 @@ const IngredientDetails: FC = () => {
     //@ts-ignore
     (state) => state.currentIngredient
   );
+  const { ingredients } = useSelector(
+    //@ts-ignore
+    (state) => state.ingredients
+);
   const [ingredient, setIngredient] = useState<Ingredient>(stateIngredient);
-
-  useEffect(() => {
-    if (typeof ingredient === 'object' && Object.keys(ingredient).length === 0) {
-      getIngredientsRequest()
-        .then((res) => {
-          const foundIngredient = res.data.find(
-            (item: Ingredient) => item._id === location.pathname.split('/')[2]
-          );
-          setIngredient(foundIngredient);
-        });
-    }
-  }, [ingredient, location.pathname]);
+  useEffect(() => {    
+    setIngredient(ingredients.find((item: Ingredient) => item._id === location.pathname.split('/')[2])) 
+  }, [ingredients, location.pathname]);
 
   return (
     <>
@@ -47,7 +41,7 @@ const IngredientDetails: FC = () => {
             <p className='text text_type_main-medium mb-8'>{ingredient.name}</p>
             <div className={`${styles.data} mb-15`}>
               <div className={styles.data_item}>
-                <p className='text text_type_main-default'>Калории, ккал</p>
+                <p className='text text_type_main-default'>Калории,ккал</p>
                 <p className='text text_type_digits-default'>{ingredient.calories}</p>
               </div>
               <div className={styles.data_item}>

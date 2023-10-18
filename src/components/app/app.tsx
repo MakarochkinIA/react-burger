@@ -14,6 +14,8 @@ import { Profile } from "../../pages/profile/profile";
 import { checkUserAuth } from "../../services/actions/auth";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { NotFound404 } from "../../pages/not-found/not-found";
+import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 
 
 const App: FC = () => {
@@ -22,12 +24,19 @@ const App: FC = () => {
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
   const handleModalClose = () => {
+    dispatch({
+        type: DELETE_CURRENT_INGREDIENT,
+    });
     navigate(-1);
   };
+
+
   useEffect(() => {
     //@ts-ignore
     dispatch(checkUserAuth());
-  }, []);
+    //@ts-ignore
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <>

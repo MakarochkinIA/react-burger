@@ -20,7 +20,7 @@ const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
     };
-  }, [onClose]);
+  }, []);
 
   return ReactDOM.createPortal(
     (

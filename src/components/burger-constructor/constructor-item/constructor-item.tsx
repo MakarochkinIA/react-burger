@@ -15,8 +15,8 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
   const dispatch = useDispatch();
   //@ts-ignore
   const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
-  //@ts-ignore
-  const handleClose = (item) => {
+  
+  const handleClose = (item: Ingredient) => {
     dispatch({
       type: DELETE_INGREDIENT,
       ingredient: item,

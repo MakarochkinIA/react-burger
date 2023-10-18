@@ -25,7 +25,7 @@ const BurgerConstructor: FC = () => {
 
     const getIds = (bun: Ingredient, ingredients: Ingredient[]) => {
         const ids = ingredients.map((item) => item._id);
-        return JSON.stringify([...ids, bun._id]);
+        return [...ids, bun._id];
     };
 
     const getTotalCost = useCallback(

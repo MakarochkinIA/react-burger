@@ -3,8 +3,9 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    left: 640px;
-    top: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 720px;
     background: var(--background-alt);
     z-index: 3;

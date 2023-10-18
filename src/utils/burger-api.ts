@@ -27,8 +27,9 @@ export const refreshToken = () => {
     try {
       const res = await fetch(url, options);
       return await checkResponse(res);
-    } catch (err) {
-      if (err instanceof Error && err.message === "jwt expired") {
+    } catch (err: any) {
+
+      if (err.message === "jwt expired") {
         const refreshData = await refreshToken();
         if (!refreshData.success) {
           return Promise.reject(refreshData);
@@ -36,7 +37,6 @@ export const refreshToken = () => {
         localStorage.setItem("refreshToken", refreshData.refreshToken);
         localStorage.setItem("accessToken", refreshData.accessToken);
   
-        // Копируем объект options, чтобы избежать изменений оригинала
         const updatedOptions: RequestInit = { ...options };
         
         if (updatedOptions.headers) {
@@ -70,6 +70,7 @@ export const userRelated = async (url: string, form: { [key: string]: string } )
 };
 
 export function getOrderRequest(props: string) {
+  
   return fetchWithRefresh(`${NORMA_API}/orders/`, {
     method: "POST",
     headers: {

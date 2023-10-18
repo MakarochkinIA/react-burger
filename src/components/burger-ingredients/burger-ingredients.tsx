@@ -3,12 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientGroup from './ingredient-group/ingredient-group';
-import IngredientDetails from './ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
-import { getIngredients } from '../../services/actions/burger-ingredients';
-import {
-    DELETE_CURRENT_INGREDIENT
-} from '../../services/actions/ingredient';
 import { Ingredient } from '../../utils/types';
 
 const BurgerIngredients: FC = () => {
@@ -18,14 +12,6 @@ const BurgerIngredients: FC = () => {
         (state) => state.ingredients
     );
     const [distance, setDistance] = useState<{[key: string]: number}>({});
-
-    useEffect(
-        () => {
-          //@ts-ignore
-            dispatch(getIngredients());
-        },
-        [dispatch]
-    );
 
     const categoriesRefs: {[key: string]: RefObject<HTMLLIElement>} = {
         buns: useRef(null),
@@ -73,14 +59,6 @@ const BurgerIngredients: FC = () => {
     const main = ingredients.filter((item: Ingredient) => item.type === 'main');
 
     const [current, setCurrent] = useState('buns');
-    const [detailsVisible, setVisible] = useState(false);
-
-    const closeDetails = () => {
-        dispatch({
-            type: DELETE_CURRENT_INGREDIENT,
-        });
-        setVisible(false);
-    }
 
     return (
         <>
@@ -123,10 +101,6 @@ const BurgerIngredients: FC = () => {
                             />
                         </li>
                     </ul>
-                    {detailsVisible &&
-                        <Modal header='Детали ингредиента' onClose={closeDetails}>
-                            <IngredientDetails />
-                        </Modal>}
                 </div>)}
         </>
     );

@@ -1,11 +1,13 @@
+import { Outlet, useLocation } from "react-router-dom";
 import { useState, useRef, FC, ChangeEvent, FormEvent, FocusEvent } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
 import { patchUser } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-
+import { NavigateProfile } from "./navigate-profile/navigate-profile";
 
 export const Profile: FC = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [fieldDisabled, setDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -43,6 +45,8 @@ export const Profile: FC = () => {
 
   return (
     <div className={styles.profile}>
+      <NavigateProfile />
+      {!(location.pathname === '/profile') ? <Outlet /> :
       <form className={styles.forms} onSubmit={handleSubmit}>
         <div className={styles.input_box}>
           <Input
@@ -87,7 +91,7 @@ export const Profile: FC = () => {
             </div>
           )}
         </div>
-      </form>
+      </form>}
     </div>
   );
 };
