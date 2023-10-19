@@ -1,4 +1,5 @@
 import { getOrderRequest } from '../../utils/burger-api';
+import { DELETE_ALL_INGREDIENTS } from './current-ingredients';
 
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
@@ -11,18 +12,18 @@ export function getOrder(props) {
         type: GET_ORDER_REQUEST
       });
       getOrderRequest(props).then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_ORDER_SUCCESS,
-            order: res.order
-          });
-        } else {
-          dispatch({
-            type: GET_ORDER_FAILED
-          });
-        }
+        dispatch({
+          type: GET_ORDER_SUCCESS,
+          order: res.order
+        });
+        dispatch({
+          type: DELETE_ALL_INGREDIENTS
+        });
       })
       .catch((error) => {
+        dispatch({
+          type: GET_ORDER_FAILED
+        });
         alert(error.message);
       });
     };

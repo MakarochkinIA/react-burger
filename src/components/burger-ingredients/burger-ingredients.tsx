@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect, FC, RefObject } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useRef, FC, RefObject } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientGroup from './ingredient-group/ingredient-group';
 import { Ingredient } from '../../utils/types';
 
 const BurgerIngredients: FC = () => {
-    const dispatch = useDispatch();
     const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(
         //@ts-ignore
         (state) => state.ingredients

@@ -2,6 +2,7 @@ import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
     MOVE_INGREDIENT,
+    DELETE_ALL_INGREDIENTS
   } from '../actions/current-ingredients';
   import update from 'immutability-helper'
 
@@ -43,6 +44,13 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: removeFirstOccurrence(state.ingredients, action.ingredient)
+            };
+        }
+        case DELETE_ALL_INGREDIENTS: {
+            return {
+                ...state,
+                ingredients: initialState.ingredients,
+                bun: initialState.bun
             };
         }
         case MOVE_INGREDIENT: {

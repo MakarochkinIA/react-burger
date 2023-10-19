@@ -44,7 +44,7 @@ export const Profile: FC = () => {
   };
 
   return (
-    <div className={styles.profile}>
+    <div>
       <NavigateProfile />
       {!(location.pathname === '/profile') ? <Outlet /> :
       <form className={styles.forms} onSubmit={handleSubmit}>

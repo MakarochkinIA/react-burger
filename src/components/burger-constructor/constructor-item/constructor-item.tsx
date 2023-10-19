@@ -79,7 +79,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
         <ConstructorElementEmpty text='Выберите булку' type={type} extraClass={borderClr(isHover)} />
       </div>
     );
-  }, [bun, isHoverTopBun, isHoverBottomBun]);
+  }, [bun, dropTopBun, dropBottomBun, isHoverTopBun, isHoverBottomBun]);
 
   const content = useCallback(() => {
     return ingredients.length !== 0 ? (
@@ -93,7 +93,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
         <ConstructorElementEmpty text='Выберите начинку' extraClass={borderClr(isHoverMain)} />
       </div>
     );
-  }, [ingredients, isHoverMain]);
+  }, [ingredients, dropMain, isHoverMain]);
 
   return (
     <div className={styles.content} >

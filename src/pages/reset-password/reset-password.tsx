@@ -17,10 +17,8 @@ export const ResetPassword: FC = () => {
     e.preventDefault();
     if (validateForm(form)) {
       return userRelated(RESET_PASSWORD, form).then((res) => {
-        if (res && res.success) {
-          localStorage.removeItem('reset');
-          navigate('/login');
-        }
+        localStorage.removeItem('reset');
+        navigate('/login');
       });
     } else {
       alert('Заполните все поля формы');

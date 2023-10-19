@@ -29,7 +29,9 @@ const AppHeader: FC = () => {
                     </NavLink>
                 </nav>
                 <div className={`${styles.logo} pt-4 pb-4`}>
-                    <Logo />
+                    <NavLink to="/">
+                        <Logo />
+                    </NavLink>
                 </div>
                 <nav className={styles.right_item}>
                     <NavLink to="/profile" className={({isActive}) =>

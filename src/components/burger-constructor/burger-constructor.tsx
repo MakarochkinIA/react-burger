@@ -42,9 +42,13 @@ const BurgerConstructor: FC = () => {
 
     const makeOrder = () => {
         if (user && isAuthChecked) {
-            //@ts-ignore
-            dispatch(getOrder(getIds(bun, ingredients)));
-            setVisible(true);
+            if (bun._id) {
+                //@ts-ignore
+                dispatch(getOrder(getIds(bun, ingredients)));
+                setVisible(true);
+            } else {
+                alert('Выберите булку')
+            }
         } else {
             navigate('/login');
         }

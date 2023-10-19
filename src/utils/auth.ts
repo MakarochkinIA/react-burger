@@ -1,5 +1,5 @@
 import { userRelated } from './burger-api'
-import { checkResponse } from './burger-api'
+import { request } from './burger-api'
 import { LOGIN, REGISTER, NORMA_API } from './constants';
 import { fetchWithRefresh } from './burger-api';
 
@@ -41,7 +41,7 @@ const register = async (form: { [key: string]: string }) => {
 };
 
 const logout = async () => {
-    return await fetch(`${NORMA_API}/auth/logout`, {
+    return await request(`auth/logout`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -54,7 +54,7 @@ const logout = async () => {
       body: JSON.stringify({
         token: localStorage.getItem('refreshToken')
       })
-    }).then(checkResponse);
+    });
   };
 
 export const auth = {

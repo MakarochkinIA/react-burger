@@ -18,12 +18,13 @@ const IngredientDetails: FC = () => {
   useEffect(() => {    
     setIngredient(ingredients.find((item: Ingredient) => item._id === location.pathname.split('/')[2])) 
   }, [ingredients, location.pathname]);
+  const notModal = !(location.state && location.state.background)
 
   return (
     <>
       {typeof ingredient === 'object' && Object.keys(ingredient).length !== 0 && (
         <>
-          {!(location.state && location.state.background) ? (
+          {notModal ? (
             <div className={styles.head}>
               <span className={`text text_type_main-large`}>
                 Детали ингредиента
@@ -32,7 +33,7 @@ const IngredientDetails: FC = () => {
           ) : (
             <></>
           )}
-          <div className={styles.ingredient_details}>
+          <div className= {notModal ? styles.ingredient_details : styles.ingredient_details_modal}>
             <img
               alt='Нет изображения'
               src={ingredient.image}

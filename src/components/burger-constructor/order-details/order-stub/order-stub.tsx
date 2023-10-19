@@ -8,6 +8,9 @@ const OrderStub: FC = () => {
             <p className='text text_type_main-large mb-8'>
                 Заказ обрабатывается
             </p>
+            <p className='text text_type_main-large mb-8'> 
+                Ожидайте
+            </p>
         </div>
     );
 }

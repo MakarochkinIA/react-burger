@@ -1,4 +1,5 @@
 import { auth } from "../../utils/auth";
+import { myAlert } from "../../utils/utils";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
@@ -21,7 +22,7 @@ export const getUser = () => {
       dispatch(setUser(res.user));
     })
     .catch((error) => {
-      alert(error.message);
+      myAlert(error)
     });;
   };
 };
@@ -32,19 +33,16 @@ export const userRelated = (func, form) => {
         type: GET_USER_REQUEST
     });
     return func(form).then((res) => {
-        if (res && res.success) {
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
-            dispatch(setUser(res.user));
-            dispatch(setAuthChecked(true));
-        } else {
-            dispatch({
-                type: GET_USER_FAILED
-            });
-        }
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      dispatch(setUser(res.user));
+      dispatch(setAuthChecked(true));
     })
     .catch((error) => {
-      alert(error.message);
+        dispatch({
+          type: GET_USER_FAILED
+      });
+      myAlert(error)
     });;
   };
 };
@@ -64,17 +62,14 @@ export const patchUser = (form) => {
         type: GET_USER_REQUEST
     });
     return auth.patchUser(form).then((res) => {
-        if (res && res.success) {
-            dispatch(setUser(res.user));
-            dispatch(setAuthChecked(true));
-        } else {
-            dispatch({
-                type: GET_USER_FAILED
-            });
-        }
+      dispatch(setUser(res.user));
+      dispatch(setAuthChecked(true));
     })
     .catch((error) => {
-      alert(error.message);
+        dispatch({
+          type: GET_USER_FAILED
+      });
+      myAlert(error)
     });
   };
 };
@@ -104,7 +99,7 @@ export const logout = () => {
       dispatch(setUser(null));
     })
     .catch((error) => {
-      alert(error.message);
+      myAlert(error);
     });
   };
 };

@@ -23,3 +23,9 @@ export const validateForm = (form: { [key: string]: string }): boolean => {
   }
   return true;
 }
+
+
+export const myAlert = (error: string | { [key: string]: string }) => {
+  typeof error === 'string' ? 
+      alert(error) : alert(error.message)
+}

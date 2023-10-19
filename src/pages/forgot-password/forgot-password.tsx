@@ -14,10 +14,8 @@ const ForgotPassword: FC = () => {
         e.preventDefault();
         if (validateForm(form)) {
           return userRelated(FORGOT_PASSWORD, form).then((res) => {
-            if (res && res.success) {
-                localStorage.setItem("reset", "true");
-                navigate('/reset-password')
-            }
+              localStorage.setItem("reset", "true");
+              navigate('/reset-password')
           });
       } else {
           alert('Заполните все поля формы');
