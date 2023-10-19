@@ -1,10 +1,10 @@
 import { userRelated } from './burger-api'
 import { request } from './burger-api'
-import { LOGIN, REGISTER, NORMA_API } from './constants';
+import { LOGIN, REGISTER } from './constants';
 import { fetchWithRefresh } from './burger-api';
 
 const getUser = async () =>
-  await fetchWithRefresh(`${NORMA_API}/auth/user`, {
+  await fetchWithRefresh(`auth/user`, {
     method: 'GET',
     mode: 'cors',
     cache: 'no-cache',
@@ -18,7 +18,7 @@ const getUser = async () =>
   });
 
 const patchUser = async (form: { [key: string]: string }) =>
-  await fetchWithRefresh(`${NORMA_API}/auth/user`, {
+  await fetchWithRefresh(`auth/user`, {
     method: 'PATCH',
     mode: 'cors',
     cache: 'no-cache',

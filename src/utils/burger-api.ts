@@ -36,7 +36,7 @@ export const refreshToken = () => request("auth/token", {
 
   export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
-      const res = await fetch(url, options);
+      const res = await fetch(`${NORMA_API}${url}`, options);
       return await checkResponse(res);
     } catch (err: any) {
 
@@ -79,7 +79,7 @@ export const userRelated = async (url: string, form: { [key: string]: string } )
 
 export function getOrderRequest(props: string) {
   
-  return fetchWithRefresh(`${NORMA_API}/orders/`, {
+  return fetchWithRefresh(`orders/`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
