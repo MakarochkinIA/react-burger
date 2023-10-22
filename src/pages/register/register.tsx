@@ -1,22 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { FC, FormEvent } from "react";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './register.module.css';
 import { useDispatch } from "react-redux";
 import { register } from "../../services/actions/auth";
 import { validateForm } from "../../utils/utils";
+import { useForm } from "../../hooks/useForm";
 
-export const Register = () => {
+export const Register: FC = () => {
   const navigate = useNavigate();
-  const [form, setValue] = useState({ email: '', password: '', name: '' });
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values: form, handleChange} = useForm({ email: '', password: '', name: '' });
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm(form)) {
+      //@ts-ignore
       dispatch(register(form));
     } else {
       alert('Заполните все поля формы');
@@ -32,7 +31,7 @@ export const Register = () => {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={onChange}
+          onChange={handleChange}
           value={form.name}
           name={'name'}
           error={false}
@@ -41,14 +40,14 @@ export const Register = () => {
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={onChange}
+          onChange={handleChange}
           name={'email'}
           value={form.email}
           isIcon={false}
           extraClass="mb-6"
         />
         <PasswordInput
-          onChange={onChange}
+          onChange={handleChange}
           value={form.password}
           name={'password'}
           extraClass="mb-6"

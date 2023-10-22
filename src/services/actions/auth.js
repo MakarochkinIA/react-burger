@@ -1,4 +1,5 @@
 import { auth } from "../../utils/auth";
+import { myAlert } from "../../utils/utils";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
@@ -19,7 +20,10 @@ export const getUser = () => {
   return (dispatch) => {
     return auth.getUser().then((res) => {
       dispatch(setUser(res.user));
-    });
+    })
+    .catch((error) => {
+      myAlert(error)
+    });;
   };
 };
 
@@ -29,23 +33,23 @@ export const userRelated = (func, form) => {
         type: GET_USER_REQUEST
     });
     return func(form).then((res) => {
-        console.log('userRelated');
-        if (res && res.success) {
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
-            dispatch(setUser(res.user));
-            dispatch(setAuthChecked(true));
-        } else {
-            dispatch({
-                type: GET_USER_FAILED
-            });
-        }
-    });
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      dispatch(setUser(res.user));
+      dispatch(setAuthChecked(true));
+    })
+    .catch((error) => {
+        dispatch({
+          type: GET_USER_FAILED
+      });
+      myAlert(error)
+    });;
   };
 };
 
 export const login = (form) => {
   return userRelated(auth.login, form)
+    
 }
 
 export const register = (form) => {
@@ -58,14 +62,14 @@ export const patchUser = (form) => {
         type: GET_USER_REQUEST
     });
     return auth.patchUser(form).then((res) => {
-        if (res && res.success) {
-            dispatch(setUser(res.user));
-            dispatch(setAuthChecked(true));
-        } else {
-            dispatch({
-                type: GET_USER_FAILED
-            });
-        }
+      dispatch(setUser(res.user));
+      dispatch(setAuthChecked(true));
+    })
+    .catch((error) => {
+        dispatch({
+          type: GET_USER_FAILED
+      });
+      myAlert(error)
     });
   };
 };
@@ -93,6 +97,9 @@ export const logout = () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       dispatch(setUser(null));
+    })
+    .catch((error) => {
+      myAlert(error);
     });
   };
 };

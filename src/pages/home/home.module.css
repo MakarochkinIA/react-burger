@@ -1,13 +1,11 @@
 .flex_container {
+    position: fixed;
+    left: 17.5%;
     display: flex;
-    margin-left: 340px;
 }
 
-.pre_show {
-    margin-right: 340px;
-    position: fixed;
-    top: 50%;
-    left: 46%;
-    text-align: center;
-    composes: text text_type_main-medium from global 
-  }
+@media screen and (max-width: 1270px) {
+    .flex_container {
+        left: calc(17.5% - 17.3%); 
+    }
+}

@@ -1,11 +1,12 @@
+import {FC} from 'react'
 import styles from './app-header.module.css';
 import { NavLink, useLocation } from "react-router-dom";
 import { Logo, ProfileIcon, ListIcon, BurgerIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
     const location = useLocation();
-    const isRouteActive = (path) => location.pathname.split('/')[1] === path.split('/')[1];
+    const isRouteActive = (path: string) => location.pathname.split('/')[1] === path.split('/')[1];
     return (
         <header className={styles.header}>
             <div className={styles.header_content}>
@@ -28,7 +29,9 @@ const AppHeader = () => {
                     </NavLink>
                 </nav>
                 <div className={`${styles.logo} pt-4 pb-4`}>
-                    <Logo />
+                    <NavLink to="/">
+                        <Logo />
+                    </NavLink>
                 </div>
                 <nav className={styles.right_item}>
                     <NavLink to="/profile" className={({isActive}) =>

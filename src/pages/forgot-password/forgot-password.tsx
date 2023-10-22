@@ -1,25 +1,21 @@
-import {useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FC, FormEvent } from "react";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
 import { userRelated } from "../../utils/burger-api";
 import { FORGOT_PASSWORD } from "../../utils/constants";
 import { validateForm } from "../../utils/utils";
+import { useForm } from "../../hooks/useForm";
 
-export const ForgotPassword = () => {
+const ForgotPassword: FC = () => {
     const navigate = useNavigate();
-    const [form, setValue] = useState({ email: ''});
-    const onChange = e => {
-      setValue({ ...form, [e.target.name]: e.target.value });
-    };
-    const handleSubmit = (e) => {
+    const {values: form, handleChange} = useForm({ email: '', password: '' });
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (validateForm(form)) {
           return userRelated(FORGOT_PASSWORD, form).then((res) => {
-            if (res && res.success) {
-                localStorage.setItem("reset", true);
-                navigate('/reset-password')
-            }
+              localStorage.setItem("reset", "true");
+              navigate('/reset-password')
           });
       } else {
           alert('Заполните все поля формы');
@@ -32,7 +28,7 @@ export const ForgotPassword = () => {
           <form className={styles.form_box} onSubmit={handleSubmit}>
           <div className={styles.input_box}>
             <EmailInput
-              onChange={onChange}
+              onChange={handleChange}
               name={'email'}
               placeholder="Укажите e-mail"
               value={form.email}
@@ -51,5 +47,7 @@ export const ForgotPassword = () => {
             </span>
           </span>
       </div>
-      );
+    );
 }
+
+export default ForgotPassword;

@@ -14,10 +14,16 @@
     flex-direction: column;
     justify-content: center;
     position: fixed;
-    left: 340px;
+    left: 17.5%;
     top: 228px;
     width: 320px;
     background: var(--background-alt);
+}
+
+@media screen and (max-width: 1450px) {
+    .navigation {
+        left: calc(17.5% - 17.3%); 
+    }
 }
 
 .navigation span {

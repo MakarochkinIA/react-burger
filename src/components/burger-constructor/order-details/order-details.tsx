@@ -1,12 +1,14 @@
+import { FC } from 'react';
 import styles from './order-details.module.css';
 import { useSelector } from 'react-redux';
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+const OrderDetails: FC = () => {
+    const { order } = useSelector(
+        //@ts-ignore
+        (state) => state.order
+    );
 
-const OrderDetails = () => {
-    const {order} = useSelector(
-        state => state.order
-    )
     return (
         <div className={styles.order_details}>
             <p className='text text_type_digits-large mb-8'>
@@ -15,7 +17,7 @@ const OrderDetails = () => {
             <p className='text text_type_main-medium mb-15'>
                 идентификатор заказа
             </p>
-            <div className={`${styles.done} mb-15`} >
+            <div className={`${styles.done} mb-15`}>
                 <CheckMarkIcon type='primary' />
             </div>
             <p className='text text_type_main-default mb-2'>
