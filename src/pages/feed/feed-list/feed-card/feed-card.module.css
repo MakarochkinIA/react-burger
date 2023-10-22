@@ -4,26 +4,21 @@
     background: var(--background);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: start;
     border-radius: 40px;
+    margin-bottom: 16px;
 }
 
-.image_container {
-    width: 64px; /* Установите желаемую ширину и высоту для контейнера */
-    height: 64px;
-    border: 2px solid #4f2778; /* Ширина и цвет рамки */
-    border-radius: 100px; /* Создаем круглую форму с помощью свойства border-radius */
-    overflow: hidden; /* Обрезаем изображение по границам контейнера */
-    position: relative; /* Позволяет наложить текст или другие элементы поверх изображения */
+.meta {
+    width: 536px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-.image_container img {
-    width: 100%;
-    height: 100%;
-    object-fit: none;
+    justify-content: space-between;
+}
 
-  }
+.name {
+    width: 536px;
+    display: flex;
+    justify-content: start;
+}
+
   
