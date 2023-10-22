@@ -3,7 +3,17 @@
     left: 17.5%;
     display: flex;
 }
+.head {
+    position: fixed;
+    left: 17.5%;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
 
+.main {
+    display: flex;
+    flex-direction: column;
+}
 @media screen and (max-width: 1270px) {
     .flex_container {
         left: calc(17.5% - 17.3%); 

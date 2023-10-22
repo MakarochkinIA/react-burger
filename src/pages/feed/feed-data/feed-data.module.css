@@ -1,0 +1,48 @@
+.main_container {
+    width: 580px;
+    height: 626px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 100px;
+    margin-left: 60px;
+}
+
+.box_container {
+    width: 580px;
+    height: 206px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.box {
+    width: 272px;
+    height: 206px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.complited {
+    width: 580px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.meta {
+    width: 536px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    width: 536px;
+    display: flex;
+    justify-content: start;
+}
+
+  

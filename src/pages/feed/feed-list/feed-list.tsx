@@ -5,11 +5,10 @@ import FeedCard from './feed-card/feed-card';
 
 const FeedList: FC = () => {
   return (
-    <div className={styles.main_container}>
-      <p className={`${styles.head} text text_type_main-large`}>
-        Лента заказов
-      </p>
+    <div className={`${styles.main_container} custom-scroll`}>
       <section>
+        <FeedCard />
+        <FeedCard />
         <FeedCard />
         <FeedCard />
       </section>

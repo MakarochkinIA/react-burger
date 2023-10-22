@@ -9,7 +9,7 @@ import Home from '../../pages/home/home';
 import {Login} from '../../pages/login/login';
 import {Register} from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
-import FeedList from "../../pages/feed/feed-list/feed-list";
+import Feed from "../../pages/feed/feed";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { Profile } from "../../pages/profile/profile";
 import { checkUserAuth } from "../../services/actions/auth";
@@ -48,7 +48,7 @@ const App: FC = () => {
         <Route path="/register" element={<OnlyUnAuth component={<Register/>} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
-        <Route path="/feed" element={<OnlyAuth component={<FeedList/>} />} />
+        <Route path="/feed" element={<OnlyAuth component={<Feed/>} />} />
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
           <Route path="orders" element={<NotFound404 />} />
           <Route path="*" element={<NotFound404 />} />
