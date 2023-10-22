@@ -2,17 +2,14 @@ import { NORMA_API } from "./constants";
 
 
 const checkResponse = (res: Response) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка ${res.status}`);
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 const checkSuccess = (res: { [key: string]: string }) => {
   if (res && res.success) {
     return res;
   }
-  return Promise.reject(`Ответ не success: ${res}`);
+  return Promise.reject(`Ответ не success: ${res.status}`);
 };
 
 export const request = (endpoint: string, options?: RequestInit) => {
@@ -24,15 +21,17 @@ export const request = (endpoint: string, options?: RequestInit) => {
 export const getIngredientsRequest = () => request("ingredients");
 
 
-export const refreshToken = () => request("auth/token", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-  body: JSON.stringify({
-    token: localStorage.getItem("refreshToken"),
-  }),
-})
+export const refreshToken = () => {
+  return fetch(`${NORMA_API}auth/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkResponse);
+};
 
   export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
@@ -42,6 +41,9 @@ export const refreshToken = () => request("auth/token", {
 
       if (err.message === "jwt expired") {
         const refreshData = await refreshToken();
+        if (!refreshData.success) {
+          return Promise.reject(refreshData);
+        }
         localStorage.setItem("refreshToken", refreshData.refreshToken);
         localStorage.setItem("accessToken", refreshData.accessToken);
   
@@ -54,7 +56,7 @@ export const refreshToken = () => request("auth/token", {
           };
         }
   
-        const res = await fetch(url, updatedOptions);
+        const res = await fetch(`${NORMA_API}${url}`, updatedOptions);
         return await checkResponse(res);
       } else {
         return Promise.reject(err);
