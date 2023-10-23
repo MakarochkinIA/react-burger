@@ -24,7 +24,18 @@
     flex-direction: column;
     justify-content: start;
 }
+.box_done {
+    width: 272px;
+    height: 206px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
 
+.box_done span {
+    color: #00CCCC;
+}
 .complited {
     width: 580px;
     height: 150px;

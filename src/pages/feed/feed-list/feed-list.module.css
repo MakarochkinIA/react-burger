@@ -1,3 +1,8 @@
 .main_container {
     margin-top: 100px;
 }
+
+.feed_list {
+    height: 772px;
+    overflow: auto;
+}

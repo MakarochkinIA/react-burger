@@ -48,7 +48,9 @@ const App: FC = () => {
         <Route path="/register" element={<OnlyUnAuth component={<Register/>} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
-        <Route path="/feed" element={<OnlyAuth component={<Feed/>} />} />
+        <Route path="/feed" element={<Feed/>}>
+          <Route path='/feed/:id' element={<Feed />} />
+        </Route>
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
           <Route path="orders" element={<NotFound404 />} />
           <Route path="*" element={<NotFound404 />} />
