@@ -1,11 +1,12 @@
 import { NORMA_API } from "./constants";
+import { Ingredient } from "./types";
 
 
 const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-const checkSuccess = (res: { [key: string]: string }) => {
+const checkSuccess = (res: any) => {
   if (res && res.success) {
     return res;
   }
@@ -79,7 +80,7 @@ export const userRelated = async (url: string, form: { [key: string]: string } )
     })
 };
 
-export function getOrderRequest(props: string) {
+export function getOrderRequest(props: string[]) {
   
   return fetchWithRefresh(`orders/`, {
     method: "POST",

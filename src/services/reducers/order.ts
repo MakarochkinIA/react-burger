@@ -5,7 +5,7 @@ import {
 
 } from '../actions/order';
 import { AppActions } from '../actions/types';
-import { TUser } from '../../utils/types';
+
 
 type TOrderState = {
     orderRequest: boolean;

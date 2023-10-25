@@ -115,5 +115,5 @@ export type AppDispatch<TReturnType = void> = (
 
 export type TUser = {
   email: string;
-  username: string;
+  name: string;
 }
