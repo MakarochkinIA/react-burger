@@ -8,17 +8,17 @@ import {
   import { AppActions } from '../actions/types';
   import { Ingredient } from '../../utils/types';
   
-  type TConstructorIngredientState = {
-      bun: Ingredient | {};
-      ingredients: Ingredient[];
-    }
+type TConstructorIngredientState = {
+    bun?: Ingredient;
+    ingredients: Array<Ingredient & {key: string}>;
+}
 
 
 const initialState: TConstructorIngredientState = {
-    bun: {},
+    bun: undefined,
     ingredients: []
 };
-function removeFirstOccurrence(arr: Ingredient[], item: Ingredient) {
+function removeFirstOccurrence(arr: Array<Ingredient & {key: string}>, item: Ingredient & {key: string}) {
     const index = arr.indexOf(item);
     const newArr = [...arr]
     if (index !== -1) {
@@ -27,7 +27,7 @@ function removeFirstOccurrence(arr: Ingredient[], item: Ingredient) {
     return newArr
   }
 
-const moveCard = (dragIndex: number, hoverIndex: number, prevState: Ingredient[]) => {
+const moveCard = (dragIndex: number, hoverIndex: number, prevState: Array<Ingredient & {key: string}>) => {
     return update(prevState, {
         $splice: [
           [dragIndex, 1],
@@ -36,7 +36,7 @@ const moveCard = (dragIndex: number, hoverIndex: number, prevState: Ingredient[]
       })
 }
 
-export const constructorIngredientsReducer = (state = initialState, action: AppActions) => {
+export const constructorIngredientsReducer = (state = initialState, action: AppActions): TConstructorIngredientState => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             return action.payload.type === 'bun' ? {

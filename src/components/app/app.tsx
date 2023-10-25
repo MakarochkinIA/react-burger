@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import {useNavigate, useLocation} from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/redux-hooks";
 import { useEffect, FC } from "react";
 import AppHeader from "../app-header/app-header";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details";
@@ -33,9 +33,7 @@ const App: FC = () => {
 
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(checkUserAuth());
-    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 

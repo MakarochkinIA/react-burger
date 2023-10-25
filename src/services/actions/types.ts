@@ -83,7 +83,7 @@ import {
 
   export interface IAddIngredientAction {
     readonly type: typeof ADD_INGREDIENT;
-    readonly payload: Ingredient;
+    readonly payload: Ingredient & {key: string};
   }
   export interface IMoveIngredientAction {
     readonly type: typeof MOVE_INGREDIENT;
@@ -91,7 +91,7 @@ import {
   }
   export interface IDeleteIngredientAction {
     readonly type: typeof DELETE_INGREDIENT;
-    readonly payload: Ingredient;
+    readonly payload: Ingredient & {key: string};
   }
   export interface IDeleteAllIngredientsAction {
     readonly type: typeof DELETE_ALL_INGREDIENTS;

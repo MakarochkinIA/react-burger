@@ -7,11 +7,11 @@ import { AppActions } from '../actions/types';
 import { Ingredient } from '../../utils/types';
 
 type TCurrentIngredientState = {
-    ingredient: Ingredient | {};
+    ingredient?: Ingredient;
   }
 
 const initialState: TCurrentIngredientState = {
-    ingredient:  {}
+    ingredient: undefined
   };
 
   export const currentIngredientReducer = (state = initialState, action: AppActions) => {

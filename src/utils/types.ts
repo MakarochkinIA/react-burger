@@ -6,8 +6,6 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook,
 } from "react-redux";
-
-// !!!!!!! ОЧЕНЬ ВАЖНО НЕ ЗАБЫТЬ ПРИ ТИПИЗАЦИИ ХУКОВ
 import type {} from "redux-thunk/extend-redux";
 import { RootState } from '../services/reducers';
 import { AppActions } from '../services/actions/types';
@@ -47,8 +45,8 @@ export interface ConstructorElementEmptyProps {
 
 export interface MainElementsProps {
     index: number;
-    item: Ingredient;
-    handleClose: (item: Ingredient) => void;
+    item: Ingredient & {key: string};
+    handleClose: (item: Ingredient & {key: string}) => void;
 }
 
 export interface DragItem {

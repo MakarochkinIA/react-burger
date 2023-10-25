@@ -10,7 +10,7 @@ import { TUser } from '../../utils/types';
 type TUserState = {
     userRequest: boolean;
     userFailed: boolean;
-    user: TUser | null;
+    user?: TUser;
     isAuthChecked: boolean;
 
   }
@@ -19,7 +19,7 @@ type TUserState = {
 const initialState: TUserState = {
     userRequest: false,
     userFailed: false,
-    user: null,
+    user: undefined,
     isAuthChecked: false,
 };
 

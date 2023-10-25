@@ -10,13 +10,13 @@ import { AppActions } from '../actions/types';
 type TOrderState = {
     orderRequest: boolean;
     orderFailed: boolean;
-    orderNumber: number | null
+    orderNumber?: number
   }
 
 const initialState: TOrderState = {
     orderRequest: false,
     orderFailed: false,
-    orderNumber: null
+    orderNumber: undefined
 };
 
 export const orderReducer = (state = initialState, action: AppActions) => {

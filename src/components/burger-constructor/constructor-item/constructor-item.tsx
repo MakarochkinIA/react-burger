@@ -1,6 +1,6 @@
 import { useCallback, FC } from 'react';
 import styles from './contructor-item.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../../hooks/redux-hooks';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
 import ConstructorElementEmpty from '../constructor-element-empty/constructor-element-empty';
@@ -13,13 +13,11 @@ import { ConstructorItemProps, Ingredient } from '../../../utils/types';
 
 const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
   const dispatch = useDispatch();
-  //@ts-ignore
   const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
-  
-  const handleClose = (item: Ingredient) => {
+  const handleClose = (item: Ingredient & {key: string}) => {
     dispatch({
       type: DELETE_INGREDIENT,
-      ingredient: item,
+      payload: item,
     });
   };
 
@@ -63,7 +61,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
     } : {
       adds: '(низ)', dropRef: dropBottomBun, isHover: isHoverBottomBun
     };
-    return Object.keys(bun).length !== 0 ? (
+    return bun ? (
       <div className={styles.buns} ref={dropRef}>
         <ConstructorElement
           type={type}
@@ -82,7 +80,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
   }, [bun, dropTopBun, dropBottomBun, isHoverTopBun, isHoverBottomBun]);
 
   const content = useCallback(() => {
-    return ingredients.length !== 0 ? (
+    return ingredients ? (
       <div className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ borderColor: isHoverMain ? 'blue' : 'transparent' }}>
         {ingredients.map((item: Ingredient & {key: string}, index: number) => (
           <MainElements key={item.key} index={index} item={item} handleClose={handleClose} />
