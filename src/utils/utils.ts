@@ -1,4 +1,5 @@
-import { Ingredient, BunIngredient } from "./types";
+import { Ingredient } from "./types";
+import { TConstructorIngredientState } from '../services/reducers/current-ingredients'
 
 export const countOccurrences = (arr: Ingredient[], obj: Ingredient) => {
     let count = 0;
@@ -10,8 +11,8 @@ export const countOccurrences = (arr: Ingredient[], obj: Ingredient) => {
     return count;
   }
 
-export const getCounter = (data:  BunIngredient, obj: Ingredient) => {
-    return obj.type === 'bun' ? (obj._id === data.bun._id ? 2 : 0) : countOccurrences(data.ingredients, obj)
+export const getCounter = (data:  TConstructorIngredientState, obj: Ingredient) => {
+    return obj.type === 'bun' ? (data.bun ? (obj._id === data.bun._id ? 2 : 0) : 0) : countOccurrences(data.ingredients, obj)
 }
 
 export const validateForm = (form: { [key: string]: string }): boolean => {

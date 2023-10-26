@@ -10,7 +10,7 @@ import {
 
   type TBurgerIngredientsState = {
     ingredientsRequest: boolean;
-    ingredients?: Ingredient[];
+    ingredients: Ingredient[];
     ingredientsFailed: boolean
   }
 

@@ -50,7 +50,7 @@ import {
   }
   export interface IGetUserSuccessAction {
     readonly type: typeof GET_USER_SUCCESS;
-    readonly payload: TUser | null;
+    readonly payload: TUser | undefined;
   }
   export interface IGetUserFailedAction {
     readonly type: typeof GET_USER_FAILED;

@@ -8,13 +8,13 @@ import {
   import { AppActions } from '../actions/types';
   import { Ingredient } from '../../utils/types';
   
-type TConstructorIngredientState = {
+  export type TConstructorIngredientState = {
     bun?: Ingredient;
     ingredients: Array<Ingredient & {key: string}>;
 }
 
 
-const initialState: TConstructorIngredientState = {
+ const initialState: TConstructorIngredientState = {
     bun: undefined,
     ingredients: []
 };

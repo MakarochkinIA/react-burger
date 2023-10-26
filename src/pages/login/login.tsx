@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FC, FormEvent } from "react";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/redux-hooks";
 import { login } from "../../services/actions/auth";
 import { validateForm } from "../../utils/utils";
 import { useForm } from "../../hooks/useForm";
@@ -16,7 +16,6 @@ export const Login: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm(form)) {
-      //@ts-ignore
       dispatch(login(form));
     } else {
       alert('Заполните все поля формы');

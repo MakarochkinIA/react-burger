@@ -1,5 +1,5 @@
 import { useState, useRef, FC, RefObject } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/redux-hooks';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientGroup from './ingredient-group/ingredient-group';
@@ -7,7 +7,6 @@ import { Ingredient } from '../../utils/types';
 
 const BurgerIngredients: FC = () => {
     const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(
-        //@ts-ignore
         (state) => state.ingredients
     );
     const [distance, setDistance] = useState<{[key: string]: number}>({});

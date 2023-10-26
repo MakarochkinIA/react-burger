@@ -24,18 +24,9 @@ export interface Ingredient {
     image_large: string;
     __v: number;
   }
-  
-export interface BunIngredient {
-    bun: Ingredient;
-    ingredients: Ingredient[];
-  }
 
-
-export type TForm = {
-    password: string;
-    name: string;
-    email: string;
-}
+// TODO: change form
+export type TForm = { [key: string]: string; }
 
 export interface ConstructorElementEmptyProps {
     type?: '' | 'top' | 'bottom';

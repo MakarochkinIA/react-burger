@@ -25,7 +25,7 @@ const initialState: TCurrentIngredientState = {
         case DELETE_CURRENT_INGREDIENT: {
             return {
                 ...state,
-                ingredient: {}
+                ingredient: undefined
             }
         }
         default: {

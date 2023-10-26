@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../hooks/redux-hooks';
 import { useLocation } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
 import { Ingredient } from '../../../utils/types';
@@ -7,14 +7,12 @@ import { Ingredient } from '../../../utils/types';
 const IngredientDetails: FC = () => {
   const location = useLocation();
   const { ingredient: stateIngredient } = useSelector(
-    //@ts-ignore
     (state) => state.currentIngredient
   );
   const { ingredients } = useSelector(
-    //@ts-ignore
     (state) => state.ingredients
 );
-  const [ingredient, setIngredient] = useState<Ingredient>(stateIngredient);
+  const [ingredient, setIngredient] = useState<Ingredient | undefined>(stateIngredient);
   useEffect(() => {    
     setIngredient(ingredients.find((item: Ingredient) => item._id === location.pathname.split('/')[2])) 
   }, [ingredients, location.pathname]);

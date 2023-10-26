@@ -20,7 +20,7 @@ export const setAuthChecked = (value: boolean): ISetAuthCheckedAction => ({
   payload: value,
 });
 
-export const setUser = (user: TUser | null): IGetUserSuccessAction => ({
+export const setUser = (user: TUser | undefined): IGetUserSuccessAction => ({
   type: GET_USER_SUCCESS,
   payload: user,
 });
@@ -87,7 +87,7 @@ export const checkUserAuth = () => {
               .catch(() => {
                   localStorage.removeItem("accessToken");
                   localStorage.removeItem("refreshToken");
-                  dispatch(setUser(null));
+                  dispatch(setUser(undefined));
                })
               .finally(() => dispatch(setAuthChecked(true)));
         } else {
@@ -102,7 +102,7 @@ export const logout = () => {
     return auth.logout().then(() => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      dispatch(setUser(null));
+      dispatch(setUser(undefined));
     })
     .catch((error) => {
       myAlert(error);
