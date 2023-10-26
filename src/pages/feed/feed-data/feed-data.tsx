@@ -1,8 +1,11 @@
 import { FC } from 'react';
 import styles from './feed-data.module.css';
+import { useSelector } from '../../../hooks/redux-hooks';
 
 
 const FeedData: FC = () => {
+
+    const messages = useSelector((store) => store.wsAll.messages);
     return (
         <div className={styles.main_container}>
             <div className={`${styles.box_container} mb-15`}>
