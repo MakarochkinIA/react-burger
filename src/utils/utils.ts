@@ -1,4 +1,4 @@
-import { Ingredient, WSMessage } from "./types";
+import { Ingredient, Order, WSMessage } from "./types";
 import { TConstructorIngredientState } from '../services/reducers/current-ingredients'
 
 export const countOccurrences = (arr: Ingredient[], obj: Ingredient) => {
@@ -71,6 +71,14 @@ export const getCost = (ingredients: Ingredient[]) => {
         cost += ingredient.price
     }
     return cost
+}
+
+export const makeOrder = (order: Order, indexedIngredients: {[key: string]: Ingredient}) => {
+    const ingredients = getIngredientsById(order.ingredients, indexedIngredients)
+    const cost = getCost(ingredients)
+    const newOrder = {...order, ingredients: ingredients, cost: cost}
+    return newOrder
+
 }
 
 export const addQuantity = (ingredients: Ingredient[]) => {

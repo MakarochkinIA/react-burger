@@ -19,9 +19,16 @@
   }
 
   
-.ingredients {
+.outer_ingredients {
     display: flex;
     justify-content: start;
     margin-left: 20px;
+    width: 436px;
+}
+
+.ingredients {
+  display: flex;
+  justify-content: start;
+  margin-left: 20px;
 }
 

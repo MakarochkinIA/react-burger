@@ -84,6 +84,18 @@ export interface Order {
   updatedAt: string;
 }
 
+export interface FullOrder {
+  ingredients: Ingredient[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  name: string;
+  updatedAt: string;
+  cost: number
+}
+
+
 export interface WSMessage {
   success: boolean;
   orders: Order[];
@@ -106,4 +118,12 @@ export type AppDispatch<TReturnType = void> = (
 export type TUser = {
   email: string;
   name: string;
+}
+
+export interface FeedCardProps {
+    order: FullOrder
+}
+
+export interface FeedIngredientsProps {
+  ingredients: Ingredient[];
 }

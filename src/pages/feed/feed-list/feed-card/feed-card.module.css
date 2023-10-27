@@ -1,6 +1,5 @@
 .card {
     width: 584px;
-    height: 214px;
     background: var(--background);
     display: flex;
     flex-direction: column;
@@ -21,4 +20,20 @@
     justify-content: start;
 }
 
-  
+.icons { 
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.cost {
+    margin-right: 8px
+}
