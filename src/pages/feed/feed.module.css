@@ -1,11 +1,11 @@
 .flex_container {
     position: fixed;
-    left: 17.5%;
+    left: 18%;
     display: flex;
 }
 .head {
     position: fixed;
-    left: 17.5%;
+    left: 18%;
     margin-bottom: 20px;
     margin-top: 40px;
 }
@@ -16,6 +16,6 @@
 }
 @media screen and (max-width: 1270px) {
     .flex_container {
-        left: calc(17.5% - 17.3%); 
+        left: calc(18% - 17.8%); 
     }
 }

@@ -15,22 +15,27 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
+.element { 
+    display: flex;
+    flex-direction: column;
+}
 .box {
     width: 272px;
     height: 206px;
     margin-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    grid-gap: 10px;
+    grid-auto-flow: column;
 }
 .box_done {
     width: 272px;
     height: 206px;
     margin-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    grid-gap: 10px;
+    grid-auto-flow: column;
 }
 
 .box_done span {

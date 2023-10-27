@@ -80,6 +80,7 @@ export interface Order {
   status: string;
   number: number;
   createdAt: string;
+  name: string;
   updatedAt: string;
 }
 

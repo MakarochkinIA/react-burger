@@ -17,6 +17,7 @@ import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { NotFound404 } from "../../pages/not-found/not-found";
 import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
 import { getIngredients } from "../../services/actions/burger-ingredients";
+import { WS_CONNECTION_START } from "../../services/actions/ws";
 
 
 const App: FC = () => {
@@ -36,7 +37,12 @@ const App: FC = () => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, [dispatch]);
-
+  useEffect(
+    () => {
+        dispatch({ type: WS_CONNECTION_START });
+    },
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  );
   return (
     <>
       <AppHeader />
