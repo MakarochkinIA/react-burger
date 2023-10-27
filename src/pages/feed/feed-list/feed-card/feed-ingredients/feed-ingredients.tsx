@@ -12,7 +12,7 @@ const FeedIngredients: FC<FeedIngredientsProps> = ({ingredients}) => {
     <div className={styles.outer_ingredients}>
         <div className={styles.ingredients}>
             
-              {icons.map((item, index) => (
+              {icons.slice(0, 5).map((item, index) => (
                 <div style={{zIndex: length - index}} key={index} className={styles.image_container}>
                   <img
                   alt='Нет изображения'
