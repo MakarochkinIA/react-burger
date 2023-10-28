@@ -76,7 +76,8 @@ export const getCost = (ingredients: Ingredient[]) => {
 export const makeOrder = (order: Order, indexedIngredients: {[key: string]: Ingredient}) => {
     const ingredients = getIngredientsById(order.ingredients, indexedIngredients)
     const cost = getCost(ingredients)
-    const newOrder = {...order, ingredients: ingredients, cost: cost}
+    const uniqueIngredients = addQuantity(ingredients)
+    const newOrder = {...order, ingredients: uniqueIngredients, cost: cost}
     return newOrder
 
 }
@@ -84,8 +85,13 @@ export const makeOrder = (order: Order, indexedIngredients: {[key: string]: Ingr
 export const addQuantity = (ingredients: Ingredient[]) => {
     const uniqueObjects: {[key: string]: Ingredient & {quantity: number}} = {}
     const result = []
+    let bun = undefined
     for (const ingredient of ingredients) {
-        const key = JSON.stringify(ingredient)
+        
+        const key = ingredient._id
+        if (ingredient.type === 'bun') {
+            bun = ingredient
+        }
 
         if (!uniqueObjects[key]) {
             uniqueObjects[key] = {
@@ -96,7 +102,12 @@ export const addQuantity = (ingredients: Ingredient[]) => {
             uniqueObjects[key].quantity++
         }
     }
-
+    if (bun) {
+        delete uniqueObjects[bun._id]
+        result.push(bun)
+    }
+    
+    
     for (const key in uniqueObjects) {
         result.push(uniqueObjects[key])
     }
