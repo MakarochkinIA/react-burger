@@ -7,14 +7,20 @@ import FeedIngredients from './feed-ingredients/feed-ingredients';
 import { getIngredientsById } from '../../../../utils/utils';
 import { FeedCardProps } from '../../../../utils/types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { Link, useLocation } from 'react-router-dom';
 
 
 const FeedCard: FC<FeedCardProps> = ( {order} ) => {
     const createdAt = new Date(order.createdAt);
-
+    const location = useLocation();
 
     return (
+        <Link
+        key={order.number}
+        to={`/feed/${order.number}`}
+        state={{ background: location }}
+        className={styles.link}
+      >
         <div className={styles.card}>
             <div className={`${styles.meta} mt-6 mb-6 ml-6 mr-6`}>
                 <span className={'text text_type_digits-default'}>
@@ -36,7 +42,7 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
             </div>
             </div>
         </div>
-
+        </Link>
     );
 };
 

@@ -40,7 +40,11 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
 } from './order';
-import type { WSMessage, TUser, Ingredient } from '../../utils/types';
+import { 
+  ADD_CURRENT_ORDER,
+  DELETE_CURRENT_ORDER
+ } from './current-order';
+import type { WSMessage, TUser, Ingredient, FullOrder } from '../../utils/types';
 
 interface TMoveIngredientPayload {
   dragIndex: number;
@@ -214,6 +218,19 @@ export type TWSActions =
   | IWSSendMessageAction;
 
 
+export interface IAddCurrderntOrderAction {
+  readonly type: typeof ADD_CURRENT_ORDER;
+  readonly payload: FullOrder;
+}
+export interface IDeleteCurrderntOrderAction {
+  readonly type: typeof DELETE_CURRENT_ORDER;
+}
+
+export type TCurrentOrderActions =
+  | IAddCurrderntOrderAction
+  | IDeleteCurrderntOrderAction;
+
+
 export type AppActions =
   | TGetUserActions
   | TGetIngredientsRequestActions
@@ -222,6 +239,7 @@ export type AppActions =
   | TGetOrderActions
   | TWSActions
   | TWSAllActions
+  | TCurrentOrderActions
 
 
 export type TWSStoreActions = {

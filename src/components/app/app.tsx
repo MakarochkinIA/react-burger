@@ -19,6 +19,7 @@ import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { WS_CONNECTION_START } from "../../services/actions/ws";
 import FeedDetails from "../../pages/feed/feed-details/feed-details";
+import ProfileOrders from "../../pages/profile/profile-orders/profile-orders";
 
 const App: FC = () => {
   const location = useLocation();
@@ -52,11 +53,10 @@ const App: FC = () => {
         <Route path="/register" element={<OnlyUnAuth component={<Register/>} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
-        <Route path="/feed" element={<FeedDetails/>}>
-          <Route path=':id' element={<FeedDetails />} />
-        </Route>
+        <Route path="/feed" element={<Feed/>} />
+        <Route path="/feed/:id" element={<FeedDetails/>} />
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
-          <Route path="orders" element={<NotFound404 />} />
+          <Route path="orders" element={<ProfileOrders />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
@@ -70,6 +70,14 @@ const App: FC = () => {
 	          element={
 	            <Modal header='Детали ингредиента' onClose={handleModalClose}> 
 	              <IngredientDetails />
+	            </Modal>
+	          }
+	        />
+          <Route
+	          path='/feed/:id'
+	          element={
+	            <Modal header='Детали ингредиента' onClose={handleModalClose}> 
+	              <FeedDetails />
 	            </Modal>
 	          }
 	        />

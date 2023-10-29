@@ -6,6 +6,7 @@ import { orderReducer } from './order';
 import { userReducer } from './user';
 import { wsAllReducer } from './ws-all';
 import { wsReducer } from './ws';
+import { currentOrderReducer } from './current-order'
 
 export const rootReducer = combineReducers({
   ingredients: burgerIngredientsReducer,
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   user: userReducer,
   wsAll: wsAllReducer,
-  ws: wsReducer
+  ws: wsReducer,
+  currentOrder: currentOrderReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

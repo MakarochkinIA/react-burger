@@ -1,11 +1,12 @@
 .card {
-    width: 584px;
+    width: 100%;
     background: var(--background);
     display: flex;
     flex-direction: column;
     justify-content: start;
     border-radius: 40px;
     margin-bottom: 16px;
+    margin-right: 8px;
 }
 
 .meta {
@@ -36,4 +37,10 @@
 
 .cost {
     margin-right: 8px
+}
+
+.link {
+    text-decoration: none;
+    color: var(--text-primary-color);
+    text-align: start;
 }
