@@ -22,7 +22,7 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
         className={styles.link}
       >
         <div className={styles.card}>
-            <div className={`${styles.meta} mt-6 mb-6 ml-6 mr-6`}>
+            <div className={`${styles.meta}`}>
                 <span className={'text text_type_digits-default'}>
                     {`#${order.number}`}
                 </span>

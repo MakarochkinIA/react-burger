@@ -1,5 +1,5 @@
 .card {
-    width: 100%;
+
     background: var(--background);
     display: flex;
     flex-direction: column;
@@ -10,9 +10,10 @@
 }
 
 .meta {
-    width: 536px;
+
     display: flex;
     justify-content: space-between;
+    padding: 24px;
 }
 
 .name {
