@@ -19,10 +19,10 @@ const AppHeader: FC = () => {
                                 Конструктор
                             </span>
                     </NavLink>
-                    <NavLink to="/orders" className={({isActive}) =>
+                    <NavLink to="profile/orders" className={({isActive}) =>
                         "pl-5 pr-5 pt-4 pb-4" + (!isActive ? ` ${styles.inactive_link_item}` : ` ${styles.link_item}`)
                     }>
-                        {isRouteActive('/orders') ? <ListIcon type='primary' /> : <ListIcon type='secondary' />}
+                        {isRouteActive('profile/orders') ? <ListIcon type='primary' /> : <ListIcon type='secondary' />}
                         <span className='pl-2'>
                             Лента заказов
                         </span>

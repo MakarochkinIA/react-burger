@@ -17,11 +17,14 @@ const FeedDetails: FC = () => {
 );
   const order = indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined
   const [currentOrder, setOrder] = useState<FullOrder | undefined>(order);
+  useEffect(() => {    
+    setOrder(indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined) 
+  }, [indexedIngredients, location.pathname]);
   const notModal = !(location.state && location.state.background)
-  console.log('test');
+  
   return (
     <>
-      {typeof currentOrder === 'object' && Object.keys(currentOrder).length !== 0 && (
+      {currentOrder && (
         <>
           {notModal ? (
             <div className={styles.head}>

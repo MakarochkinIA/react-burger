@@ -42,7 +42,7 @@ const App: FC = () => {
     () => {
         dispatch({ type: WS_CONNECTION_START });
     },
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [dispatch] // eslint-disable-line react-hooks/exhaustive-deps
   );
   return (
     <>
