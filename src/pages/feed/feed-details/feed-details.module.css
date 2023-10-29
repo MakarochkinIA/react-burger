@@ -1,0 +1,51 @@
+.order_details_modal {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.order_details {
+    margin-top: 162px;
+    width: 640px;
+    height: 556px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    left: 33%;
+
+    position: fixed;
+}
+
+.head {
+    width: 640px;
+    height: 64px;
+    margin-top: 122px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.cost {
+    margin-right: 8px
+}
+
+.bottom {
+    width: 640px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}

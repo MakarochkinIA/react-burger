@@ -12,7 +12,7 @@ const FeedList: FC = () => {
     (state) => state.ingredients
 );
   return (
-    <div className={`${styles.main_container} custom-scroll`}>
+    <div className={`${styles.main_container}`}>
       <section className={`${styles.feed_list} custom-scroll`}>
         {indexedIngredients && message.orders.map((order, index) => (
           <>

@@ -84,7 +84,7 @@ export const makeOrder = (order: Order, indexedIngredients: {[key: string]: Ingr
 
 export const addQuantity = (ingredients: Ingredient[]) => {
     const uniqueObjects: {[key: string]: Ingredient & {quantity: number}} = {}
-    const result = []
+    const result: Array<Ingredient & {quantity: number}> = []
     let bun = undefined
     for (const ingredient of ingredients) {
         
@@ -104,7 +104,10 @@ export const addQuantity = (ingredients: Ingredient[]) => {
     }
     if (bun) {
         delete uniqueObjects[bun._id]
-        result.push(bun)
+        result.push({
+            ...bun,
+            quantity: 2,
+        })
     }
     
     

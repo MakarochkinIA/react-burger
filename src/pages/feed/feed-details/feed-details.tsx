@@ -1,51 +1,63 @@
 import { useState, useEffect, FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../hooks/redux-hooks';
 import { useLocation } from 'react-router-dom';
-import styles from './ingredient-details.module.css';
-import { Ingredient } from '../../../utils/types';
+import styles from './feed-details.module.css';
+import { FullOrder } from '../../../utils/types';
 import IngredientList from './ingredient-list/ingredient-list';
+import { wsData } from '../../../utils/data';
+import { makeOrder } from '../../../utils/utils';
+import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientDetails: FC = () => {
+const FeedDetails: FC = () => {
   const location = useLocation();
-  const { ingredient: stateIngredient } = useSelector(
-    //@ts-ignore
-    (state) => state.currentIngredient
-  );
-  const { ingredients } = useSelector(
-    //@ts-ignore
+  const message = wsData
+  const { indexedIngredients } = useSelector(
     (state) => state.ingredients
 );
-  const [ingredient, setIngredient] = useState<Ingredient>(stateIngredient);
-  useEffect(() => {    
-    setIngredient(ingredients.find((item: Ingredient) => item._id === location.pathname.split('/')[2])) 
-  }, [ingredients, location.pathname]);
+  const order = indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined
+  const [currentOrder, setOrder] = useState<FullOrder | undefined>(order);
   const notModal = !(location.state && location.state.background)
-
+  console.log('test');
   return (
     <>
-      {typeof ingredient === 'object' && Object.keys(ingredient).length !== 0 && (
+      {typeof currentOrder === 'object' && Object.keys(currentOrder).length !== 0 && (
         <>
           {notModal ? (
             <div className={styles.head}>
-              <span className={`text text_type_main-large`}>
-                Детали ингредиента
+              <span className={`text text_type_digits-default`}>
+                {`#${currentOrder.number}`}
               </span>
             </div>
           ) : (
             <></>
           )}
-          <div className= {notModal ? styles.ingredient_details : styles.ingredient_details_modal}>
-            <span>
-                Test Header
+          <div className= {notModal ? styles.order_details : styles.order_details_modal}>
+            <span className='mb-3 text text_type_main-medium'>
+            {`${currentOrder.name}`}
             </span>
-            <span>
-                Выполнен
-            </span>
-            <span>
-                Состав
-            </span>
-            <div>
-                <IngredientList />
+
+            {currentOrder.status === 'done' ? (
+                          <span className='mb-15 text text_type_main-default'>
+                            Выполнен
+                          </span>
+            ) : (
+              <span className='mb-15 text text_type_main-default'>
+                            В работе
+                          </span>
+            )}
+
+            <div className='mb-10'>
+                <IngredientList ingredients={currentOrder.ingredients} />
+            </div>
+            <div className={styles.bottom}>
+            <FormattedDate date={new Date(currentOrder.createdAt)} className={'text text_type_main-default text_color_inactive'} />
+            <div className={`${styles.price}  text text_type_digits-default`}>
+                <div className={styles.cost}>
+                {`${currentOrder.cost}`}
+                </div>
+                <CurrencyIcon type='primary' />
+            </div>
             </div>
           </div>
         </>
@@ -54,4 +66,4 @@ const IngredientDetails: FC = () => {
   );
 };
 
-export default IngredientDetails;
+export default FeedDetails;

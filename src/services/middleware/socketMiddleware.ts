@@ -20,9 +20,12 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Mid
        } = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(`${wsUrl}`);
+        
+        
       }
       if (socket) {
         socket.onopen = () => {
+          
           dispatch({ type: onOpen});
         };
 
@@ -35,7 +38,6 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Mid
         socket.onmessage = event => {
           const { data } = event;
           const parsedData: WSMessage = JSON.parse(data);
-
           dispatch({ type: onMessage, payload: { ...parsedData} });
         };
 

@@ -8,19 +8,19 @@ import { FeedIngredientsProps } from '../../../../../utils/types';
 const FeedIngredients: FC<FeedIngredientsProps> = ({ingredients}) => {
   const icons = ingredients.map((item) => (item.image_mobile))
   const length = icons.length
-  const showIcons = 3
+  const showIcons = 6
 
   const lastIcon = () => {
-    if (length < showIcons + 1) {
+    if (length < showIcons) {
       return (
         <></>
       )
-    } else if (length === showIcons + 1) {
+    } else if (length === showIcons) {
       return (
         <div  key={1} style={{zIndex: length - showIcons}} className={styles.image_container}>
             <img
             alt='Нет изображения'
-            src={icons[showIcons]}
+            src={icons[showIcons - 1]}
 
           />
         </div>
@@ -32,14 +32,14 @@ const FeedIngredients: FC<FeedIngredientsProps> = ({ingredients}) => {
             <img
 
             alt='Нет изображения'
-            src={icons[showIcons]}
+            src={icons[showIcons - 1]}
 
           />
           
 
           <div className={styles.overlay}></div>
           <div className={styles.centered}>
-            {`+${length - showIcons + 1}`}
+            {`+${length - showIcons}`}
           </div>
         </div>
       )
@@ -49,7 +49,7 @@ const FeedIngredients: FC<FeedIngredientsProps> = ({ingredients}) => {
     <div className={styles.outer_ingredients}>
         <div className={styles.ingredients}>
             
-              {icons.slice(0, showIcons).map((item, index) => (
+              {icons.slice(0, showIcons - 1).map((item, index) => (
                 <div style={{zIndex: length - index}} key={index} className={styles.image_container}>
                   <img
                   alt='Нет изображения'

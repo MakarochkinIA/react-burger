@@ -21,7 +21,7 @@ import {
 } from './services/actions/ws';
 
 
-const wsUrl: string = 'wss://norma.nomoreparties.space/orders/all';
+const wsUrl: string = 'ws://norma.nomoreparties.space/orders/all';
 
 
 const wsActions: TWSStoreActions = {

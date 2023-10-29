@@ -18,7 +18,7 @@ import { NotFound404 } from "../../pages/not-found/not-found";
 import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { WS_CONNECTION_START } from "../../services/actions/ws";
-
+import FeedDetails from "../../pages/feed/feed-details/feed-details";
 
 const App: FC = () => {
   const location = useLocation();
@@ -52,8 +52,8 @@ const App: FC = () => {
         <Route path="/register" element={<OnlyUnAuth component={<Register/>} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
-        <Route path="/feed" element={<Feed/>}>
-          <Route path='/feed/:id' element={<Feed />} />
+        <Route path="/feed" element={<FeedDetails/>}>
+          <Route path=':id' element={<FeedDetails />} />
         </Route>
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
           <Route path="orders" element={<NotFound404 />} />

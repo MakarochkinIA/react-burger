@@ -85,7 +85,7 @@ export interface Order {
 }
 
 export interface FullOrder {
-  ingredients: Ingredient[];
+  ingredients: Array<Ingredient & {quantity: number}>;
   _id: string;
   status: string;
   number: number;
@@ -126,4 +126,8 @@ export interface FeedCardProps {
 
 export interface FeedIngredientsProps {
   ingredients: Ingredient[];
+}
+
+export interface IngredientListProps {
+  ingredients: (Ingredient & { quantity: number; })[];
 }
