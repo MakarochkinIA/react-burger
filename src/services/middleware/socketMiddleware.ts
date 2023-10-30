@@ -6,9 +6,9 @@ import type {
 } from '../../utils/types';
 
 import { RootState } from '../reducers';
-import type { AppActions, TWSStoreActions } from '../actions/types';
+import type { AppActions, TWSStoreActions, TWSAllStoreActions } from '../actions/types';
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions | TWSAllStoreActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 

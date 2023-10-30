@@ -13,11 +13,11 @@ const FeedList: FC = () => {
 );
   return (
     <div className={`${styles.main_container}`}>
-      <section className={`${styles.feed_list} custom-scroll`}>
-        {indexedIngredients && message.orders.map((order, index) => (
+      { messages && (<section className={`${styles.feed_list} custom-scroll`}>
+        {indexedIngredients && messages.orders.map((order, index) => (
           <FeedCard key={index} order={makeOrder(order, indexedIngredients)} />
         ))}
-      </section>
+      </section>)}
     </div>
   );
 }

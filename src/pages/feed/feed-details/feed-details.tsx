@@ -13,12 +13,15 @@ const FeedDetails: FC = () => {
   const location = useLocation();
   const message = wsData
   const { indexedIngredients } = useSelector(
-    (state) => state.ingredients
-);
+      (state) => state.ingredients
+  );
+  const { order: stateOrder } = useSelector(
+    (state) => state.currentOrder
+  );
   const order = indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined
   const [currentOrder, setOrder] = useState<FullOrder | undefined>(order);
   useEffect(() => {    
-    setOrder(indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined) 
+    setOrder(stateOrder ? stateOrder : undefined) 
   }, [indexedIngredients, location.pathname]);
   const notModal = !(location.state && location.state.background)
   

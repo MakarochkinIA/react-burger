@@ -62,6 +62,7 @@ export interface ModalOverlayProps {
 export interface ModalProps {
    children: ReactNode;
    header?: string;
+   extraClass?: string
    onClose: () => void;
  }
 

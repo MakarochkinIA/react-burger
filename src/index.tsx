@@ -10,7 +10,7 @@ import { rootReducer } from './services/reducers/index';
 import thunk from 'redux-thunk';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
-import type { TWSStoreActions } from './services/actions/types';
+import type { TWSStoreActions, TWSAllStoreActions } from './services/actions/types';
 import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
@@ -19,6 +19,14 @@ import {
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE
 } from './services/actions/ws';
+import {
+  WS_ALL_CONNECTION_CLOSED,
+  WS_ALL_CONNECTION_ERROR,
+  WS_ALL_CONNECTION_START,
+  WS_ALL_CONNECTION_SUCCESS,
+  WS_ALL_GET_MESSAGE,
+  WS_ALL_SEND_MESSAGE
+} from './services/actions/ws-all';
 
 
 const wsUrl: string = 'ws://norma.nomoreparties.space/orders/all';
@@ -33,7 +41,19 @@ const wsActions: TWSStoreActions = {
   onMessage: WS_GET_MESSAGE
 };
 
-const enhancer = applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions));
+const wsAllActions: TWSAllStoreActions = {
+  wsInit: WS_ALL_CONNECTION_START,
+  wsSendMessage: WS_ALL_SEND_MESSAGE,
+  onOpen: WS_ALL_CONNECTION_SUCCESS,
+  onClose: WS_ALL_CONNECTION_CLOSED,
+  onError: WS_ALL_CONNECTION_ERROR,
+  onMessage: WS_ALL_GET_MESSAGE
+};
+
+const enhancer = applyMiddleware(
+  thunk,
+  socketMiddleware(wsUrl, wsAllActions)
+);
 
 const store = configureStore({
   reducer: rootReducer,

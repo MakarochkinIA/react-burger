@@ -5,14 +5,22 @@ import { useDispatch, useSelector } from '../../../../hooks/redux-hooks';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import FeedIngredients from './feed-ingredients/feed-ingredients';
 import { getIngredientsById } from '../../../../utils/utils';
-import { FeedCardProps } from '../../../../utils/types';
+import { FeedCardProps, FullOrder } from '../../../../utils/types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
+import { ADD_CURRENT_ORDER } from '../../../../services/actions/current-order';
 
 
 const FeedCard: FC<FeedCardProps> = ( {order} ) => {
+    const dispatch = useDispatch()
     const createdAt = new Date(order.createdAt);
     const location = useLocation();
+    const showDetail = (currenOrder: FullOrder) => {
+        dispatch({
+          type: ADD_CURRENT_ORDER,
+          payload: currenOrder
+        });
+    }
 
     return (
         <Link
@@ -21,7 +29,7 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
         state={{ background: location }}
         className={styles.link}
       >
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => { showDetail(order) }}>
             <div className={`${styles.meta}`}>
                 <span className={'text text_type_digits-default'}>
                     {`#${order.number}`}

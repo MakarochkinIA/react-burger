@@ -4,7 +4,7 @@ import FeedList from './feed-list/feed-list';
 import FeedData from './feed-data/feed-data';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../hooks/redux-hooks';
-import { WS_CONNECTION_START } from '../../services/actions/ws';
+import { WS_ALL_CONNECTION_START } from '../../services/actions/ws-all';
 
 
 const Feed: FC = () => {
@@ -12,7 +12,7 @@ const Feed: FC = () => {
 
   useEffect(
     () => {
-        dispatch({ type: WS_CONNECTION_START });
+        dispatch({ type: WS_ALL_CONNECTION_START });
     },
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );

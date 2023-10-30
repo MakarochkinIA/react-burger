@@ -10,14 +10,14 @@ import {
   
   type TWSState = {
     wsConnected: boolean;
-    messages: WSMessage[];
+    messages?: WSMessage;
   
     error?: Event;
   }
   
   const initialState: TWSState = {
     wsConnected: false,
-    messages: []
+    messages: undefined
   };
   
   export const wsAllReducer = (state = initialState, action: AppActions) => {
@@ -48,7 +48,7 @@ import {
         return {
           ...state,
           error: undefined,
-          messages: [...state.messages, msg]
+          messages: msg
         };
   
       default:

@@ -250,3 +250,12 @@ export type TWSStoreActions = {
   onError: typeof  WS_CONNECTION_ERROR,
   onMessage: typeof  WS_GET_MESSAGE,
 };
+
+export type TWSAllStoreActions = {
+  wsInit: typeof  WS_ALL_CONNECTION_START,
+  wsSendMessage: typeof  WS_ALL_SEND_MESSAGE,
+  onOpen: typeof  WS_ALL_CONNECTION_SUCCESS,
+  onClose: typeof WS_ALL_CONNECTION_CLOSED,
+  onError: typeof  WS_ALL_CONNECTION_ERROR,
+  onMessage: typeof  WS_ALL_GET_MESSAGE,
+};
