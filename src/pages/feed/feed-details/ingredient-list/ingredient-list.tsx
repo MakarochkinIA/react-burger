@@ -7,7 +7,6 @@ import { IngredientListProps } from '../../../../utils/types';
 
 const IngredientList: FC<IngredientListProps> = ( { ingredients } ) => {
     const ingredientItem = ( ingredient: Ingredient & {quantity: number}, index: number ) => {
-        console.log('test');
         
         return (
             <div key={index} className={`${styles.card}`}>

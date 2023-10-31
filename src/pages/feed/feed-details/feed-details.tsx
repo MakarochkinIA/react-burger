@@ -4,13 +4,13 @@ import { useLocation } from 'react-router-dom';
 import styles from './feed-details.module.css';
 import { FullOrder } from '../../../utils/types';
 import IngredientList from './ingredient-list/ingredient-list';
-import { wsData } from '../../../utils/data';
-import { makeOrder } from '../../../utils/utils';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderForDetails } from '../../../utils/utils';
+import { STATUSES } from '../../../utils/constants';
 
 const FeedDetails: FC = () => {
+
   const location = useLocation();
   const { indexedIngredients } = useSelector(
       (state) => state.ingredients
@@ -50,15 +50,9 @@ const FeedDetails: FC = () => {
             {`${currentOrder.name}`}
             </span>
 
-            {currentOrder.status === 'done' ? (
-                          <span className='mb-15 text text_type_main-default'>
-                            Выполнен
-                          </span>
-            ) : (
               <span className='mb-15 text text_type_main-default'>
-                            В работе
-                          </span>
-            )}
+                {STATUSES[currentOrder.status]}
+              </span>
 
             <div className='mb-10'>
                 <IngredientList ingredients={currentOrder.ingredients} />

@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import styles from './feed-card.module.css';
-import data from '../../../../utils/data';
 import { useDispatch, useSelector } from '../../../../hooks/redux-hooks';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import FeedIngredients from './feed-ingredients/feed-ingredients';
-import { getIngredientsById } from '../../../../utils/utils';
 import { FeedCardProps, FullOrder } from '../../../../utils/types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import { ADD_CURRENT_ORDER } from '../../../../services/actions/current-order';
+import { STATUSES } from '../../../../utils/constants';
 
 
 const FeedCard: FC<FeedCardProps> = ( {order} ) => {
@@ -22,6 +21,7 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
         });
     }
     const path = location.pathname.split('/')[location.pathname.split('/').length - 1]
+    const inFeed = path === 'feed'
     const to = path === 'feed' ? `/feed/${order.number}` : `/profile/orders/${order.number}`
 
     return (
@@ -38,9 +38,14 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
                 </span>
                 <FormattedDate date={createdAt} className={'text text_type_main-default text_color_inactive'} />
             </div >
-            <p className={`${styles.name} text text_type_main-medium mb-6 ml-6 mr-6`}>
+            <p style={{marginBottom: inFeed ? '24px' : '8px'}} className={`${styles.name} text text_type_main-medium ml-6 mr-6`}>
                 {`${order.name}`}
             </p>
+            { inFeed ? <></> : (
+                <span className={'text text_type_main-default mb-6 ml-6 mr-6'}>
+                    {STATUSES[order.status]}
+                </span>
+            )}
             <div className={styles.icons}>
                 <FeedIngredients ingredients={order.ingredients} />
             

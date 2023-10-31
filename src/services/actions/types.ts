@@ -3,7 +3,6 @@ import {
   WS_ALL_CONNECTION_ERROR,
   WS_ALL_CONNECTION_CLOSED,
   WS_ALL_GET_MESSAGE,
-  WS_ALL_SEND_MESSAGE,
   WS_ALL_CONNECTION_START,
 } from './ws-all';
 import {
@@ -11,7 +10,6 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  WS_SEND_MESSAGE,
   WS_CONNECTION_START,
 } from './ws';
 import {
@@ -168,10 +166,6 @@ export interface IWSAllGetMessageAction {
   readonly payload: WSMessage;
 }
 
-export interface IWSAllSendMessageAction {
-  readonly type: typeof WS_ALL_SEND_MESSAGE;
-  readonly payload: { message: string };
-}
 
 export type TWSAllActions =
   | IWSAllConnectionStart
@@ -179,7 +173,6 @@ export type TWSAllActions =
   | IWSAllConnectionErrorAction
   | IWSAllConnectionClosedAction
   | IWSAllGetMessageAction
-  | IWSAllSendMessageAction;
 
 
 export interface IWSConnectionStart {
@@ -204,10 +197,6 @@ export interface IWSGetMessageAction {
   readonly payload: WSMessage;
 }
 
-export interface IWSSendMessageAction {
-  readonly type: typeof WS_SEND_MESSAGE;
-  readonly payload: { message: string };
-}
 
 export type TWSActions =
   | IWSConnectionStart
@@ -215,7 +204,7 @@ export type TWSActions =
   | IWSConnectionErrorAction
   | IWSConnectionClosedAction
   | IWSGetMessageAction
-  | IWSSendMessageAction;
+
 
 
 export interface IAddCurrderntOrderAction {
@@ -244,7 +233,6 @@ export type AppActions =
 
 export type TWSStoreActions = {
   wsInit: typeof  WS_CONNECTION_START,
-  wsSendMessage: typeof  WS_SEND_MESSAGE,
   onOpen: typeof  WS_CONNECTION_SUCCESS,
   onClose: typeof WS_CONNECTION_CLOSED,
   onError: typeof  WS_CONNECTION_ERROR,
@@ -253,7 +241,6 @@ export type TWSStoreActions = {
 
 export type TWSAllStoreActions = {
   wsInit: typeof  WS_ALL_CONNECTION_START,
-  wsSendMessage: typeof  WS_ALL_SEND_MESSAGE,
   onOpen: typeof  WS_ALL_CONNECTION_SUCCESS,
   onClose: typeof WS_ALL_CONNECTION_CLOSED,
   onError: typeof  WS_ALL_CONNECTION_ERROR,

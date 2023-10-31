@@ -19,7 +19,7 @@ export const socketMiddleware = (param: 'user' | 'all', wsActions: TWSStoreActio
       const { dispatch, getState } = store;
       const { type } = action;
       const { 
-        wsInit , wsSendMessage, onOpen, onClose, onError, onMessage
+        wsInit, onOpen, onClose, onError, onMessage
        } = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(url);
@@ -34,7 +34,6 @@ export const socketMiddleware = (param: 'user' | 'all', wsActions: TWSStoreActio
 
         socket.onerror = event => {
           dispatch({ type: onError, payload: event });
-          console.log(event);
           
         };
 

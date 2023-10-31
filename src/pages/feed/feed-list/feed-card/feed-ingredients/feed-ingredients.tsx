@@ -1,7 +1,5 @@
 import {  FC } from 'react';
 import styles from './feed-ingredients.module.css';
-import data from '../../../../../utils/data';
-import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FeedIngredientsProps } from '../../../../../utils/types';
 
 
