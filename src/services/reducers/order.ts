@@ -5,18 +5,19 @@ import {
 
 } from '../actions/order';
 import { AppActions } from '../actions/types';
+import { OrderState } from '../../utils/types';
 
 
 type TOrderState = {
     orderRequest: boolean;
     orderFailed: boolean;
-    orderNumber?: number
+    order?: OrderState
   }
 
 const initialState: TOrderState = {
     orderRequest: false,
     orderFailed: false,
-    orderNumber: undefined
+    order: undefined
 };
 
 export const orderReducer = (state = initialState, action: AppActions) => {
@@ -28,10 +29,10 @@ export const orderReducer = (state = initialState, action: AppActions) => {
             };
         }
         case GET_ORDER_SUCCESS: {
-            return { ...state, orderFailed: false, orderNumber: action.payload, orderRequest: false };
+            return { ...state, orderFailed: false, order: action.payload, orderRequest: false };
         }
         case GET_ORDER_FAILED: {
-            return { ...state, orderFailed: true, orderRequest: false, orderNumber: undefined };
+            return { ...state, orderFailed: true, orderRequest: false, order: undefined };
         }
         default: {
             return state;

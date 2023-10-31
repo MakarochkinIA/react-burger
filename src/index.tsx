@@ -29,6 +29,7 @@ import {
 } from './services/actions/ws-all';
 
 
+const wsAllUrl: string = 'ws://norma.nomoreparties.space/orders/all';
 const wsUrl: string = 'ws://norma.nomoreparties.space/orders/all';
 
 
@@ -52,7 +53,8 @@ const wsAllActions: TWSAllStoreActions = {
 
 const enhancer = applyMiddleware(
   thunk,
-  socketMiddleware(wsUrl, wsAllActions)
+  socketMiddleware('all', wsAllActions),
+  socketMiddleware('user', wsActions)
 );
 
 const store = configureStore({

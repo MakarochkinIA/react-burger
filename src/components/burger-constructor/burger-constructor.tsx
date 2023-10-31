@@ -18,7 +18,7 @@ const BurgerConstructor: FC = () => {
     const [detailsVisible, setVisible] = useState(false);
     const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
     const { user, isAuthChecked } = useSelector((state) => state.user);
-    const { orderRequest, orderFailed, orderNumber } = useSelector((state) => state.order);
+    const { orderRequest, orderFailed, order } = useSelector((state) => state.order);
 
     const getIds = (bun: Ingredient, ingredients: Ingredient[]) => {
         const ids = ingredients.map((item) => item._id);
@@ -79,7 +79,7 @@ const BurgerConstructor: FC = () => {
                     <OrderStub />
                 </Modal>
             )}
-            {detailsVisible && !orderRequest && !orderFailed && orderNumber && (
+            {detailsVisible && !orderRequest && !orderFailed && order && (
                 <Modal onClose={closeDetails}>
                     <OrderDetails />
                 </Modal>

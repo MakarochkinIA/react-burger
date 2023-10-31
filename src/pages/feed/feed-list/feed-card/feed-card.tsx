@@ -21,11 +21,13 @@ const FeedCard: FC<FeedCardProps> = ( {order} ) => {
           payload: currenOrder
         });
     }
+    const path = location.pathname.split('/')[location.pathname.split('/').length - 1]
+    const to = path === 'feed' ? `/feed/${order.number}` : `/profile/orders/${order.number}`
 
     return (
         <Link
         key={order.number}
-        to={`/feed/${order.number}`}
+        to={to}
         state={{ background: location }}
         className={styles.link}
       >

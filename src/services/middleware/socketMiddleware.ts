@@ -7,10 +7,13 @@ import type {
 
 import { RootState } from '../reducers';
 import type { AppActions, TWSStoreActions, TWSAllStoreActions } from '../actions/types';
+import { wsAllUrl, wsUrl } from '../../utils/constants';
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions | TWSAllStoreActions): Middleware => {
+export const socketMiddleware = (param: 'user' | 'all', wsActions: TWSStoreActions | TWSAllStoreActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
+    const token = localStorage.getItem("accessToken") === null ? '' : localStorage.getItem("accessToken")!.split(' ')[1]
+    const url = (param === 'user') ? `${wsUrl}?token=${token}` : wsAllUrl
 
     return next => (action: AppActions) => {
       const { dispatch, getState } = store;
@@ -19,7 +22,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions | TWS
         wsInit , wsSendMessage, onOpen, onClose, onError, onMessage
        } = wsActions;
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}`);
+        socket = new WebSocket(url);
         
         
       }

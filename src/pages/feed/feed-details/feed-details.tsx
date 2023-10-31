@@ -8,22 +8,29 @@ import { wsData } from '../../../utils/data';
 import { makeOrder } from '../../../utils/utils';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { orderForDetails } from '../../../utils/utils';
 
 const FeedDetails: FC = () => {
   const location = useLocation();
-  const message = wsData
   const { indexedIngredients } = useSelector(
       (state) => state.ingredients
   );
   const { order: stateOrder } = useSelector(
     (state) => state.currentOrder
   );
-  const order = indexedIngredients ? makeOrder(message.orders[47], indexedIngredients) : undefined
-  const [currentOrder, setOrder] = useState<FullOrder | undefined>(order);
-  useEffect(() => {    
-    setOrder(stateOrder ? stateOrder : undefined) 
-  }, [indexedIngredients, location.pathname]);
+  const number = location.pathname.split('/')[location.pathname.split('/').length - 1]
+  const [currentOrder, setOrder] = useState<FullOrder | undefined>(stateOrder);
   const notModal = !(location.state && location.state.background)
+  const order = indexedIngredients ? orderForDetails(number, indexedIngredients) : undefined
+  async function fetchData() {
+    const result = indexedIngredients ? (await orderForDetails(number, indexedIngredients) ): undefined
+    setOrder(result);
+}
+  useEffect(() => {
+    fetchData()
+  }, [indexedIngredients, number]);
+
+ 
   
   return (
     <>

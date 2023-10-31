@@ -12,9 +12,10 @@ const IngredientDetails: FC = () => {
   const { indexedIngredients } = useSelector(
     (state) => state.ingredients
 );
+  const id = location.pathname.split('/')[location.pathname.split('/').length - 1]
   const [ingredient, setIngredient] = useState<Ingredient | undefined>(stateIngredient);
   useEffect(() => {    
-    setIngredient(indexedIngredients ? indexedIngredients[location.pathname.split('/')[2]] : undefined) 
+    setIngredient(indexedIngredients ? indexedIngredients[id] : undefined) 
   }, [indexedIngredients, location.pathname]);
   const notModal = !(location.state && location.state.background)
 

@@ -1,5 +1,6 @@
 import { Ingredient, Order, WSMessage } from "./types";
 import { TConstructorIngredientState } from '../services/reducers/current-ingredients'
+import { getOrderByNumberRequest } from "./burger-api";
 
 export const countOccurrences = (arr: Ingredient[], obj: Ingredient) => {
     let count = 0;
@@ -31,19 +32,27 @@ export const myAlert = (error: string | { [key: string]: string }) => {
         alert(error) : alert(error.message)
 }
 
-export const getOrderNumbersStatuses = (message: WSMessage) => {
-    const numbersDone = []
-    const numbersCooking = []
-    for (const order of message.orders) {
-        order.status === 'done' ? (
-            numbersDone.push(order.number)
-        ) : (
-            numbersCooking.push(order.number)
-        )
-    }
-    return {
-        done: numbersDone,
-        inWork: numbersCooking
+export const getOrderNumbersStatuses = (message: WSMessage | undefined) => {
+    const numbersDone: number[] = [];
+    const numbersCooking: number[] = [];
+    
+    if (message) {
+        for (const order of message.orders) {
+            if (order.status === 'done') {
+                numbersDone.push(order.number);
+            } else {
+                numbersCooking.push(order.number);
+            }
+        }
+        return {
+            done: numbersDone,
+            inWork: numbersCooking
+        };
+    } else {
+        return {
+            done: numbersDone,
+            inWork: numbersCooking
+        };
     }
 }
 
@@ -115,4 +124,10 @@ export const addQuantity = (ingredients: Ingredient[]) => {
         result.push(uniqueObjects[key])
     }
     return result
+}
+
+export const orderForDetails = async (number: string, indexedIngredients: {[key: string]: Ingredient}) => {
+    const order = await getOrderByNumberRequest(number)
+    return makeOrder(order.orders[0], indexedIngredients)
+    
 }

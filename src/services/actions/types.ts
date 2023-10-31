@@ -44,7 +44,7 @@ import {
   ADD_CURRENT_ORDER,
   DELETE_CURRENT_ORDER
  } from './current-order';
-import type { WSMessage, TUser, Ingredient, FullOrder } from '../../utils/types';
+import type { WSMessage, TUser, Ingredient, FullOrder, OrderState } from '../../utils/types';
 
 interface TMoveIngredientPayload {
   dragIndex: number;
@@ -134,7 +134,7 @@ export interface IGetOrderRequestAction {
 }
 export interface IGetOrderSuccessAction {
   readonly type: typeof GET_ORDER_SUCCESS;
-  readonly payload: number;
+  readonly payload: OrderState;
 }
 export interface IGetOrderFailedAction {
   readonly type: typeof GET_ORDER_FAILED;

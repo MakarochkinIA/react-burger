@@ -91,3 +91,14 @@ export function getOrderRequest(props: string[]) {
     body: JSON.stringify({ ingredients: props }),
   });
 }
+
+
+export const getOrderByNumberRequest = async (props: string) => {
+  
+  return await request(`orders/${props}`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+}

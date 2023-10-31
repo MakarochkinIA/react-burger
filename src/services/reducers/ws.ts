@@ -10,14 +10,14 @@ import {
   
   type TWSState = {
     wsConnected: boolean;
-    messages: WSMessage[];
+    messages?: WSMessage;
   
     error?: Event;
   }
   
   const initialState: TWSState = {
     wsConnected: false,
-    messages: []
+    messages: undefined
   };
   
   export const wsReducer = (state = initialState, action: AppActions) => {
@@ -44,11 +44,12 @@ import {
         };
   
       case WS_GET_MESSAGE:
+        action.payload.orders.reverse()
         const msg = { ...action.payload };
         return {
           ...state,
           error: undefined,
-          messages: [...state.messages, msg]
+          messages: msg
         };
   
       default:

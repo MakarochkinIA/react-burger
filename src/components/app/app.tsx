@@ -18,7 +18,7 @@ import { NotFound404 } from "../../pages/not-found/not-found";
 import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
 import { DELETE_CURRENT_ORDER } from "../../services/actions/current-order";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { WS_CONNECTION_START } from "../../services/actions/ws";
+import { WS_ALL_CONNECTION_START } from "../../services/actions/ws-all";
 import FeedDetails from "../../pages/feed/feed-details/feed-details";
 import ProfileOrders from "../../pages/profile/profile-orders/profile-orders";
 
@@ -41,7 +41,7 @@ const App: FC = () => {
   }, [dispatch]);
   useEffect(
     () => {
-        dispatch({ type: WS_CONNECTION_START });
+        dispatch({ type: WS_ALL_CONNECTION_START });
     },
     [dispatch] // eslint-disable-line react-hooks/exhaustive-deps
   );
@@ -63,6 +63,7 @@ const App: FC = () => {
           <Route path="orders" element={<ProfileOrders />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
+        <Route path="/profile/orders/:id" element={<FeedDetails/>} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
@@ -84,6 +85,14 @@ const App: FC = () => {
 	              <FeedDetails />
 	            </Modal>
 	          }
+	        />
+          <Route
+	          path='/profile/orders/:id'
+	          element={<OnlyAuth component={
+	            <Modal header={order ? `#${order.number}` : ''} onClose={() => handleModalClose(DELETE_CURRENT_ORDER)} extraClass="text text_type_digits-default"> 
+	              <FeedDetails />
+	            </Modal>
+	          } />}
 	        />
         </Routes>
       )}

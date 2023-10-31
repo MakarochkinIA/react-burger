@@ -75,6 +75,8 @@ export interface ProtectedProps {
    onDropHandler: (item: any) => void;
  }
 
+
+
 export interface Order {
   ingredients: Array<string>;
   _id: string;
@@ -121,6 +123,10 @@ export type TUser = {
   name: string;
 }
 
+export interface OrderState extends Order {
+  owner: TUser & { createdAt: string; updatedAt: string };
+  price: number;
+}
 export interface FeedCardProps {
     order: FullOrder
 }
