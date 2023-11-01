@@ -44,13 +44,21 @@ import {
         };
   
       case WS_ALL_GET_MESSAGE:
+        if (Array.isArray(action.payload.orders)) {
 
-        const msg = { ...action.payload };
-        return {
-          ...state,
-          error: undefined,
-          messages: msg
-        };
+          const msg = { ...action.payload };
+          return {
+            ...state,
+            error: undefined,
+            messages: msg
+          };
+        } else {
+          return {
+            ...state,
+            error: undefined,
+            messages: undefined
+          };
+        }
   
       default:
         return state;

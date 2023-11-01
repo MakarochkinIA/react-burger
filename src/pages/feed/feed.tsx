@@ -3,20 +3,30 @@ import styles from './feed.module.css';
 import FeedList from './feed-list/feed-list';
 import FeedData from './feed-data/feed-data';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from '../../hooks/redux-hooks';
-import { WS_ALL_CONNECTION_START } from '../../services/actions/ws-all';
+import { useDispatch } from '../../hooks/redux-hooks';
+import { 
+  WS_ALL_CONNECTION_START,
+  WS_ALL_CONNECTION_CLOSED
+ } from '../../services/actions/ws-all';
+import { Outlet, useLocation } from 'react-router-dom';
 
 
 const Feed: FC = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   useEffect(
     () => {
         dispatch({ type: WS_ALL_CONNECTION_START });
+        return () => {
+          dispatch({ type: WS_ALL_CONNECTION_CLOSED })
+        }
     },
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [dispatch]
+    
   );
     return (
+      <>
+      {(location.pathname === '/feed') ? (
         <div className={styles.main}>
         <p className={`${styles.head} text text_type_main-large`}>
           Лента заказов
@@ -31,6 +41,8 @@ const Feed: FC = () => {
         </section>
       </div>
       </div>
+      ) : <Outlet />}
+      </>
     );
   }
   

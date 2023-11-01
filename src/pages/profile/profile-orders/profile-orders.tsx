@@ -3,7 +3,10 @@ import styles from './profile-orders.module.css';
 import FeedCard from '../../feed/feed-list/feed-card/feed-card';
 import { useSelector } from '../../../hooks/redux-hooks';
 import { makeOrder } from '../../../utils/utils';
-import { WS_CONNECTION_START } from '../../../services/actions/ws';
+import { 
+    WS_CONNECTION_START,
+    WS_CONNECTION_CLOSED
+ } from '../../../services/actions/ws';
 import { useDispatch } from '../../../hooks/redux-hooks';
 
 const ProfileOrders: FC = () => {
@@ -15,8 +18,11 @@ const ProfileOrders: FC = () => {
     useEffect(
         () => {
             dispatch({ type: WS_CONNECTION_START });
+            return () => {
+                dispatch({ type: WS_CONNECTION_CLOSED })
+              }
         },
-        [dispatch] // eslint-disable-line react-hooks/exhaustive-deps
+        [dispatch]
     );
     return (
         

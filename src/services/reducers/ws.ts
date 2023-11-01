@@ -44,13 +44,23 @@ import {
         };
   
       case WS_GET_MESSAGE:
-        action.payload.orders.reverse()
-        const msg = { ...action.payload };
-        return {
-          ...state,
-          error: undefined,
-          messages: msg
-        };
+        if (Array.isArray(action.payload.orders)) {
+          action.payload.orders.reverse()
+          const msg = { ...action.payload };
+          return {
+            ...state,
+            error: undefined,
+            messages: msg
+          };
+        } else {
+          return {
+            ...state,
+            error: undefined,
+            messages: undefined
+          };
+        }
+        
+        
   
       default:
         return state;

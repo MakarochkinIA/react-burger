@@ -18,7 +18,6 @@ import { NotFound404 } from "../../pages/not-found/not-found";
 import { DELETE_CURRENT_INGREDIENT } from "../../services/actions/ingredient";
 import { DELETE_CURRENT_ORDER } from "../../services/actions/current-order";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { WS_ALL_CONNECTION_START } from "../../services/actions/ws-all";
 import FeedDetails from "../../pages/feed/feed-details/feed-details";
 import ProfileOrders from "../../pages/profile/profile-orders/profile-orders";
 
@@ -39,12 +38,6 @@ const App: FC = () => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, [dispatch]);
-  useEffect(
-    () => {
-        dispatch({ type: WS_ALL_CONNECTION_START });
-    },
-    [dispatch] // eslint-disable-line react-hooks/exhaustive-deps
-  );
   const { order } = useSelector(
     (state) => state.currentOrder
   );
@@ -57,10 +50,12 @@ const App: FC = () => {
         <Route path="/register" element={<OnlyUnAuth component={<Register/>} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
-        <Route path="/feed" element={<Feed/>} />
-        <Route path="/feed/:id" element={<FeedDetails/>} />
+        <Route path="/feed" element={<Feed/>} >
+          <Route path=":id" element={<FeedDetails/>} />
+        </Route>
         <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
           <Route path="orders" element={<ProfileOrders />} />
+          <Route path="orders/:id" element={<FeedDetails />} />
           <Route path="*" element={<NotFound404 />} />
         </Route>
         <Route path="/profile/orders/:id" element={<FeedDetails/>} />

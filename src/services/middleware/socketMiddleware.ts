@@ -16,7 +16,7 @@ export const socketMiddleware = (param: 'user' | 'all', wsActions: TWSStoreActio
     const url = (param === 'user') ? `${wsUrl}?token=${token}` : wsAllUrl
 
     return next => (action: AppActions) => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type } = action;
       const { 
         wsInit, onOpen, onClose, onError, onMessage
@@ -26,7 +26,12 @@ export const socketMiddleware = (param: 'user' | 'all', wsActions: TWSStoreActio
         
         
       }
-      if (socket) {
+      if (type === onClose) {
+        socket?.close()
+        
+        
+      }
+      if (socket !== null) {
         socket.onopen = () => {
           
           dispatch({ type: onOpen});

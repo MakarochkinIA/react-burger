@@ -34,7 +34,7 @@ const AppHeader: FC = () => {
                     </NavLink>
                 </div>
                 <nav className={styles.right_item}>
-                    <NavLink to="/profile" className={({isActive}) =>
+                    <NavLink to="/profile/orders" className={({isActive}) =>
                         "pl-5 pr-5 pt-4 pb-4" + (!isActive ? ` ${styles.inactive_link_item}` : ` ${styles.link_item}`)
                     }>
                         {isRouteActive('/profile') ? <ProfileIcon type='primary' /> : <ProfileIcon type='secondary' />}

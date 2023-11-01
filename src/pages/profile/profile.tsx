@@ -42,15 +42,10 @@ export const Profile: FC = () => {
     setValue(initialState);
     setIsEdit(false);
   };
+  const current = location.pathname.split('/')[location.pathname.split('/').length - 1]
 
-  return (
-    <div>
-      <NavigateProfile />
-      {!(location.pathname === '/profile') ? (
-        <div className={styles.outlet}>
-            <Outlet />
-        </div>
-      ) :
+  const formContent = () => {
+    return (
       <form className={styles.forms} onSubmit={handleSubmit}>
         <div className={styles.input_box}>
           <Input
@@ -95,7 +90,19 @@ export const Profile: FC = () => {
             </div>
           )}
         </div>
-      </form>}
+      </form>
+    )
+  }
+
+  return (
+    <div>
+      {(current !== 'profile') && (current !== 'orders' ) ?  <></> : <NavigateProfile />}
+      {!(location.pathname === '/profile') ? (
+        <div className={styles.outlet}>
+            <Outlet />
+        </div>
+      ) : formContent()
+      }
     </div>
   );
 };
