@@ -9,6 +9,7 @@ import {
   WS_ALL_CONNECTION_CLOSED
  } from '../../services/actions/ws-all';
 import { Outlet, useLocation } from 'react-router-dom';
+import { wsAllUrl } from '../../utils/constants';
 
 
 const Feed: FC = () => {
@@ -16,7 +17,10 @@ const Feed: FC = () => {
   const location = useLocation();
   useEffect(
     () => {
-        dispatch({ type: WS_ALL_CONNECTION_START });
+        dispatch({ 
+          type: WS_ALL_CONNECTION_START,
+          payload: wsAllUrl
+         });
         return () => {
           dispatch({ type: WS_ALL_CONNECTION_CLOSED })
         }

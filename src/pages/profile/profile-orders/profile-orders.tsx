@@ -8,16 +8,21 @@ import {
     WS_CONNECTION_CLOSED
  } from '../../../services/actions/ws';
 import { useDispatch } from '../../../hooks/redux-hooks';
+import { wsUrl } from '../../../utils/constants';
 
 const ProfileOrders: FC = () => {
     const messages = useSelector((store) => store.ws.messages);
     const dispatch = useDispatch();
+    const token = localStorage.getItem("accessToken")!.split(' ')[1]
     const { indexedIngredients } = useSelector(
         (state) => state.ingredients
     );
     useEffect(
         () => {
-            dispatch({ type: WS_CONNECTION_START });
+            dispatch({ 
+                type: WS_CONNECTION_START,
+                payload: `${wsUrl}?token=${token}`
+             });
             return () => {
                 dispatch({ type: WS_CONNECTION_CLOSED })
               }

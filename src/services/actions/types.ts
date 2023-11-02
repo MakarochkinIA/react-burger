@@ -146,6 +146,7 @@ export type TGetOrderActions =
 
 export interface IWSAllConnectionStart {
   readonly type: typeof WS_ALL_CONNECTION_START;
+  readonly payload: string;
 }
 
 export interface IWSAllConnectionSuccessAction {
@@ -177,6 +178,7 @@ export type TWSAllActions =
 
 export interface IWSConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
+  readonly payload: string;
 }
 
 export interface IWSConnectionSuccessAction {

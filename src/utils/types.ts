@@ -72,7 +72,7 @@ export interface ProtectedProps {
   }
 
  export interface ConstructorItemProps {
-   onDropHandler: (item: any) => void;
+   onDropHandler: (item: Ingredient) => void;
  }
 
 

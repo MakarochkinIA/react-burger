@@ -37,8 +37,8 @@ const wsAllActions: TWSAllStoreActions = {
 
 const enhancer = applyMiddleware(
   thunk,
-  socketMiddleware('all', wsAllActions),
-  socketMiddleware('user', wsActions)
+  socketMiddleware(wsAllActions),
+  socketMiddleware(wsActions)
 );
 
 export const store = configureStore({

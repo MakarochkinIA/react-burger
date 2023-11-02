@@ -23,7 +23,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
 
   const [{ isHoverTopBun }, dropTopBun] = useDrop({
     accept: "bun",
-    drop(item) {
+    drop(item: Ingredient) {
       onDropHandler(item);
     },
     collect: monitor => ({
@@ -33,7 +33,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
 
   const [{ isHoverBottomBun }, dropBottomBun] = useDrop({
     accept: "bun",
-    drop(item) {
+    drop(item: Ingredient) {
       onDropHandler(item);
     },
     collect: monitor => ({
@@ -43,7 +43,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
 
   const [{ isHoverMain }, dropMain] = useDrop({
     accept: "main",
-    drop(item) {
+    drop(item: Ingredient) {
       onDropHandler(item);
     },
     collect: monitor => ({
