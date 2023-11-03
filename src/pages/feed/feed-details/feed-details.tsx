@@ -8,7 +8,7 @@ import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-component
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderForDetails } from '../../../utils/utils';
 import { STATUSES } from '../../../utils/constants';
-import { useCallback } from 'react';
+import { myAlert } from '../../../utils/utils';
 
 const FeedDetails: FC = () => {
 
@@ -23,12 +23,20 @@ const FeedDetails: FC = () => {
   const [currentOrder, setOrder] = useState<FullOrder | undefined>(stateOrder);
   const notModal = !(location.state && location.state.background)
   async function fetchData() {
-    const result = indexedIngredients ? (await orderForDetails(number, indexedIngredients) ): undefined
-    setOrder(result);
+    if (indexedIngredients) {
+      orderForDetails(number, indexedIngredients)
+      .then((result) => {
+        setOrder(result)
+      })
+      .catch((error) => {
+        myAlert(error);
+      });
+    }
+    
 }
   useEffect(() => {
     fetchData()
-  }, [number]);
+  }, [indexedIngredients]);
 
  
   
