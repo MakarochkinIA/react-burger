@@ -68,8 +68,18 @@ export const indexIngredients = (ingredients: Ingredient[]) => {
 
 export const getIngredientsById = (items: string[], indexedIngredients: {[key: string]: Ingredient}) => {
     const ingredients = []
+    let isUndefind = false
     for (const item of items) {
-        ingredients.push(indexedIngredients[item])
+        const itm = indexedIngredients[item]
+        if (itm) {
+            ingredients.push(indexedIngredients[item])
+        } else {
+            isUndefind = true
+        }
+        
+    }
+    if (isUndefind) {
+        return undefined
     }
     return ingredients
 }
@@ -84,6 +94,9 @@ export const getCost = (ingredients: Ingredient[]) => {
 
 export const makeOrder = (order: Order, indexedIngredients: {[key: string]: Ingredient}) => {
     const ingredients = getIngredientsById(order.ingredients, indexedIngredients)
+    if (!ingredients) {
+        return undefined
+    }
     const cost = getCost(ingredients)
     const uniqueIngredients = addQuantity(ingredients)
     const newOrder = {...order, ingredients: uniqueIngredients, cost: cost}

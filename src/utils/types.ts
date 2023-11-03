@@ -128,7 +128,7 @@ export interface OrderState extends Order {
   price: number;
 }
 export interface FeedCardProps {
-    order: FullOrder
+    order: FullOrder | undefined
 }
 
 export interface FeedIngredientsProps {

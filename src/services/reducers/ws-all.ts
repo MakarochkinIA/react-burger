@@ -53,11 +53,7 @@ import {
             messages: msg
           };
         } else {
-          return {
-            ...state,
-            error: undefined,
-            messages: undefined
-          };
+          return state;
         }
   
       default:
