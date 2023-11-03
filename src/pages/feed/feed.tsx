@@ -21,6 +21,7 @@ const Feed: FC = () => {
           type: WS_ALL_CONNECTION_START,
           payload: wsAllUrl
          });
+        // Закрытие сокета при размонтировании компонента.
         return () => {
           dispatch({ type: WS_ALL_CONNECTION_CLOSED })
         }

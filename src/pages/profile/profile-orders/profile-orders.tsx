@@ -23,6 +23,7 @@ const ProfileOrders: FC = () => {
                 type: WS_CONNECTION_START,
                 payload: `${wsUrl}?token=${token}`
              });
+            // Закрытие сокета при размонтировании компонента.
             return () => {
                 dispatch({ type: WS_CONNECTION_CLOSED })
               }
