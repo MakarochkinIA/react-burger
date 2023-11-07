@@ -1,0 +1,21 @@
+.flex_container {
+    position: fixed;
+    left: 18%;
+    display: flex;
+}
+.head {
+    position: fixed;
+    left: 18%;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+@media screen and (max-width: 1270px) {
+    .flex_container {
+        left: calc(18% - 17.8%); 
+    }
+}

@@ -1,14 +1,12 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks/redux-hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import { ProtectedProps } from "../../utils/types";
 
 
 
 const Protected: FC<ProtectedProps> = ({ onlyUnAuth = false, component }) => {
-  //@ts-ignore
   const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const location = useLocation();
 

@@ -4,15 +4,26 @@ import {
     GET_USER_FAILED,
     SET_AUTH_CHECKED
 } from '../actions/auth';
+import { AppActions } from '../actions/types';
+import { TUser } from '../../utils/types';
 
-const initialState = {
+type TUserState = {
+    userRequest: boolean;
+    userFailed: boolean;
+    user?: TUser | undefined;
+    isAuthChecked: boolean;
+
+  }
+
+
+const initialState: TUserState = {
     userRequest: false,
     userFailed: false,
-    user: null,
+    user: undefined,
     isAuthChecked: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: AppActions) => {
     switch (action.type) {
         case SET_AUTH_CHECKED:
             return {

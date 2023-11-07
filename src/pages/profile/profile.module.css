@@ -25,3 +25,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.outlet {
+    position: fixed;
+    top: 40px;
+    left: 39%;
+    width: 844px;
+    height: 916px;
+}

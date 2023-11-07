@@ -2,12 +2,11 @@ import { FC } from 'react'
 import { NavLink } from "react-router-dom";
 import styles from './navigate-profile.module.css';
 import { logout } from "../../../services/actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../../../hooks/redux-hooks';
 
 export const NavigateProfile: FC = () => {
     const dispatch = useDispatch();
     const onClickLogout = () => {
-        //@ts-ignore
         dispatch(logout());
       }
 

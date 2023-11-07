@@ -3,23 +3,29 @@ import {
     DELETE_CURRENT_INGREDIENT,
   } from '../actions/ingredient';
 
+import { AppActions } from '../actions/types';
+import { Ingredient } from '../../utils/types';
 
-const initialState = {
-    ingredient: {}
+type TCurrentIngredientState = {
+    ingredient?: Ingredient;
+  }
+
+const initialState: TCurrentIngredientState = {
+    ingredient: undefined
   };
 
-  export const currentIngredientReducer = (state = initialState, action) => {
+  export const currentIngredientReducer = (state = initialState, action: AppActions) => {
     switch (action.type) {
         case ADD_CURRENT_INGREDIENT: {
             return {
                 ...state,
-                ingredient: action.ingredient
+                ingredient: action.payload
             }
         }
         case DELETE_CURRENT_INGREDIENT: {
             return {
                 ...state,
-                ingredient: {}
+                ingredient: undefined
             }
         }
         default: {

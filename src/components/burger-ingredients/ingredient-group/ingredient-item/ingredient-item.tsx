@@ -1,7 +1,7 @@
 import { useCallback, FC } from 'react';
 import styles from './ingredient-item.module.css';
 import { Link, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../../../hooks/redux-hooks';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
 import { getCounter } from '../../../../utils/utils';
@@ -19,12 +19,11 @@ const IngredientItem: FC<IngredientItemProps> = ({ item }) => {
   const showDetail = (item: Ingredient) => {
     dispatch({
       type: ADD_CURRENT_INGREDIENT,
-      ingredient: item
+      payload: item
     });
   };
   const location = useLocation();
   const data = useSelector(
-    //@ts-ignore
     (state) => state.constructorIngredients
   );
 

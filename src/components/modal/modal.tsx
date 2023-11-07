@@ -8,7 +8,7 @@ import { ModalProps } from '../../utils/types';
 const modalRoot = document.getElementById("react-modals");
 
 
-const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
+const Modal: FC<ModalProps> = ({ children, header, onClose, extraClass }) => {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -28,7 +28,7 @@ const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
         <ModalOverlay onClose={onClose} />
         <div className={styles.modal}>
           <div className={styles.modal_head}>
-            <span className={`${styles.modal_head_span} text text_type_main-large`}>
+            <span className={`${styles.modal_head_span} ${extraClass}`}>
               {header}
             </span>
             <CloseIcon onClick={onClose} type='primary' />

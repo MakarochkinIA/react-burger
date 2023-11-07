@@ -1,6 +1,6 @@
 import { useState, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/redux-hooks';
 import styles from './burger-constructor.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from './order-details/order-details';
@@ -16,11 +16,8 @@ const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [detailsVisible, setVisible] = useState(false);
-    //@ts-ignore
     const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
-    //@ts-ignore
     const { user, isAuthChecked } = useSelector((state) => state.user);
-    //@ts-ignore
     const { orderRequest, orderFailed, order } = useSelector((state) => state.order);
 
     const getIds = (bun: Ingredient, ingredients: Ingredient[]) => {
@@ -29,12 +26,11 @@ const BurgerConstructor: FC = () => {
     };
 
     const getTotalCost = useCallback(
-        (bun: Ingredient, ingredients: Ingredient[]) => {
-            //@ts-ignore
+        (bun: Ingredient | undefined, ingredients: Ingredient[]) => {
             const sum = ingredients.reduce((totalCost: number, currentItem) => {
                 return totalCost + currentItem.price;
             }, 0);
-            const totalCost = Object.keys(bun).length > 0 ? sum + 2 * bun.price : sum;
+            const totalCost = bun ? sum + 2 * bun.price : sum;
             return isNaN(totalCost) ? 0 : totalCost;
         },
         [bun, ingredients]
@@ -42,8 +38,7 @@ const BurgerConstructor: FC = () => {
 
     const makeOrder = () => {
         if (user && isAuthChecked) {
-            if (bun._id) {
-                //@ts-ignore
+            if (bun) {
                 dispatch(getOrder(getIds(bun, ingredients)));
                 setVisible(true);
             } else {
@@ -61,7 +56,7 @@ const BurgerConstructor: FC = () => {
     const handleDrop = (item: Ingredient) => {
         dispatch({
             type: ADD_INGREDIENT,
-            ingredient: { ...item, key: uuid() },
+            payload: { ...item, key: uuid() },
         });
     };
 
@@ -84,7 +79,7 @@ const BurgerConstructor: FC = () => {
                     <OrderStub />
                 </Modal>
             )}
-            {detailsVisible && !orderRequest && !orderFailed && order.number && (
+            {detailsVisible && !orderRequest && !orderFailed && order && (
                 <Modal onClose={closeDetails}>
                     <OrderDetails />
                 </Modal>

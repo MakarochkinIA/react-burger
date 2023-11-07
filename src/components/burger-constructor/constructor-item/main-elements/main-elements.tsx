@@ -1,6 +1,6 @@
 import { useRef, FC } from 'react';
 import styles from './main-elements.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../../hooks/redux-hooks';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag, DropTargetMonitor, XYCoord } from 'react-dnd';
 import { MOVE_INGREDIENT } from '../../../../services/actions/current-ingredients';

@@ -1,0 +1,52 @@
+.card {
+    width: 608px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+    margin-bottom: 16px;
+    overflow: auto;
+}
+
+.image_container {
+    background: var(--background);
+    width: 64px; /* Установите желаемую ширину и высоту для контейнера */
+    height: 64px;
+    border: 2px solid #4f2778; /* Ширина и цвет рамки */
+    border-radius: 100px; /* Создаем круглую форму с помощью свойства border-radius */
+    overflow: hidden; /* Обрезаем изображение по границам контейнера */
+    display: flex;
+    align-items: center;
+    justify-content: start;   
+    margin-right: 16px;
+  }
+  
+.image_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+  }
+
+.text {
+    display: flex;
+
+    align-items: center;
+    composes: text_type_main-default from global
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    composes: text_type_main-default from global
+}
+
+.section {
+    width: 640px;
+    height: 324px;
+    overflow: auto;
+}
+
+.section .card:last-child {
+    margin-bottom: 0px;
+}

@@ -1,4 +1,14 @@
 import { CSSProperties, ReactNode } from 'react'
+import { configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import {
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from "react-redux";
+import type {} from "redux-thunk/extend-redux";
+import { RootState } from '../services/reducers';
+import { AppActions } from '../services/actions/types';
 
 export interface Ingredient {
     _id: string;
@@ -14,18 +24,9 @@ export interface Ingredient {
     image_large: string;
     __v: number;
   }
-  
-export interface BunIngredient {
-    bun: Ingredient;
-    ingredients: Ingredient[];
-  }
 
-
-export type TForm = {
-    password: string;
-    name: string;
-    email: string;
-}
+// TODO: change form
+export type TForm = { [key: string]: string; }
 
 export interface ConstructorElementEmptyProps {
     type?: '' | 'top' | 'bottom';
@@ -35,8 +36,8 @@ export interface ConstructorElementEmptyProps {
 
 export interface MainElementsProps {
     index: number;
-    item: Ingredient;
-    handleClose: (item: Ingredient) => void;
+    item: Ingredient & {key: string};
+    handleClose: (item: Ingredient & {key: string}) => void;
 }
 
 export interface DragItem {
@@ -61,6 +62,7 @@ export interface ModalOverlayProps {
 export interface ModalProps {
    children: ReactNode;
    header?: string;
+   extraClass?: string
    onClose: () => void;
  }
 
@@ -70,5 +72,69 @@ export interface ProtectedProps {
   }
 
  export interface ConstructorItemProps {
-   onDropHandler: (item: any) => void;
+   onDropHandler: (item: Ingredient) => void;
  }
+
+
+
+export interface Order {
+  ingredients: Array<string>;
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  name: string;
+  updatedAt: string;
+}
+
+export interface FullOrder {
+  ingredients: Array<Ingredient & {quantity: number}>;
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  name: string;
+  updatedAt: string;
+  cost: number
+}
+
+
+export interface WSMessage {
+  success: boolean;
+  orders: Order[];
+  total: number;
+  totalToday: number;
+
+}
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    unknown,
+    AppActions
+  >;
+
+export type AppDispatch<TReturnType = void> = (
+    action: AppActions | AppThunk<TReturnType>
+  ) => TReturnType;
+
+export type TUser = {
+  email: string;
+  name: string;
+}
+
+export interface OrderState extends Order {
+  owner: TUser & { createdAt: string; updatedAt: string };
+  price: number;
+}
+export interface FeedCardProps {
+    order: FullOrder | undefined
+}
+
+export interface FeedIngredientsProps {
+  ingredients: Ingredient[];
+}
+
+export interface IngredientListProps {
+  ingredients: (Ingredient & { quantity: number; })[];
+}

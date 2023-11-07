@@ -1,3 +1,5 @@
+import { WSMessage } from "./types"
+
 const data = [
     {
        "_id":"60666c42cc7b410027a1a9b1",
@@ -211,4 +213,4 @@ const data = [
     }
  ]
 
- export default data;
+ export default data
