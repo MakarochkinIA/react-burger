@@ -16,7 +16,7 @@ type TUserState = {
   }
 
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     userRequest: false,
     userFailed: false,
     user: undefined,

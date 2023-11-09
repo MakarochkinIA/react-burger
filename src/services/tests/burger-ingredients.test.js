@@ -7,12 +7,8 @@ import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
 } from '../actions/burger-ingredients'
+import { initialState as initStore } from '../reducers/burger-ingredients';
 
-const initStore = {
-    ingredientsRequest: false,
-    ingredients: [],
-    ingredientsFailed: false
-  };
 
 const ingredients = [
     {
@@ -76,28 +72,36 @@ const indexedIngredients = {
 }
 
 const storeIngredientsSuccess = {
+    ...initStore,
     ingredientsRequest: false,
     ingredients: ingredients,
     ingredientsFailed: false,
     indexedIngredients: indexedIngredients
 };
 const storeIngredientsFailed = {
+    ...initStore,
     ingredientsRequest: false,
     ingredientsFailed: true,
     ingredients: []
 };
 const storeIngredientsRequest = {
+    ...initStore,
     ingredientsRequest: true,
     ingredientsFailed: false,
     ingredients: []
 };
 
-describe('Проверка запроса и успешного получения ингредиентов', () => {
+describe('Проверка редьюсера: burgerIngredientsReducer', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: burgerIngredientsReducer,
         enhancers: [enhancer],
     });
+    it('Проверка initialState', async ()=>{
+        const {getState} = store
+        expect(getState()).toStrictEqual(initStore)
+        expect(burgerIngredientsReducer(undefined, {})).toStrictEqual(initStore)
+    })
     it('Диспатчим экшен запроса ингредиентов и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
@@ -118,13 +122,13 @@ describe('Проверка запроса и успешного получени
     })
 })
 
-describe('Проверка не успешного запроса', () => {
+describe('Проверка GET_INGREDIENTS_FAILED', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: burgerIngredientsReducer,
         enhancers: [enhancer],
     });
-    it('Диспатчим экшен запроса юзера и сравниваем с желаемым стейтом', async ()=>{
+    it('Диспатчим экшен неудачного получения ингредиентов и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
         store.dispatch({

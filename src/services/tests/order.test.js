@@ -7,12 +7,9 @@ import {
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
 } from '../actions/order'
+import { initialState as initStore } from '../reducers/order';
 
-const initStore = {
-    orderRequest: false,
-    orderFailed: false,
-    order: undefined
-};
+
 const order = {
     ingredients: [
         {
@@ -47,28 +44,36 @@ const order = {
   }
 
 const storeOrderSuccess = {
+    ...initStore,
     orderRequest: false,
     orderFailed: false,
     order: order
 };
 const storeOrderFailed = {
+    ...initStore,
     orderRequest: false,
     orderFailed: true,
     order: undefined
 };
 const storeOrderRequest = {
+    ...initStore,
     orderRequest: true,
     orderFailed: false,
     order: undefined
 };
 
-describe('Проверка экшенов и редьюсеров', () => {
+describe('Проверка редьюсера: orderReducer', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: orderReducer,
         enhancers: [enhancer],
     });
-    it('Диспатчим экшен запроса юзера и сравниваем с желаемым стейтом', async ()=>{
+    it('Проверка initialState', async ()=>{
+        const {getState} = store
+        expect(getState()).toStrictEqual(initStore)
+        expect(orderReducer(undefined, {})).toStrictEqual(initStore)
+    })
+    it('Диспатчим экшен запроса заказа и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
         store.dispatch({
@@ -77,7 +82,7 @@ describe('Проверка экшенов и редьюсеров', () => {
         expect(getState()).toStrictEqual(storeOrderRequest)
     })
     
-    it('Диспатчим экшен успешного получения юзера и сравниваем с желаемым стейтом', async ()=>{
+    it('Диспатчим экшен успешного получения заказа и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(storeOrderRequest)
         store.dispatch({
@@ -88,13 +93,13 @@ describe('Проверка экшенов и редьюсеров', () => {
     })
 })
 
-describe('Проверка GET_USER_FAILED', () => {
+describe('Проверка GET_ORDER_FAILED', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: orderReducer,
         enhancers: [enhancer],
     });
-    it('Диспатчим экшен запроса юзера и сравниваем с желаемым стейтом', async ()=>{
+    it('Диспатчим экшен неудачного запроса заказа и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
         store.dispatch({

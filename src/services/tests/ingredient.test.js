@@ -3,10 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { currentIngredientReducer } from '../reducers/ingredient';
 import { ADD_CURRENT_INGREDIENT, DELETE_CURRENT_INGREDIENT} from '../actions/ingredient'
+import { initialState as initStore } from '../reducers/ingredient';
 
-const initStore = {
-    ingredient: undefined
-  }
 
 const sourceIngredient = {
         "_id":"60666c42cc7b410027a1a9b2",
@@ -24,16 +22,22 @@ const sourceIngredient = {
   }
 
 const resStoreWithItem = {
+    ...initStore,
     ingredient: sourceIngredient
 }
 
-describe('Проверка экшенов и редьюсеров', () => {
+describe('Проверка редьюсера: currentIngredientReducer', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: currentIngredientReducer,
         enhancers: [enhancer],
     });
-    it('Диспатчим экшен получения ингредиента и сравниваем с желаемым стейтом', async ()=>{
+    it('Проверка initialState', async ()=>{
+        const {getState} = store
+        expect(getState()).toStrictEqual(initStore)
+        expect(currentIngredientReducer(undefined, {})).toStrictEqual(initStore)
+    })
+    it('Диспатчим экшен добавления ингредиента и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
         store.dispatch({

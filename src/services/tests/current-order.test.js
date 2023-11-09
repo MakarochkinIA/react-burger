@@ -3,10 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { currentOrderReducer } from '../reducers/current-order';
 import { ADD_CURRENT_ORDER, DELETE_CURRENT_ORDER} from '../actions/current-order'
+import { initialState as initStore } from '../reducers/order';
 
-const initStore = {
-    order: undefined
-  }
 
   const order = {
     ingredients: [
@@ -41,16 +39,22 @@ const initStore = {
     ],
   }
 const resStoreWithItem = {
+    ...initStore,
     order: order
 }
 
-describe('Проверка экшенов и редьюсеров', () => {
+describe('Проверка редьюсера: currentOrderReducer', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: currentOrderReducer,
         enhancers: [enhancer],
     });
-    it('Диспатчим экшен получения ингредиента и сравниваем с желаемым стейтом', async ()=>{
+    it('Проверка initialState', async ()=>{
+        const {getState} = store
+        expect(getState()).toStrictEqual(initStore)
+        expect(currentOrderReducer(undefined, {})).toStrictEqual(initStore)
+    })
+    it('Диспатчим экшен добавления заказа и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
         store.dispatch({
@@ -59,7 +63,7 @@ describe('Проверка экшенов и редьюсеров', () => {
         })
         expect(getState()).toStrictEqual(resStoreWithItem)
     })
-    it('Диспатчим экшен удаления ингредиента и сравниваем с желаемым стейтом', async ()=>{
+    it('Диспатчим экшен удаления заказа и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(resStoreWithItem)
         store.dispatch({

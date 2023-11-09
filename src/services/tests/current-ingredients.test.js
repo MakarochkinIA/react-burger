@@ -8,11 +8,8 @@ import {
     DELETE_ALL_INGREDIENTS,
     DELETE_INGREDIENT
  } from '../actions/current-ingredients'
+import { initialState as initStore } from '../reducers/current-ingredients';
 
-const initStore = {
-    bun: undefined,
-    ingredients: []
-};
 
 const firstBun = {
         "_id":"60666c42cc7b410027a1a9b2",
@@ -77,20 +74,24 @@ const secondIngredient = {
      }
 
 const storeAddBun = {
+    ...initStore,
     bun: firstBun,
     ingredients: []
 }
 const storeChangeBun = {
+    ...initStore,
     bun: secondBun,
     ingredients: []
 }
 const storeAddIngredient = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         firstIngredient
     ]
 }
 const storeAddSameIngredient = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         firstIngredient,
@@ -98,6 +99,7 @@ const storeAddSameIngredient = {
     ]
 }
 const storeAddSecondIngredient = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         firstIngredient,
@@ -105,18 +107,21 @@ const storeAddSecondIngredient = {
     ]
 }
 const storeDeleteIngredient = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         secondIngredient
     ]
 }
 const storeDeleteOneOfTwoIngredients = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         firstIngredient
     ]
 }
 const storeMoveIngredient = {
+    ...initStore,
     bun: undefined,
     ingredients: [
         secondIngredient,
@@ -124,12 +129,17 @@ const storeMoveIngredient = {
     ]
 }
 
-describe('Проверка добавления и изменения булки', () => {
+describe('Проверка редьюсера: constructorIngredientsReducer', () => {
     const enhancer = applyMiddleware(thunk);
     const store = configureStore({
         reducer: constructorIngredientsReducer,
         enhancers: [enhancer],
     });
+    it('Проверка initialState', async ()=>{
+        const {getState} = store
+        expect(getState()).toStrictEqual(initStore)
+        expect(constructorIngredientsReducer(undefined, {})).toStrictEqual(initStore)
+    })
     it('Диспатчим экшен добавления 1-й булки и сравниваем с желаемым стейтом', async ()=>{
         const {getState} = store
         expect(getState()).toStrictEqual(initStore)
