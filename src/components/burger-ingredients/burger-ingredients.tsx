@@ -63,7 +63,7 @@ const BurgerIngredients: FC = () => {
             {ingredientsRequest && (<p className={styles.pre_show}>Идет загрузка</p>)}
             {ingredientsFailed && (<p className={styles.pre_show}>Не удалось загрузить данные</p>)}
             {!ingredientsRequest && !ingredientsFailed && ingredients.length &&
-                (<div className={styles.burger_ingredients}>
+                (<div className={styles.burger_ingredients} >
                     <p className='text text_type_main-large pt-10 mb-5'>
                         Соберите бургер
                     </p>
@@ -79,8 +79,8 @@ const BurgerIngredients: FC = () => {
                         </Tab>
                     </div>
 
-                    <ul className={`${styles.group_list} custom-scroll`} onScroll={handleScroll}>
-                        <li ref={categoriesRefs.buns}>
+                    <ul className={`${styles.group_list} custom-scroll`} onScroll={handleScroll} data-testid="bun">
+                        <li ref={categoriesRefs.buns} >
                             <IngredientGroup
                                 name='Булки'
                                 ingredients={buns}

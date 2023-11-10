@@ -62,7 +62,7 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
       adds: '(низ)', dropRef: dropBottomBun, isHover: isHoverBottomBun
     };
     return bun ? (
-      <div className={styles.buns} ref={dropRef}>
+      <div data-testid="constructor-bun-with-element" className={styles.buns} ref={dropRef}>
         <ConstructorElement
           type={type}
           isLocked={true}
@@ -73,21 +73,23 @@ const ConstructorItem: FC<ConstructorItemProps> = ({ onDropHandler }) => {
         />
       </div>
     ) : (
-      <div className={styles.buns} ref={dropRef}>
+      <div data-testid="constructor-bun" className={styles.buns} ref={dropRef}>
         <ConstructorElementEmpty text='Выберите булку' type={type} extraClass={borderClr(isHover)} />
       </div>
     );
   }, [bun, dropTopBun, dropBottomBun, isHoverTopBun, isHoverBottomBun]);
 
   const content = useCallback(() => {
-    return ingredients ? (
-      <div className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ borderColor: isHoverMain ? 'blue' : 'transparent' }}>
+    
+    return (ingredients && ingredients.length > 0) ? (
+      <div data-testid="constructor-main-with-element" className={`${styles.scroll_area} custom-scroll`} ref={dropMain} style={{ borderColor: isHoverMain ? 'blue' : 'transparent' }}>
         {ingredients.map((item: Ingredient & {key: string}, index: number) => (
           <MainElements key={item.key} index={index} item={item} handleClose={handleClose} />
         ))}
       </div>
     ) : (
-      <div ref={dropMain} className={styles.buns}>
+      
+      <div data-testid="constructor-main" ref={dropMain} className={styles.buns}>
         <ConstructorElementEmpty text='Выберите начинку' extraClass={borderClr(isHoverMain)} />
       </div>
     );
