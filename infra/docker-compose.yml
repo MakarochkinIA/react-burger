@@ -1,0 +1,10 @@
+version: '3.3'
+
+volumes:
+  static:
+
+services:
+  frontend:
+    image: makarochkinia/burger_frontend
+    volumes:
+      - ./frontend/:/app/result_build/
