@@ -1,6 +1,6 @@
 describe('service is available', function() {
   it('should be available on localhost:3000', function() {
-    cy.visit('http://localhost:3001');
+    cy.visit('http://localhost:3000');
   });
 });
 
@@ -26,7 +26,7 @@ describe('burger constructor test', function() {
       'https://norma.nomoreparties.space/api/orders',
       {fixture: 'order'}
     ).as('fetchOrder')
-    cy.visit('http://localhost:3001');
+    cy.visit('http://localhost:3000');
   })
   it('should open ingredient modal window', function() {
     cy.get('a[data-testid="card"]').first().click();

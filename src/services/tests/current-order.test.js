@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { currentOrderReducer } from '../reducers/current-order';
 import { ADD_CURRENT_ORDER, DELETE_CURRENT_ORDER} from '../actions/current-order'
-import { initialState as initStore } from '../reducers/order';
+import { initialState as initStore } from '../reducers/current-order';
 
 
   const order = {
