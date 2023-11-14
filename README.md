@@ -31,4 +31,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Ссылка на проект:
 
-### `https://stellar.burger.nomoredomainsmonster.ru/`
+`https://stellar.burger.nomoredomainsmonster.ru/`
