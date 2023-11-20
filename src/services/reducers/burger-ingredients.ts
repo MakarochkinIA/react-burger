@@ -16,7 +16,7 @@ import {
     indexedIngredients?: {[key: string]: Ingredient}
   }
 
-  const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
     ingredientsRequest: false,
     ingredients: [],
     ingredientsFailed: false

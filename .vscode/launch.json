@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug npm test",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}",
+        "args": [
+          "--runInBand"
+        ],
+        "cwd": "${workspaceFolder}",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "test"
+        ]
+      }
+    ]
+  }

@@ -70,9 +70,11 @@ const BurgerConstructor: FC = () => {
                     {getTotalCost(bun, ingredients)}
                     <CurrencyIcon type='primary' />
                 </p>
+                <div data-testid="order-button">
                 <Button onClick={makeOrder} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
+                </div>
             </div>
             {detailsVisible && orderRequest && (
                 <Modal onClose={closeDetails}>

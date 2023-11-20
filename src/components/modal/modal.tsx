@@ -26,12 +26,14 @@ const Modal: FC<ModalProps> = ({ children, header, onClose, extraClass }) => {
     (
       <>
         <ModalOverlay onClose={onClose} />
-        <div className={styles.modal}>
+        <div className={styles.modal} data-testid="modal">
           <div className={styles.modal_head}>
             <span className={`${styles.modal_head_span} ${extraClass}`}>
               {header}
             </span>
+            <div data-testid="close-icon">
             <CloseIcon onClick={onClose} type='primary' />
+            </div>
           </div>
           {children}
         </div>

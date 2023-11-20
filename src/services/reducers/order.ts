@@ -14,7 +14,7 @@ type TOrderState = {
     order?: OrderState
   }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     orderRequest: false,
     orderFailed: false,
     order: undefined

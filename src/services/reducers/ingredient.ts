@@ -10,7 +10,7 @@ type TCurrentIngredientState = {
     ingredient?: Ingredient;
   }
 
-const initialState: TCurrentIngredientState = {
+export const initialState: TCurrentIngredientState = {
     ingredient: undefined
   };
 

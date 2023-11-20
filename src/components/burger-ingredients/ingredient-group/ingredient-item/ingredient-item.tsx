@@ -38,6 +38,7 @@ const IngredientItem: FC<IngredientItemProps> = ({ item }) => {
       to={`/ingredients/${item._id}`}
       state={{ background: location }}
       className={styles.link}
+      data-testid="card"
     >
       <div ref={dragRef} className={styles.card_item} onClick={() => { showDetail(item) }}>
         {countContent(item)}

@@ -10,7 +10,7 @@ type TCurrentOrderState = {
     order?: FullOrder;
   }
 
-const initialState: TCurrentOrderState = {
+export const initialState: TCurrentOrderState = {
     order: undefined
   };
 

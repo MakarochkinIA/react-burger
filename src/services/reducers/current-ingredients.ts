@@ -14,7 +14,7 @@ import {
 }
 
 
- const initialState: TConstructorIngredientState = {
+export const initialState: TConstructorIngredientState = {
     bun: undefined,
     ingredients: []
 };

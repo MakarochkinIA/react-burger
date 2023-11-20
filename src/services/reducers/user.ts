@@ -16,7 +16,7 @@ type TUserState = {
   }
 
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     userRequest: false,
     userFailed: false,
     user: undefined,
@@ -33,6 +33,7 @@ export const userReducer = (state = initialState, action: AppActions) => {
         case GET_USER_SUCCESS:
             return {
                 ...state,
+                userRequest: false,
                 user: action.payload
             }
         case GET_USER_FAILED: 
